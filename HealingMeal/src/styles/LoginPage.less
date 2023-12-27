@@ -1,0 +1,127 @@
+html,
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@main-color: #163d26;
+
+.Container {
+  width: 100vw;
+  height: 100vh;
+  header {
+    height: 50px;
+    width: 100%;
+    background-color: @main-color;
+  }
+  .LoginPage {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    .LoginBox1 {
+      box-sizing: border-box;
+      width: 400px;
+      height: 500px;
+      padding: 30px;
+      p {
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 50%;
+      .idbox {
+        border-bottom: 1px solid #ccc;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        input {
+          width: 90%;
+          height: 30px;
+          outline: none;
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+svg {
+  width: 20px;
+  height: 20px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  height: 70px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.LoginBox2 {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 500px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  div {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    height: 33px;
+  }
+  select {
+    width: 100%;
+    outline: none;
+    border: none;
+  }
+  .gender {
+    box-sizing: border-box;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button {
+      width: 80px;
+      height: 25px;
+      border: 1px solid #ccc;
+    }
+  }
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.certification-btn {
+  height: 40px;
+  line-height: 40px;
+  background-color: @main-color;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+.certification-btn:hover {
+  background-color: darken(@main-color, 10%);
+}
