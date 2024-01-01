@@ -1,22 +1,19 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/SignUpPage.less";
 // import { useForm } from "../hooks/useForm";
 
 const SignUpPage = () => {
-  // const [id, onChangeID] = useForm();
-  // const [password, onChangePassword] = useForm();
-  // const [email, onChangeEmail] = useForm();
-  // const [name, onChangeName] = useForm();
-  // const [birth, onChangeBirth] = useForm();
-  // const [call, onChangeCall] = useForm();
   const [id, setID] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [name, setName] = useState<string>("");
   const [birth, setBirth] = useState<string>("");
-  const [gender, setgender] = useState<string>("");
-  const [selectedGender, setSelectedGender] = useState<string | null>(null);
+  const [gender, setgender] = useState<string | null>(null);
   const [call, setCall] = useState<string>("");
+  const [certification, setCertification] = useState<string>("");
+  const [showcertification, setShowcertification] = useState(false);
+  const [join, setJoin] = useState<boolean>(false);
 
   const [idMessage, setIDMessage] = useState<string>("");
   const [passwordMessage, setPasswordMessage] = useState<string>("");
@@ -25,6 +22,7 @@ const SignUpPage = () => {
   const [birthMessage, setBirthMessage] = useState<string>("");
   const [genderMessage, setGenderMessage] = useState<string>("");
   const [callMessage, setCallMessage] = useState<string>("");
+  const [certificationMessage, setCertificationMessage] = useState<string>("");
 
   const [isid, setIsid] = useState<boolean>(false);
   const [ispassword, setIspassword] = useState<boolean>(false);
@@ -32,32 +30,10 @@ const SignUpPage = () => {
   const [isname, setIsname] = useState<boolean>(false);
   const [isbirth, setIsbirth] = useState<boolean>(false);
   const [iscall, setIscall] = useState<boolean>(false);
+  const [iscertification, setIscertification] = useState<boolean>(false);
 
   const signup = (e: React.FormEvent) => {
     e.preventDefault();
-    // if (id === "") {
-    //   setIDMessage("아이디를 입력하세요.");
-    //   setIsid(false);
-    // } else if (id.length < 6) {
-    //   setIDMessage("아이디는 6자 이상이어야 합니다.");
-    //   setIsid(false);
-    // } else {
-    //   setIDMessage("");
-    //   setIsid(true);
-    // }
-
-    // if (password === "") {
-    //   setPasswordMessage("비밀번호를 입력하세요.");
-    //   setIspassword(false);
-    // } else if (!passwordRule.test(password)) {
-    //   setPasswordMessage(
-    //     "비밀번호는 8자 이상, 대문자, 소문자, 숫자, 특수문자 한 개 이상 포함해야 합니다."
-    //   );
-    //   setIspassword(false);
-    // } else {
-    //   setPasswordMessage("");
-    //   setIspassword(true);
-    // }
     if (
       isid &&
       ispassword &&
@@ -68,18 +44,35 @@ const SignUpPage = () => {
       gender
     ) {
       //회원가입
-      console.log("회원가입 성공!");
+      setShowcertification(true);
+      setJoin(true);
+      if (certification === "") {
+        setCertificationMessage("인증이 필요합니다.");
+      } else {
+        console.log("회원가입 성공!");
+
+        //인증번호 확인 로직 추가
+      }
+    } else {
+      if (!isid) setIDMessage("아이디: 필수 정보입니다.");
+      if (!ispassword) setPasswordMessage("비밀번호: 필수 정보입니다.");
+      if (!isemail) setMailMessage("이메일: 필수 정보입니다.");
+      if (!isname) setNameMessage("이름: 필수 정보입니다.");
+      if (!iscall) setCallMessage("전화번호: 필수 정보입니다.");
+      if (!isbirth) setBirthMessage("생년월일: 필수 정보입니다.");
+      if (!gender) setGenderMessage("성별: 필수 정보입니다.");
     }
   };
 
   const onChangeID = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const idRule = /^(?=.*[A-Za-z].*[A-Za-z])[A-Za-z\d]{6,}$/;
     e.preventDefault();
     setID(e.target.value);
     if (e.target.value === "") {
       setIDMessage("아이디: 필수 정보입니다.");
       setIsid(false);
-    } else if (id.length < 6) {
-      setIDMessage("아이디는 6자 이상이어야 합니다.");
+    } else if (!idRule.test(e.target.value)) {
+      setIDMessage("아이디는 6자 이상 영문이어야 합니다.");
       setIsid(false);
     } else {
       setIDMessage("");
@@ -134,9 +127,14 @@ const SignUpPage = () => {
     }
   };
   const onChangeCall = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const callRule = /^010[0-9]{8}$/;
+    const call = e.target.value.replace(/-/g, "");
     setCall(e.target.value);
     if (e.target.value === "") {
       setCallMessage("휴대전화번호: 필수 정보입니다.");
+      setIscall(false);
+    } else if (!callRule.test(call)) {
+      setCallMessage("휴대전화 번호를 다시 확인해주세요.");
       setIscall(false);
     } else {
       setCallMessage("");
@@ -163,9 +161,22 @@ const SignUpPage = () => {
   const onClickGender: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     const selectedGender = e.currentTarget.innerText;
     setgender(selectedGender);
-    setGenderMessage(selectedGender === "" ? "성별: 필수 정보입니다." : "");
-    setSelectedGender(selectedGender);
+    if (selectedGender != null) {
+      setGenderMessage("");
+    }
+
     console.log(selectedGender);
+  };
+
+  const onChangeCertification = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCertification(e.target.value);
+    if (e.target.value === "") {
+      setCertificationMessage("인증이 필요합니다.");
+      setIscertification(false);
+    } else {
+      setCertificationMessage("");
+      setIscertification(true);
+    }
   };
 
   return (
@@ -231,21 +242,21 @@ const SignUpPage = () => {
                 <button
                   type="button"
                   onClick={onClickGender}
-                  className={selectedGender === "남자" ? "selected" : ""}
+                  className={gender === "남자" ? "selected" : ""}
                 >
                   남자
                 </button>
                 <button
                   type="button"
                   onClick={onClickGender}
-                  className={selectedGender === "여자" ? "selected" : ""}
+                  className={gender === "여자" ? "selected" : ""}
                 >
                   여자
                 </button>
                 <button
                   type="button"
                   onClick={onClickGender}
-                  className={selectedGender === "선택안함" ? "selected" : ""}
+                  className={gender === "선택안함" ? "selected" : ""}
                 >
                   선택안함
                 </button>
@@ -267,12 +278,24 @@ const SignUpPage = () => {
               {genderMessage && <li>•{genderMessage}</li>}
               {callMessage && <li>•{callMessage}</li>}
             </ul>
+            {showcertification && (
+              <div>
+                <input
+                  type="text"
+                  placeholder="인증번호"
+                  value={certification}
+                  onChange={onChangeCertification}
+                />
+              </div>
+            )}
+            <ul>{certificationMessage && <li>•{certificationMessage}</li>}</ul>
+
             <button
               type="submit"
               className="certification-btn"
-              onClick={signup}
+              onClick={join ? signup : signup}
             >
-              인증요청
+              {join ? "가입하기" : "인증요청"}
             </button>
           </form>
         </div>
