@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../styles/SignUpPage.less";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // import { useForm } from "../hooks/useForm";
 
 const SignUpPage = () => {
+  const navigate = useNavigate();
   const [id, setID] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -11,7 +13,7 @@ const SignUpPage = () => {
   const [birth, setBirth] = useState<string>("");
   const [gender, setgender] = useState<string | null>(null);
   const [call, setCall] = useState<string>("");
-  const [certification, setCertification] = useState<string>("");
+  const [emailCheck, setEmailCheck] = useState<string>("");
   const [showcertification, setShowcertification] = useState(false);
   const [join, setJoin] = useState<boolean>(false);
 
@@ -22,7 +24,7 @@ const SignUpPage = () => {
   const [birthMessage, setBirthMessage] = useState<string>("");
   const [genderMessage, setGenderMessage] = useState<string>("");
   const [callMessage, setCallMessage] = useState<string>("");
-  const [certificationMessage, setCertificationMessage] = useState<string>("");
+  const [emailCheckMessage, setEmailCheckMessage] = useState<string>("");
 
   const [isid, setIsid] = useState<boolean>(false);
   const [ispassword, setIspassword] = useState<boolean>(false);
@@ -31,6 +33,17 @@ const SignUpPage = () => {
   const [isbirth, setIsbirth] = useState<boolean>(false);
   const [iscall, setIscall] = useState<boolean>(false);
   const [iscertification, setIscertification] = useState<boolean>(false);
+
+  // const [inputData, setInputData] = useState({
+  //   email: "",
+  //   password: "",
+  //   name: "",
+  //   id: "",
+  //   birth: "",
+  //   gender: "",
+  //   call: "",
+  //   emailCheck: "",
+  // });
 
   const signup = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,12 +59,31 @@ const SignUpPage = () => {
       //회원가입
       setShowcertification(true);
       setJoin(true);
-      if (certification === "") {
-        setCertificationMessage("인증이 필요합니다.");
-      } else {
-        console.log("회원가입 성공!");
 
-        //인증번호 확인 로직 추가
+      if (certification === emailCheck && certification !== "") {
+        axios
+          .post("http://localhost/user/join", {
+            userId: id,
+            userPW: password,
+            userName: name,
+            userBirth: birth,
+            userGender: gender,
+            userPhone: call,
+            userEmail: email,
+          })
+          .then((res) => {
+            console.log(res);
+            if (res.status === 200) {
+              navigate("/");
+              console.log("회원가입 성공!");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        setEmailCheckMessage("인증번호가 일치하지 않습니다.");
+        setIscertification(false);
       }
     } else {
       if (!isid) setIDMessage("아이디: 필수 정보입니다.");
@@ -168,22 +200,49 @@ const SignUpPage = () => {
     console.log(selectedGender);
   };
 
-  const onChangeCertification = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCertification(e.target.value);
+  const handeleEmailCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmailCheck(e.target.value);
     if (e.target.value === "") {
-      setCertificationMessage("인증이 필요합니다.");
+      setEmailCheckMessage("인증이 필요합니다.");
       setIscertification(false);
     } else {
-      setCertificationMessage("");
+      setEmailCheckMessage("");
       setIscertification(true);
     }
+  };
+
+  const [certification, setCertification] = useState<string>("");
+  async function checkEmail() {
+    console.log(email);
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/email-check",
+        { email },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(response.data);
+      setCertification(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const onClickRerequest = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    checkEmail();
+    console.log("재요청");
   };
 
   return (
     <div className="Container">
       <header></header>
-      <div className="LoginPage">
-        <div className="LoginBox1">
+      <div className="SingupPage">
+        <div className="SingupBox1">
           <p>Healing Meal</p>
           <form>
             <div className="box">
@@ -210,7 +269,7 @@ const SignUpPage = () => {
               {idMessage && <li>•{idMessage}</li>}
               {passwordMessage && <li>•{passwordMessage}</li>}
             </ul>
-            <div className="LoginBox2">
+            <div className="SingupBox2">
               <div>
                 <img src="../../public/images/person.svg" />
                 <input
@@ -221,12 +280,12 @@ const SignUpPage = () => {
                 />
               </div>
               <div>
-                <img src="../../public/images/email.svg" />
+                <img src="../../public/images/phone.svg" />
                 <input
-                  type="email"
-                  placeholder="이메일 @gmail.com"
-                  value={email}
-                  onChange={onChangeEmail}
+                  type="tel"
+                  placeholder="전화번호"
+                  value={call}
+                  onChange={onChangeCall}
                 />
               </div>
               <div>
@@ -262,38 +321,61 @@ const SignUpPage = () => {
                 </button>
               </div>
               <div>
-                <img src="../../public/images/phone.svg" />
+                <img src="../../public/images/email.svg" />
                 <input
-                  type="tel"
-                  placeholder="전화번호"
-                  value={call}
-                  onChange={onChangeCall}
+                  type="email"
+                  placeholder="이메일 @gmail.com"
+                  value={email}
+                  onChange={onChangeEmail}
                 />
               </div>
             </div>
             <ul className="messagebox">
               {nameMessage && <li>•{nameMessage}</li>}
-              {mailMessage && <li>•{mailMessage}</li>}
+              {callMessage && <li>•{callMessage}</li>}
               {birthMessage && <li>•{birthMessage}</li>}
               {genderMessage && <li>•{genderMessage}</li>}
-              {callMessage && <li>•{callMessage}</li>}
+              {mailMessage && <li>•{mailMessage}</li>}
             </ul>
             {showcertification && (
-              <div>
+              <div className="showbox">
                 <input
                   type="text"
                   placeholder="인증번호"
-                  value={certification}
-                  onChange={onChangeCertification}
+                  value={emailCheck}
+                  onChange={handeleEmailCheckChange}
                 />
+                <button
+                  className="Re-request-btn"
+                  type="submit"
+                  onClick={onClickRerequest}
+                >
+                  재요청
+                </button>
               </div>
             )}
-            <ul>{certificationMessage && <li>•{certificationMessage}</li>}</ul>
+            <ul>
+              {emailCheckMessage && (
+                <li>
+                  •{emailCheckMessage}
+                  <br />
+                  <span>•이메일로 인증번호가 발송됐어요.</span>
+                </li>
+              )}
+            </ul>
 
             <button
               type="submit"
               className="certification-btn"
-              onClick={join ? signup : signup}
+              onClick={
+                join
+                  ? async (e) => {
+                      e.preventDefault();
+                      await checkEmail();
+                      signup(e);
+                    }
+                  : signup
+              }
             >
               {join ? "가입하기" : "인증요청"}
             </button>

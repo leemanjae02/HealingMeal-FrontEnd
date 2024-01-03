@@ -17,13 +17,13 @@ body,
     width: 100%;
     background-color: @main-color;
   }
-  .SingupPage {
+  .LoginPage {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    .SingupBox1 {
+    .LoginBox1 {
       box-sizing: border-box;
       width: 400px;
       height: 500px;
@@ -73,7 +73,7 @@ svg {
   border-radius: 3px;
 }
 
-.SingupBox2 {
+.LoginBox2 {
   margin-top: 15px;
   display: flex;
   flex-direction: column;
@@ -82,52 +82,11 @@ svg {
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 3px;
-  div:not(:nth-child(n + 5)) {
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-    height: 33px;
-  }
-  select {
-    width: 100%;
-    outline: none;
-    border: none;
-  }
-  .gender {
-    box-sizing: border-box;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    button {
-      width: 80px;
-      height: 25px;
-      border: 1px solid #ccc;
-      cursor: pointer;
-    }
-    .selected {
-      background-color: #163d26;
-      color: white;
-    }
-  }
 }
 button {
   border: none;
   outline: none;
   background-color: transparent;
-}
-
-.certification-btn {
-  height: 40px;
-  line-height: 40px;
-  background-color: @main-color;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-  border-radius: 3px;
-}
-.certification-btn:hover {
-  background-color: darken(@main-color, 10%);
 }
 
 ul {
@@ -137,30 +96,5 @@ ul {
   li {
     font-size: 0.7rem;
     color: red;
-  }
-}
-.call {
-  border: none;
-}
-
-.showbox {
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  margin-bottom: 5px;
-  input {
-    margin-left: 5px;
-  }
-  .Re-request-btn {
-    width: 60px;
-    height: 20px;
-    border: 1px solid #ccc;
-    margin-right: 10px;
-    color: #ccc;
-    border-radius: 10px;
-    cursor: pointer;
-    &:hover {
-      color: #000;
-      border: 1px solid #000;
-    }
   }
 }
