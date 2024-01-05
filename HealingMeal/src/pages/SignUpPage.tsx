@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/SignUpPage.less";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { useForm } from "../hooks/useForm";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -34,56 +33,54 @@ const SignUpPage = () => {
   const [iscall, setIscall] = useState<boolean>(false);
   const [iscertification, setIscertification] = useState<boolean>(false);
 
-  // const [inputData, setInputData] = useState({
-  //   email: "",
-  //   password: "",
-  //   name: "",
-  //   id: "",
-  //   birth: "",
-  //   gender: "",
-  //   call: "",
-  //   emailCheck: "",
-  // });
-
-  const signup = (e: React.FormEvent) => {
-    e.preventDefault();
+  const checkInput = (): boolean => {
     if (
-      isid &&
-      ispassword &&
-      isemail &&
-      isname &&
-      isbirth &&
-      iscall &&
-      gender
+      !id.trim() &&
+      !password.trim() &&
+      !email.trim() &&
+      !birth.trim() &&
+      !call.trim() &&
+      !gender
     ) {
-      //회원가입
+      setIDMessage("아이디: 필수 정보입니다.");
+      setPasswordMessage("비밀번호: 필수 정보입니다.");
+      setMailMessage("이메일: 필수 정보입니다.");
+      setNameMessage("이름: 필수 정보입니다.");
+      setCallMessage("전화번호: 필수 정보입니다.");
+      setBirthMessage("생년월일: 필수 정보입니다.");
+      setGenderMessage("성별: 필수 정보입니다.");
+    }
+    if (!isid || !ispassword || !isemail || !isbirth || !iscall || !gender) {
+      return false;
+    }
+    return true;
+  };
+
+  const signup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (checkInput()) {
       setShowcertification(true);
       setJoin(true);
-
-      if (certification === emailCheck && certification !== "") {
-        axios
-          .post("http://localhost/user/join", {
-            userId: id,
-            userPW: password,
-            userName: name,
-            userBirth: birth,
-            userGender: gender,
-            userPhone: call,
-            userEmail: email,
-          })
-          .then((res) => {
-            console.log(res);
-            if (res.status === 200) {
-              navigate("/");
-              console.log("회원가입 성공!");
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } else {
-        setEmailCheckMessage("인증번호가 일치하지 않습니다.");
-        setIscertification(false);
+      if (!iscertification) {
+        setEmailCheckMessage("이메일 인증을 완료해주세요.");
+        return;
+      }
+      try {
+        const response = await axios.post("http://localhost/user/join", {
+          loginId: id,
+          password: password,
+          name: name,
+          birthDate: birth,
+          gender: gender,
+          phoneNymber: call,
+          email: email,
+        });
+        if (response.status === 200) {
+          navigate("/login");
+          console.log("회원가입 성공!");
+        }
+      } catch (error) {
+        console.log(error);
       }
     } else {
       if (!isid) setIDMessage("아이디: 필수 정보입니다.");
@@ -196,24 +193,14 @@ const SignUpPage = () => {
     if (selectedGender != null) {
       setGenderMessage("");
     }
-
-    console.log(selectedGender);
-  };
-
-  const handeleEmailCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmailCheck(e.target.value);
-    if (e.target.value === "") {
-      setEmailCheckMessage("인증이 필요합니다.");
-      setIscertification(false);
-    } else {
-      setEmailCheckMessage("");
-      setIscertification(true);
-    }
   };
 
   const [certification, setCertification] = useState<string>("");
+
+  useEffect(() => {
+    console.log("인증번호 상태", certification);
+  }, [certification]);
   async function checkEmail() {
-    console.log(email);
     try {
       const response = await axios.post(
         "http://localhost:8080/api/email-check",
@@ -225,12 +212,26 @@ const SignUpPage = () => {
         }
       );
 
-      console.log(response.data);
+      console.log("확인", response.data);
       setCertification(response.data);
+      console.log(certification);
     } catch (error) {
       console.log(error);
     }
   }
+  const handeleEmailCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("서버가 보내준 인증번호", emailCheck);
+    console.log("사용자가 입력한 인증번호", certification);
+
+    setEmailCheck(e.target.value);
+    if (certification === emailCheck && certification !== "") {
+      setIscertification(true);
+      setEmailCheckMessage("");
+    } else {
+      setEmailCheckMessage("인증번호가 일치하지 않습니다.");
+      setIscertification(false);
+    }
+  };
 
   const onClickRerequest = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -367,15 +368,14 @@ const SignUpPage = () => {
             <button
               type="submit"
               className="certification-btn"
-              onClick={
-                join
-                  ? async (e) => {
-                      e.preventDefault();
-                      await checkEmail();
-                      signup(e);
-                    }
-                  : signup
-              }
+              onClick={(e) => {
+                e.preventDefault();
+                if (!checkInput()) {
+                  return;
+                }
+                checkEmail();
+                signup(e);
+              }}
             >
               {join ? "가입하기" : "인증요청"}
             </button>
