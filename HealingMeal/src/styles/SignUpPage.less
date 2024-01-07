@@ -10,6 +10,7 @@ body,
 @main-color: #163d26;
 
 .Container {
+  border: 1px solid black;
   width: 100vw;
   height: 100vh;
   header {
@@ -71,6 +72,25 @@ svg {
   margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 3px;
+  .idbox {
+    button {
+      width: 80px;
+      height: 20px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+      color: #ccc;
+      border-radius: 10px;
+      cursor: pointer;
+      &:hover {
+        color: #000;
+        border: 1px solid #000;
+      }
+      &.disabled {
+        color: red;
+        border: 1px solid red;
+      }
+    }
+  }
 }
 
 .SingupBox2 {
@@ -99,7 +119,7 @@ svg {
     align-items: center;
     justify-content: center;
     button {
-      width: 80px;
+      width: 100px;
       height: 25px;
       border: 1px solid #ccc;
       cursor: pointer;

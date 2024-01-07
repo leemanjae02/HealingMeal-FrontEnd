@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../styles/SignUpPage.less";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -24,6 +24,7 @@ const SignUpPage = () => {
   const [genderMessage, setGenderMessage] = useState<string>("");
   const [callMessage, setCallMessage] = useState<string>("");
   const [emailCheckMessage, setEmailCheckMessage] = useState<string>("");
+  const [idcheckMessage, setIdCheckMessage] = useState<string>("");
 
   const [isid, setIsid] = useState<boolean>(false);
   const [ispassword, setIspassword] = useState<boolean>(false);
@@ -32,27 +33,49 @@ const SignUpPage = () => {
   const [isbirth, setIsbirth] = useState<boolean>(false);
   const [iscall, setIscall] = useState<boolean>(false);
   const [iscertification, setIscertification] = useState<boolean>(false);
+  const [idcheck, setIdCheck] = useState<boolean>(false);
 
   const checkInput = (): boolean => {
-    if (
-      !id.trim() &&
-      !password.trim() &&
-      !email.trim() &&
-      !birth.trim() &&
-      !call.trim() &&
-      !gender
-    ) {
+    if (!id.trim()) {
       setIDMessage("아이디: 필수 정보입니다.");
+    }
+
+    if (!password.trim()) {
       setPasswordMessage("비밀번호: 필수 정보입니다.");
+    }
+
+    if (!email.trim()) {
       setMailMessage("이메일: 필수 정보입니다.");
+    }
+
+    if (!name.trim()) {
       setNameMessage("이름: 필수 정보입니다.");
-      setCallMessage("전화번호: 필수 정보입니다.");
+    }
+
+    if (!birth.trim()) {
       setBirthMessage("생년월일: 필수 정보입니다.");
+    }
+
+    if (!call.trim()) {
+      setCallMessage("전화번호: 필수 정보입니다.");
+    }
+
+    if (!gender) {
       setGenderMessage("성별: 필수 정보입니다.");
     }
-    if (!isid || !ispassword || !isemail || !isbirth || !iscall || !gender) {
+
+    if (
+      !isid ||
+      // !idcheck ||
+      !ispassword ||
+      !isemail ||
+      !isbirth ||
+      !iscall ||
+      !gender
+    ) {
       return false;
     }
+
     return true;
   };
 
@@ -66,15 +89,23 @@ const SignUpPage = () => {
         return;
       }
       try {
-        const response = await axios.post("http://localhost/user/join", {
-          loginId: id,
-          password: password,
-          name: name,
-          birthDate: birth,
-          gender: gender,
-          phoneNymber: call,
-          email: email,
-        });
+        const response = await axios.post(
+          "http://localhost:8080/user/join",
+          {
+            loginId: id,
+            password: password,
+            name: name,
+            email: email,
+            gender: gender,
+            birthDate: birth,
+            phoneNumber: call,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (response.status === 200) {
           navigate("/login");
           console.log("회원가입 성공!");
@@ -188,20 +219,26 @@ const SignUpPage = () => {
   };
 
   const onClickGender: React.MouseEventHandler<HTMLButtonElement> = (e) => {
-    const selectedGender = e.currentTarget.innerText;
+    const selectedGenderText = e.currentTarget.innerText;
+    let selectedGender = "";
+    if (selectedGenderText === "남자") {
+      selectedGender = "MALE";
+    } else if (selectedGenderText === "여자") {
+      selectedGender = "FEMALE";
+    }
     setgender(selectedGender);
     if (selectedGender != null) {
       setGenderMessage("");
+      console.log(selectedGender);
     }
   };
 
   const [certification, setCertification] = useState<string>("");
-
-  useEffect(() => {
-    console.log("인증번호 상태", certification);
-  }, [certification]);
-  async function checkEmail() {
+  const checkEmail = async () => {
     try {
+      if (iscertification) {
+        return;
+      }
       const response = await axios.post(
         "http://localhost:8080/api/email-check",
         { email },
@@ -218,15 +255,14 @@ const SignUpPage = () => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   const handeleEmailCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("서버가 보내준 인증번호", emailCheck);
-    console.log("사용자가 입력한 인증번호", certification);
-
-    setEmailCheck(e.target.value);
+    console.log("사용자가 입력한 인증번호", emailCheck);
+    console.log("서버가 준  인증번호", certification);
+    setEmailCheck(e.target.value.trim());
     if (certification === emailCheck && certification !== "") {
       setIscertification(true);
-      setEmailCheckMessage("");
+      setEmailCheckMessage("인증번호가 일치합니다.");
     } else {
       setEmailCheckMessage("인증번호가 일치하지 않습니다.");
       setIscertification(false);
@@ -239,6 +275,35 @@ const SignUpPage = () => {
     console.log("재요청");
   };
 
+  const handleIdcheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      if (!isid) {
+        return;
+      }
+      const response = await axios.post("http://localhost:8080/user/join", {
+        id,
+      });
+      if (response.data.message === "This ID is already taken") {
+        setIdCheck(false);
+        setIdCheckMessage("중복된 아이디입니다. ");
+      } else {
+        setIdCheck(true);
+        setIdCheckMessage("사용가능한 아이디입니다!");
+      }
+    } catch (error) {
+      console.log("ID 중복 확인 에러", error);
+    } finally {
+      const button = document.getElementById("idCheckButton");
+      if (button) {
+        if (idcheck && isid) {
+          button.classList.add("disabled");
+        } else {
+          button.classList.remove("disabled");
+        }
+      }
+    }
+  };
   return (
     <div className="Container">
       <header></header>
@@ -255,6 +320,15 @@ const SignUpPage = () => {
                   value={id}
                   onChange={onChangeID}
                 />
+                <button
+                  id="idCheckButton"
+                  className={`ID-check ${idcheck || isid ? "disabled" : ""}`}
+                  type="submit"
+                  onClick={handleIdcheck}
+                >
+                  중복확인
+                </button>
+                {idcheckMessage && <li>•{idcheckMessage}</li>}
               </div>
               <div>
                 <img src="../../public/images/lock.svg" />
@@ -302,23 +376,16 @@ const SignUpPage = () => {
                 <button
                   type="button"
                   onClick={onClickGender}
-                  className={gender === "남자" ? "selected" : ""}
+                  className={gender === "MALE" ? "selected" : ""}
                 >
                   남자
                 </button>
                 <button
                   type="button"
                   onClick={onClickGender}
-                  className={gender === "여자" ? "selected" : ""}
+                  className={gender === "FEMALE" ? "selected" : ""}
                 >
                   여자
-                </button>
-                <button
-                  type="button"
-                  onClick={onClickGender}
-                  className={gender === "선택안함" ? "selected" : ""}
-                >
-                  선택안함
                 </button>
               </div>
               <div>
