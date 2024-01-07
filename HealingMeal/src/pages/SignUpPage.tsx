@@ -24,7 +24,6 @@ const SignUpPage = () => {
   const [genderMessage, setGenderMessage] = useState<string>("");
   const [callMessage, setCallMessage] = useState<string>("");
   const [emailCheckMessage, setEmailCheckMessage] = useState<string>("");
-  const [idcheckMessage, setIdCheckMessage] = useState<string>("");
 
   const [isid, setIsid] = useState<boolean>(false);
   const [ispassword, setIspassword] = useState<boolean>(false);
@@ -33,7 +32,6 @@ const SignUpPage = () => {
   const [isbirth, setIsbirth] = useState<boolean>(false);
   const [iscall, setIscall] = useState<boolean>(false);
   const [iscertification, setIscertification] = useState<boolean>(false);
-  const [idcheck, setIdCheck] = useState<boolean>(false);
 
   const checkInput = (): boolean => {
     if (!id.trim()) {
@@ -64,15 +62,7 @@ const SignUpPage = () => {
       setGenderMessage("성별: 필수 정보입니다.");
     }
 
-    if (
-      !isid ||
-      // !idcheck ||
-      !ispassword ||
-      !isemail ||
-      !isbirth ||
-      !iscall ||
-      !gender
-    ) {
+    if (!isid || !ispassword || !isemail || !isbirth || !iscall || !gender) {
       return false;
     }
 
@@ -274,36 +264,6 @@ const SignUpPage = () => {
     checkEmail();
     console.log("재요청");
   };
-
-  const handleIdcheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    try {
-      if (!isid) {
-        return;
-      }
-      const response = await axios.post("http://localhost:8080/user/join", {
-        id,
-      });
-      if (response.data.message === "This ID is already taken") {
-        setIdCheck(false);
-        setIdCheckMessage("중복된 아이디입니다. ");
-      } else {
-        setIdCheck(true);
-        setIdCheckMessage("사용가능한 아이디입니다!");
-      }
-    } catch (error) {
-      console.log("ID 중복 확인 에러", error);
-    } finally {
-      const button = document.getElementById("idCheckButton");
-      if (button) {
-        if (idcheck && isid) {
-          button.classList.add("disabled");
-        } else {
-          button.classList.remove("disabled");
-        }
-      }
-    }
-  };
   return (
     <div className="Container">
       <header></header>
@@ -320,15 +280,6 @@ const SignUpPage = () => {
                   value={id}
                   onChange={onChangeID}
                 />
-                <button
-                  id="idCheckButton"
-                  className={`ID-check ${idcheck || isid ? "disabled" : ""}`}
-                  type="submit"
-                  onClick={handleIdcheck}
-                >
-                  중복확인
-                </button>
-                {idcheckMessage && <li>•{idcheckMessage}</li>}
               </div>
               <div>
                 <img src="../../public/images/lock.svg" />

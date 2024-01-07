@@ -10,10 +10,10 @@ const LoginPage = () => {
   const [password, setPassword] = useState<string>("");
   const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [idMessage, setIDMessage] = useState<string>("");
+  const [loginMessage, setLoginMessage] = useState<string>("");
 
   const [isid, setIsid] = useState<boolean>(false);
   const [ispassword, setIspassword] = useState<boolean>(false);
-  const [loginMsg, setLoginMsg] = useState<string>("");
   const formData = new FormData();
 
   const login = async (e: React.FormEvent) => {
@@ -27,13 +27,16 @@ const LoginPage = () => {
           "http://localhost:8080/user/login",
           formData
         );
+        const sessionID = response.data.SESSION;
         if (response.status === 200) {
+          document.cookie = `sessionID=${String(sessionID)}`;
+          console.log(response.data.SESSION);
           navigate("/main");
           console.log("로그인 성공!");
         }
       } catch (error) {
         console.log(error);
-        setLoginMsg("아이디 또는 비밀번호를 잘못 입력했습니다.");
+        setLoginMessage("아이디 또는 비밀번호를 잘못 입력했습니다.");
       }
     } else {
       setIDMessage("아이디를 입력해주세요.");
@@ -94,14 +97,24 @@ const LoginPage = () => {
             <ul className="messagebox">
               {idMessage && <li>•{idMessage}</li>}
               {passwordMessage && <li>•{passwordMessage}</li>}
-              {loginMsg && <li>•{loginMsg}</li>}
+              {loginMessage && <li>•{loginMessage}</li>}
             </ul>
             <button type="submit" className="certification-btn" onClick={login}>
               로그인
             </button>
-            <p>
-              계정이 없으신가요? <Link to="/signup">회원가입</Link> 하러 가기
-            </p>
+            <div className="linkbox">
+              <div>
+                <Link to="/findid">아이디 찾기</Link>
+              </div>
+
+              <div>
+                <Link to="/findPw">비밀번호 찾기</Link>
+              </div>
+
+              <div>
+                <Link to="/signup">회원가입</Link>
+              </div>
+            </div>
           </form>
         </div>
       </div>

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "../styles/global.less";
-const MainPage = () => {
+
+const FindIDPage = () => {
   return (
     <div className="Container">
       <header></header>
-      메인 페이지 입니다.
+      <div></div>
     </div>
   );
 };
 
-export default MainPage;
+export default FindIDPage;
