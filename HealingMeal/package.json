@@ -36,11 +36,5 @@
     "style-loader": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^5.0.8"
-  },
-  "proxy": {
-    "/api": {
-      "target": "http://localhost:8080",
-      "changeOrigin": true
-    }
   }
 }
