@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../styles/LoginPage.less";
-import axios from "axios";
+import CustomAxios from "../api/Axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -23,16 +23,16 @@ const LoginPage = () => {
         formData.append("loginId", id);
         formData.append("password", password);
 
-        const response = await axios.post(
-          "http://localhost:8080/user/login",
-          formData
-        );
+        const response = await CustomAxios.post("/user/login", formData);
+        // withCredentials: true,
+
         const sessionID = response.data.SESSION;
         if (response.status === 200) {
           document.cookie = `sessionID=${String(sessionID)}`;
           console.log(response.data.SESSION);
           navigate("/main");
           console.log("로그인 성공!");
+          // console.log(response.Cookies["SESSIONID"]);
         }
       } catch (error) {
         console.log(error);

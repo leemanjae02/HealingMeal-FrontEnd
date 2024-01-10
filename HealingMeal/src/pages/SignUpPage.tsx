@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/SignUpPage.less";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import CustomAxios from "../api/Axios";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -15,8 +15,9 @@ const SignUpPage = () => {
   const [emailCheck, setEmailCheck] = useState<string>("");
   const [showcertification, setShowcertification] = useState(false);
   const [join, setJoin] = useState<boolean>(false);
+  const [idcheck, setIdCheck] = useState<boolean>(false);
 
-  const [idMessage, setIDMessage] = useState<string>("");
+  const [idMessage, setIDMessage] = useState<string>(""); // 유효성 검사 메시지
   const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [mailMessage, setMailMessage] = useState<string>("");
   const [nameMessage, setNameMessage] = useState<string>("");
@@ -24,8 +25,9 @@ const SignUpPage = () => {
   const [genderMessage, setGenderMessage] = useState<string>("");
   const [callMessage, setCallMessage] = useState<string>("");
   const [emailCheckMessage, setEmailCheckMessage] = useState<string>("");
+  const [idcheckMessage, setIdCheckMessage] = useState<string>("");
 
-  const [isid, setIsid] = useState<boolean>(false);
+  const [isid, setIsid] = useState<boolean>(false); //is가 붙은 변수들은 유효성 검사 상태 확인
   const [ispassword, setIspassword] = useState<boolean>(false);
   const [isemail, setIsemail] = useState<boolean>(false);
   const [isname, setIsname] = useState<boolean>(false);
@@ -61,8 +63,19 @@ const SignUpPage = () => {
     if (!gender) {
       setGenderMessage("성별: 필수 정보입니다.");
     }
+    if (!idcheck) {
+      setIdCheckMessage("중복확인이 필요합니다.");
+    }
 
-    if (!isid || !ispassword || !isemail || !isbirth || !iscall || !gender) {
+    if (
+      !isid ||
+      !ispassword ||
+      !isemail ||
+      !isbirth ||
+      !iscall ||
+      !gender ||
+      !idcheck
+    ) {
       return false;
     }
 
@@ -79,8 +92,8 @@ const SignUpPage = () => {
         return;
       }
       try {
-        const response = await axios.post(
-          "http://localhost:8080/user/join",
+        const response = await CustomAxios.post(
+          "/user/join",
           {
             loginId: id,
             password: password,
@@ -98,7 +111,6 @@ const SignUpPage = () => {
         );
         if (response.status === 200) {
           navigate("/login");
-          console.log("회원가입 성공!");
         }
       } catch (error) {
         console.log(error);
@@ -219,7 +231,6 @@ const SignUpPage = () => {
     setgender(selectedGender);
     if (selectedGender != null) {
       setGenderMessage("");
-      console.log(selectedGender);
     }
   };
 
@@ -229,8 +240,8 @@ const SignUpPage = () => {
       if (iscertification) {
         return;
       }
-      const response = await axios.post(
-        "http://localhost:8080/api/email-check",
+      const response = await CustomAxios.post(
+        "/api/email-check",
         { email },
         {
           headers: {
@@ -241,16 +252,14 @@ const SignUpPage = () => {
 
       console.log("확인", response.data);
       setCertification(response.data);
-      console.log(certification);
     } catch (error) {
       console.log(error);
     }
   };
   const handeleEmailCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("사용자가 입력한 인증번호", emailCheck);
-    console.log("서버가 준  인증번호", certification);
     setEmailCheck(e.target.value.trim());
-    if (certification === emailCheck && certification !== "") {
+
+    if (certification === e.target.value && certification !== "") {
       setIscertification(true);
       setEmailCheckMessage("인증번호가 일치합니다.");
     } else {
@@ -264,6 +273,25 @@ const SignUpPage = () => {
     checkEmail();
     console.log("재요청");
   };
+  const handleIdcheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      if (id === "") {
+        return;
+      }
+      const response = await CustomAxios.post("/user/join/id", {
+        loginId: id,
+      });
+      if (response.status === 200) {
+        setIdCheck(true);
+        setIdCheckMessage("사용가능한 아이디입니다!");
+      }
+    } catch (error) {
+      setIdCheck(false);
+      setIdCheckMessage("중복된 아이디입니다.");
+    }
+  };
+
   return (
     <div className="Container">
       <header></header>
@@ -280,6 +308,14 @@ const SignUpPage = () => {
                   value={id}
                   onChange={onChangeID}
                 />
+                <button
+                  id="idCheckBtn"
+                  className={`IDcheck ${idcheck && isid ? "disabled" : ""}`}
+                  type="submit"
+                  onClick={handleIdcheck}
+                >
+                  중복확인
+                </button>
               </div>
               <div>
                 <img src="../../public/images/lock.svg" />
@@ -292,6 +328,7 @@ const SignUpPage = () => {
               </div>
             </div>
             <ul className="messagebox">
+              {idcheckMessage && <li>•{idcheckMessage}</li>}
               {idMessage && <li>•{idMessage}</li>}
               {passwordMessage && <li>•{passwordMessage}</li>}
             </ul>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../styles/global.less";
 const MainPage = () => {
   return (
     <div className="Container">
