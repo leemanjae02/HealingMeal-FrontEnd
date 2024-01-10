@@ -15,7 +15,10 @@ body,
   header {
     height: 50px;
     width: 100%;
-    background-color: @main-color;
+    .logo {
+      margin-left: 1rem;
+      font-weight: bold;
+    }
   }
   .SingupPage {
     height: 100%;
@@ -202,5 +205,16 @@ ul {
   &:hover:not(.disabled) {
     color: #000;
     border: 1px solid #000;
+  }
+}
+
+footer {
+  height: 6vw;
+  background-color: #163d26;
+  display: flex;
+  align-items: center;
+  .footer_text {
+    font-size: 2rem;
+    margin-left: 1rem;
   }
 }

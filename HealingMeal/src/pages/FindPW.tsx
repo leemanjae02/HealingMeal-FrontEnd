@@ -26,7 +26,7 @@ const FindPWPage = () => {
         setAnswer(response.data);
       }
     } catch (error) {
-      setMessage("이름 이메일 아 다시 확인하고 입력해주세요.");
+      setMessage("이름 이메일 아이디를 다시 확인하고 입력해주세요.");
       console.log(error);
     }
   };

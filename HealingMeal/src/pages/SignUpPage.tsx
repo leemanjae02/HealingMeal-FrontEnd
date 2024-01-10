@@ -294,7 +294,9 @@ const SignUpPage = () => {
 
   return (
     <div className="Container">
-      <header></header>
+      <header>
+        <p className="logo">Healing Meal</p>
+      </header>
       <div className="SingupPage">
         <div className="SingupBox1">
           <p>Healing Meal</p>
@@ -437,6 +439,9 @@ const SignUpPage = () => {
           </form>
         </div>
       </div>
+      <footer>
+        <p className="footer_text">Healing Meal</p>
+      </footer>
     </div>
   );
 };
