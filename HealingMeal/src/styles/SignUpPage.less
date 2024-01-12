@@ -9,7 +9,9 @@ body,
 }
 @main-color: #163d26;
 
-.Container {
+.SignupPage_Container {
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   header {
@@ -208,13 +210,15 @@ ul {
   }
 }
 
-footer {
+.Signup_footer {
+  display: flex;
   height: 6vw;
   background-color: #163d26;
-  display: flex;
-  align-items: center;
   .footer_text {
+    display: flex;
+    align-items: center;
     font-size: 2rem;
     margin-left: 1rem;
+    color: #fff;
   }
 }

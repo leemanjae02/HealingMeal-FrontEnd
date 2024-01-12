@@ -27,15 +27,10 @@ const LoginPage = () => {
           withCredentials: true,
         });
 
-        const sessionID = response.data.SESSION;
         if (response.status === 200) {
-          document.cookie = `sessionID=${String(sessionID)}`;
-          console.log(response.data.SESSION);
-          console.log(sessionID);
           navigate("/");
+          sessionStorage.setItem("Name", "이만재");
           console.log("로그인 성공!");
-          console.log(response.headers["set-cookie"]);
-          console.log(document.cookie);
         }
       } catch (error) {
         console.log(error);
@@ -71,7 +66,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="Container">
+    <div className="LoginPage_Container">
       <header>
         <p className="logo">Healing Meal</p>
         <div className="Link_Box">
@@ -91,7 +86,7 @@ const LoginPage = () => {
           <div className="LoginBox1">
             <p>Healing Meal</p>
             <form>
-              <div className="box">
+              <div className="LoginBox2">
                 <div className="idbox">
                   <img src="../../public/images/person.svg" />
                   <input
@@ -141,8 +136,8 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
-      <footer>
-        <p className="footer_text">Healing Meal</p>
+      <footer className="login_footer">
+        <p className="footer_text">Sungkonghoe University GDSC </p>
       </footer>
     </div>
   );

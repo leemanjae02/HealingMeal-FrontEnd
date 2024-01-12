@@ -7,12 +7,9 @@ body,
   padding: 0;
   box-sizing: border-box;
 }
-* {
-  box-sizing: border-box;
-}
 @main-color: #163d26;
 
-.Container {
+.LoginPage_Container {
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -24,6 +21,7 @@ body,
     .logo {
       margin-left: 1rem;
       font-weight: bold;
+      color: @main-color;
     }
     .Link_Box {
       display: flex;
@@ -39,12 +37,15 @@ body,
         &:nth-child(3) {
           width: 8vw;
           height: 2.5vw;
-          border-radius: 0.5rem;
+          border-radius: 0.3rem;
           background-color: @main-color;
           display: flex;
           align-items: center;
           a {
             color: #ccc;
+            &:hover {
+              color: #fff;
+            }
           }
         }
 
@@ -129,7 +130,7 @@ svg {
   height: 20px;
 }
 
-.box {
+.LoginBox2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -140,16 +141,6 @@ svg {
   border-radius: 3px;
 }
 
-.LoginBox2 {
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  height: 500px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
 button {
   border: none;
   outline: none;
@@ -166,13 +157,14 @@ ul {
   }
 }
 
-footer {
+.login_footer {
+  display: flex;
   height: 6vw;
   background-color: #163d26;
-  display: flex;
-  align-items: center;
   .footer_text {
+    align-items: center;
     font-size: 2rem;
     margin-left: 1rem;
+    color: #fff;
   }
 }
