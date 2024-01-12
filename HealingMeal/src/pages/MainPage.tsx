@@ -58,6 +58,7 @@ const MainPage = () => {
         <div className="infor_Container">
           <div className="image_box">
             <img src="../../public/images/mainPageCover.jpg" />
+            <p className="main_img_text">Welcome to healing meal</p>
             <div className="image_box_div">
               {loginCheck ? (
                 <>
@@ -72,7 +73,21 @@ const MainPage = () => {
               )}
             </div>
           </div>
-          <div className="Meal_box"></div>
+          <div className="Meal_box">
+            <p className="Meal_box_user">
+              {`${userName}님`} <span>&nbsp;당뇨 맞춤 식단</span>
+            </p>
+            <div className="Meal_infor">
+              <div className="Meal_components">
+                <div className="Meal_components_img">
+                  <img src="../../public/images/foodtest.png" />
+                </div>
+                <p className="Meal_components_text">계란말이</p>
+              </div>
+              <div className="Meal_components"></div>
+              <div className="Meal_components"></div>
+            </div>
+          </div>
           <div className="kcal_box"></div>
         </div>
       </div>
