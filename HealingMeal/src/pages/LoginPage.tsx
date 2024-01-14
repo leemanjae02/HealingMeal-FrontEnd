@@ -29,7 +29,6 @@ const LoginPage = () => {
 
         if (response.status === 200) {
           navigate("/");
-          sessionStorage.setItem("Name", "이만재");
           console.log("로그인 성공!");
         }
       } catch (error) {

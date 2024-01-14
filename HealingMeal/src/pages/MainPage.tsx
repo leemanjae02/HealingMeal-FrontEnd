@@ -9,10 +9,22 @@ const MainPage = () => {
   const [userName, setUserName] = useState<string | null>(null);
 
   useEffect(() => {
-    const isLogin = sessionStorage.getItem("Name") !== null;
-    setLoginCheck(isLogin);
-    setUserName(sessionStorage.getItem("Name"));
+    const isLoginCheck = async () => {
+      try {
+        const response = await CustomAxios.get("/user/confirm", {
+          withCredentials: true,
+        });
+        if (response.status === 200) {
+          setUserName(response.data);
+          setLoginCheck(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    isLoginCheck();
   }, []);
+
   const clickLogin = () => {
     navigate("/login");
   };
@@ -28,7 +40,6 @@ const MainPage = () => {
     try {
       const response = await CustomAxios.get("/user/logout");
       if (response.status === 200) {
-        sessionStorage.removeItem("Name");
         setLoginCheck(false);
       }
     } catch (error) {
