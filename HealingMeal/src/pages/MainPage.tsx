@@ -19,6 +19,7 @@ const MainPage = () => {
           setLoginCheck(true);
         }
       } catch (error) {
+        setUserName("OOO");
         console.log(error);
       }
     };
@@ -38,9 +39,12 @@ const MainPage = () => {
   };
   const logout = async (): Promise<void> => {
     try {
-      const response = await CustomAxios.get("/user/logout");
+      const response = await CustomAxios.get("/user/logout", {
+        withCredentials: true,
+      });
       if (response.status === 200) {
         setLoginCheck(false);
+        setUserName("OOO");
       }
     } catch (error) {
       console.log(error);
