@@ -30,10 +30,12 @@ const FindIDPage = () => {
   };
   return (
     <div className="Container">
-      <header></header>
-      <p>
-        <strong>Healing Meal</strong> 아이디 찾기
-      </p>
+      <header>
+        <p className="logo">
+          <strong>Healing Meal</strong> 아이디 찾기
+        </p>
+      </header>
+
       <hr />
       <div className="Box">
         <div className="textbox">
@@ -79,6 +81,9 @@ const FindIDPage = () => {
           요청
         </button>
       </div>
+      <footer className="FindId_footer">
+        <p className="footer_text">Sungkonghoe University GDSC </p>
+      </footer>
     </div>
   );
 };

@@ -10,9 +10,9 @@ function App() {
     <Routes>
       <Route path="/findpw" element={<FindPWPage />} />
       <Route path="/findid" element={<FindIDPage />} />
-      <Route path="/main" element={<MainPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/" element={<MainPage />} />
     </Routes>
   );
 }

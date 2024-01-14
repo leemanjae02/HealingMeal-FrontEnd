@@ -1,0 +1,166 @@
+html,
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+p {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+@main-color: #163d26;
+@font-face {
+  font-family: "PlayfairDisplay-Medium";
+  font-style: normal;
+  font-weight: 100;
+  src: url("../fonts/PlayfairDisplay-Medium.ttf") format("ttf");
+}
+
+.MainPage_Container {
+  width: 100vw;
+  height: 100vh;
+  header {
+    height: 50px;
+    width: 100%;
+    display: flex;
+
+    .logo {
+      margin-left: 1rem;
+      font-weight: bold;
+      color: @main-color;
+    }
+    .btn_Box {
+      display: flex;
+      float: right;
+      margin-left: auto;
+      align-items: center;
+      button:hover {
+        cursor: pointer;
+        color: #ccc;
+      }
+    }
+  }
+
+  .main_Container {
+    width: 100%;
+    height: 100vh;
+    padding: 0% 15%;
+    box-sizing: border-box;
+    .infor_Container {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+
+      .image_box {
+        position: relative;
+        border-radius: 2vw;
+        background-size: cover;
+        width: 100%;
+        height: 40%;
+        box-shadow: 0px 0px 2px rgb(0, 0, 0, 0.5);
+        margin-bottom: 2vw;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 2vw;
+          filter: brightness(0.6);
+        }
+        .main_img_text {
+          position: absolute;
+          transform: translate(-50%, -50%);
+          top: 35%;
+          left: 50%;
+          width: 100%;
+          text-align: center;
+          color: #fff;
+          font-size: 3em;
+        }
+        .image_box_div {
+          position: absolute;
+          display: flex;
+          top: 80%;
+          left: 50%;
+          width: 10vw;
+          height: 5vh;
+          background-color: @main-color;
+          transform: translate(-50%, -50%);
+          box-shadow: 0px 0px 16px rgb(0, 0, 0, 0.5);
+          border-radius: 1vw;
+          .Main_img_btn {
+            width: 100%;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .Meal_box {
+        width: 100%;
+        height: 50%;
+        border: 1px solid red;
+        margin-bottom: 2vw;
+        .Meal_box_user {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          height: 20%;
+          font-size: 2rem;
+          color: #163d26;
+          span {
+            color: #000;
+          }
+        }
+        .Meal_infor {
+          height: 80%;
+          padding: 1vw;
+          display: flex;
+
+          .Meal_components {
+            margin-right: 1vw;
+            width: 16vw;
+            height: 36vh;
+            border: 1px solid red;
+            .Meal_components_img {
+              width: 100%;
+              height: 80%;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+          }
+        }
+      }
+      .kcal_box {
+        box-sizing: border-box;
+        width: 100%;
+        height: 40%;
+        border: 1px solid red;
+      }
+    }
+  }
+}
+
+// .MainPage_footer {
+//   height: 6vw;
+//   background-color: @main-color;
+//   .footer_text {
+//     box-sizing: border-box;
+//     font-size: 2rem;
+//     margin-left: 1rem;
+//     color: #fff;
+//   }
+// }

@@ -10,12 +10,20 @@ body,
 @main-color: #163d26;
 
 .Container {
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   header {
     height: 50px;
     width: 100%;
-    background-color: @main-color;
+    .logo {
+      margin-left: 1rem;
+      font-weight: bold;
+      strong {
+        color: @main-color;
+      }
+    }
   }
   .Box {
     box-sizing: border-box;
@@ -106,5 +114,18 @@ ul {
   p {
     color: red;
     font-size: medium;
+  }
+}
+
+.FindId_footer {
+  display: flex;
+  height: 6vw;
+  background-color: @main-color;
+  .footer_text {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    margin-left: 1rem;
+    color: #fff;
   }
 }
