@@ -161,11 +161,31 @@ const MainPage = () => {
                   * 반찬 <br />
                 </div>
               </div>
-              <div className="Meal2_box">
-                * 영양정보 <br />
-                * 영양정보 <br />
-                * 영양정보 <br />
-                * 영양정보 <br />
+              <div className="NutritionInfo">
+                <div className="NutritionInfo_Icon">
+                  <div className="mini_icon">
+                    <img src="../../public/images/kcal-icon.png" />
+                    <p className="IconName">칼로리</p>
+                    <p className="mini_text">2,630Kcal</p>
+                  </div>
+                  <div className="mini_icon">
+                    <img src="../../public/images/meat-icon.png" />
+                    <p className="IconName">단백질</p>
+                    <p className="mini_text">180g</p>
+                  </div>
+                  <div className="mini_icon">
+                    <img src="../../public/images/bab-icon.png" />
+                    <p className="IconName">탄수화물</p>
+                    <p className="mini_text">300g</p>
+                  </div>
+                  <div className="mini_icon">
+                    <img src="../../public/images/fat-icon.png" />
+                    <p className="IconName">지방</p>
+                    <p className="mini_text">300g</p>
+                  </div>
+                  {/* <div className="NutritionInfo_Icon_Name"></div>
+                  <div className="NutritionInfo_text"></div> */}
+                </div>
               </div>
               <div className="closePopUp">
                 <button className="closeBtn" onClick={closeModal}>
