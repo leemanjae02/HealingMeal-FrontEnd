@@ -5,6 +5,13 @@ import CustomAxios from "../api/Axios";
 import MealComponent from "../components/MealInfor";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.less";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+document.addEventListener("DOMContentLoaded", function () {
+  AOS.init();
+  AOS.refresh();
+});
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -140,6 +147,7 @@ const MainPage = () => {
               </Slider>
             </div>
           </div>
+          <div data-aos="fade-up" className="kcal_box"></div>
           {selectedFood && (
             <div className="popup">
               <div className="Menu_box">
@@ -159,12 +167,13 @@ const MainPage = () => {
                 * 영양정보 <br />
                 * 영양정보 <br />
               </div>
-              <button className="closePopUp" onClick={closeModal}>
-                X
-              </button>
+              <div className="closePopUp">
+                <button className="closeBtn" onClick={closeModal}>
+                  X
+                </button>
+              </div>
             </div>
           )}
-          <div className="kcal_box"></div>
         </div>
       </div>
       {/* <footer className="MainPage_footer">
