@@ -54,10 +54,16 @@ const MainPage = () => {
 
   const foods = [
     { foodName: "계란말이", imageURL: "../../public/images/foodtest.png" },
-    { foodName: "갈비구이", imageURL: "../../public/images/foodtest.png" },
-    { foodName: "꽃게탕", imageURL: "../../public/images/foodtest.png" },
-    { foodName: "짜장면", imageURL: "../../public/images/foodtest.png" },
-    { foodName: "뚝배기불고기", imageURL: "../../public/images/foodtest.png" },
+    { foodName: "LA갈비", imageURL: "../../public/images/LA_Galbi.png" },
+    { foodName: "꽃게탕", imageURL: "../../public/images/spicy_crab_stew.png" },
+    {
+      foodName: "짜장면",
+      imageURL: "../../public/images/Jajangmyeon_black.png",
+    },
+    {
+      foodName: "뚝배기불고기",
+      imageURL: "../../public/images/Ddukbaegi_Bulgogi.png",
+    },
   ];
 
   const settings = {
