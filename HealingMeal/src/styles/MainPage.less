@@ -15,12 +15,10 @@ p {
   box-sizing: border-box;
 }
 @main-color: #163d26;
-@font-face {
-  font-family: "PlayfairDisplay-Medium";
-  font-style: normal;
-  font-weight: 100;
-  src: url("../fonts/PlayfairDisplay-Medium.ttf") format("ttf");
-}
+// @font-face {
+//   font-family: Playfair Display;
+//   src: url("../fonts/PlayfairDisplay-ExtraBoldItalic.ttf");
+// }
 
 .MainPage_Container {
   width: 100vw;
@@ -31,9 +29,14 @@ p {
     display: flex;
 
     .logo {
+      display: flex;
+      align-items: center;
       margin-left: 1rem;
       font-weight: bold;
+      font-size: 1.2em;
       color: @main-color;
+      // font-family: "Playfair Display", serif;
+      // font-style: italic;
     }
     .btn_Box {
       display: flex;
@@ -108,7 +111,6 @@ p {
       .Meal_box {
         width: 100%;
         height: 50%;
-        border: 1px solid red;
         margin-bottom: 2vw;
         .Meal_box_user {
           display: flex;
@@ -116,22 +118,31 @@ p {
           justify-content: center;
           box-sizing: border-box;
           height: 20%;
+          line-height: 1vh;
           font-size: 2rem;
-          color: #163d26;
+          color: @main-color;
           span {
             color: #000;
           }
         }
         .Meal_infor {
           height: 80%;
-          padding: 1vw;
+          padding: 0 1vw;
           display: flex;
-
+          align-items: center;
+          justify-content: center;
           .Meal_components {
-            margin-right: 1vw;
             width: 16vw;
+            margin-left: 0.5vw;
             height: 36vh;
-            border: 1px solid red;
+            border: 1px solid #ccc;
+            border-radius: 1vw;
+            transition: transform 0.3s ease-in-out;
+
+            &:hover {
+              transform: scale(1.05) translateY(-20px);
+            }
+
             .Meal_components_img {
               width: 100%;
               height: 80%;
@@ -139,7 +150,16 @@ p {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                border-top-left-radius: 1vw;
+                border-top-right-radius: 1vw;
               }
+            }
+            .Meal_components_text {
+              width: 100%;
+              height: 20%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
             }
           }
         }
@@ -149,14 +169,17 @@ p {
         width: 100%;
         height: 40%;
         border: 1px solid red;
+        order: 0;
       }
     }
   }
 }
 
 // .MainPage_footer {
-//   height: 6vw;
+//   height: 6vh;
 //   background-color: @main-color;
+//   z-index: 1;
+
 //   .footer_text {
 //     box-sizing: border-box;
 //     font-size: 2rem;
@@ -164,3 +187,108 @@ p {
 //     color: #fff;
 //   }
 // }
+
+.custom-slick-slider {
+  width: 100%;
+  .slick-list {
+    // 상단 짤림 방지 커스텀 스타일 조정 불필요 !
+    display: flex;
+    width: 100%;
+    height: 45vh;
+    .slick-slide {
+      height: auto;
+    }
+    .slick-track {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.popup {
+  background-color: #fff;
+  position: fixed;
+  width: 35vw;
+  height: 60vh;
+  box-shadow: 0px 0px 2px rgb(0, 0, 0, 0.1);
+  border-radius: 1vw;
+  padding: 1vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .Menu_box {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    .popup_image {
+      width: 100%;
+      height: 100%;
+      img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        border-top-left-radius: 1vw;
+      }
+    }
+    .Menu_info {
+      width: 100%;
+      height: 100%;
+      padding: 0 0.5vw;
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      border-top-right-radius: 1vw;
+      border-top-right-radius: 1vw;
+      justify-content: center;
+    }
+  }
+
+  .NutritionInfo {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+    .NutritionInfo_Icon {
+      margin-top: 1vh;
+      width: 80%;
+      height: 20;
+      display: flex;
+      justify-content: space-around;
+
+      .mini_icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 30px;
+          height: 30px;
+        }
+
+        .IconName,
+        .mini_text {
+          margin-top: 0.3vw;
+          color: #ccc;
+        }
+      }
+    }
+  }
+
+  .closePopUp {
+    width: 100%;
+    height: 20%;
+    .closeBtn {
+      background-color: #ff4d4d;
+      border-radius: 1vw;
+      color: #fff;
+      width: 50px;
+      height: 30px;
+      float: right;
+      margin-top: 1vw;
+    }
+  }
+}
