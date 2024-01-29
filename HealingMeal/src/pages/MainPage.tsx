@@ -30,6 +30,7 @@ const MainPage = () => {
         });
         if (response.status === 200) {
           setUserName(response.data);
+          console.log(response.data);
           setLoginCheck(true);
         }
       } catch (error) {

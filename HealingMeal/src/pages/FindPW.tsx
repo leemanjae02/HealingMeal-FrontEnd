@@ -34,7 +34,7 @@ const FindPWPage = () => {
     <div className="Container">
       <header>
         <p className="logo">
-          <strong>Healing Meal</strong> 아이디 찾기
+          <strong>Healing Meal</strong> 비밀번호 찾기
         </p>
       </header>
 

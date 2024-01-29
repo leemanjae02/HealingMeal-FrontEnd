@@ -4,10 +4,12 @@ import SignUpPage from "./pages/SignUpPage";
 import MainPage from "./pages/MainPage";
 import FindIDPage from "./pages/FindID";
 import FindPWPage from "./pages/FindPW";
+import SurveyPage from "./pages/SurveyPage";
 
 function App() {
   return (
     <Routes>
+      <Route path="/survey" element={<SurveyPage />} />
       <Route path="/findpw" element={<FindPWPage />} />
       <Route path="/findid" element={<FindIDPage />} />
       <Route path="/signup" element={<SignUpPage />} />

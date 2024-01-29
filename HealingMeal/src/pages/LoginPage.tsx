@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../styles/LoginPage.less";
 import CustomAxios from "../api/Axios";
-
 const LoginPage = () => {
   const navigate = useNavigate();
   const [id, setID] = useState<string>("");
@@ -11,7 +10,6 @@ const LoginPage = () => {
   const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [idMessage, setIDMessage] = useState<string>("");
   const [loginMessage, setLoginMessage] = useState<string>("");
-
   const [isid, setIsid] = useState<boolean>(false);
   const [ispassword, setIspassword] = useState<boolean>(false);
   const formData = new FormData();
@@ -30,6 +28,7 @@ const LoginPage = () => {
         if (response.status === 200) {
           navigate("/");
           console.log("로그인 성공!");
+          window.sessionStorage.setItem("userID", response.data);
         }
       } catch (error) {
         console.log(error);
@@ -80,6 +79,7 @@ const LoginPage = () => {
           </div>
         </div>
       </header>
+
       <div className="LoginPage">
         <div className="Page1">
           <div className="LoginBox1">
