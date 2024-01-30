@@ -189,10 +189,31 @@
             align-items: center;
             width: 100%;
             height: 30%;
+            margin-left: 1vw;
 
             p {
+              display: flex;
+              align-items: center;
+              width: 80%;
+              height: 100%;
               font-weight: bold;
               font-size: 1rem;
+            }
+            .SelectAll_btn {
+              display: flex;
+              align-items: center;
+              width: 20%;
+              height: 100%;
+              button {
+                width: 65px;
+                height: 3vh;
+                border: 1px solid #ccc;
+                border-radius: 1vw;
+                &:hover {
+                  cursor: pointer;
+                  border: 1px solid #163d26;
+                }
+              }
             }
           }
           .Survey5_select_food {
@@ -206,8 +227,18 @@
                 text-align: center;
                 width: 33%;
                 height: 50%;
-
                 border: 1px solid #ccc;
+                button {
+                  width: 100%;
+                  height: 100%;
+                  &:hover {
+                    cursor: pointer;
+                  }
+                  &.selected {
+                    background-color: #163d26;
+                    color: #ffffff;
+                  }
+                }
               }
             }
           }

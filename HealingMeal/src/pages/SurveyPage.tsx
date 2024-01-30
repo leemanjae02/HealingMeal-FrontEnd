@@ -10,8 +10,8 @@ const SurveyPage = () => {
   const [diabetestype, setDiabetesType] = useState<number>(0);
   const [exerciseType, setExerciseType] = useState<number>(0);
   const [Kcal, setKcal] = useState<number>(0);
-  const [userID, setUserID] = useState<number>(0);
   const [ChangePage, setChangePage] = useState<number>(1);
+
   const [survey1Valid, setSurvey1Valid] = useState<boolean>(false);
   const [survey2Valid, setSurvey2Valid] = useState<boolean>(false);
   const [survey3Valid, setSurvey3Valid] = useState<boolean>(false);
@@ -23,7 +23,6 @@ const SurveyPage = () => {
   console.log("부모 1번 설문조사 유효성", survey1Valid);
   console.log("부모 1번 설문조사 응답값", age);
   console.log(Kcal);
-  console.log(userID);
   const handleNextPage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setChangePage((Next) => Next + 1);
@@ -79,13 +78,7 @@ const SurveyPage = () => {
           />
         )}
         {ChangePage === 5 && (
-          <Survey5
-            setDiabetesType={setDiabetesType}
-            onNext={handleNextPage}
-            onPast={handlePastPage}
-            setSurvey2Valid={setSurvey2Valid}
-            diabetestype={diabetestype}
-          />
+          <Survey5 onNext={handleNextPage} onPast={handlePastPage} />
         )}
       </div>
 

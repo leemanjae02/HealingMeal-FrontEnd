@@ -1,31 +1,141 @@
+import { useState } from "react";
 import styles from "../styles/Styles.module.less";
+import SelectedFood from "./SelectedFood";
 
-interface Survey2Props {
-  setDiabetesType: (diabetestype: number) => void;
+interface Survey5Props {
   onNext: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onPast: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  setSurvey2Valid: (survey2Valid: boolean) => void;
-  diabetestype: number;
 }
 
-const Survey5: React.FunctionComponent<Survey2Props> = ({
-  setDiabetesType,
-  onNext,
-  onPast,
-  setSurvey2Valid,
-  diabetestype,
-}) => {
-  const handleTypeSelect = (selectedType: number) => {
-    setDiabetesType(selectedType);
+const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
+  const [selectedFoods, setSelectedFoods] = useState<{
+    [key: string]: string[];
+  }>({
+    Category1: [],
+    Category2: [],
+    Category3: [],
+    Category4: [],
+    Category5: [],
+    Category6: [],
+    Category7: [],
+    Category8: [],
+    Category9: [],
+    Category10: [],
+  });
+  console.log(selectedFoods);
+
+  const handleFoodSelection = (
+    category: string,
+    upDatedSelectedFoods: string[]
+  ) => {
+    setSelectedFoods({
+      ...selectedFoods,
+      [category]: upDatedSelectedFoods,
+    });
   };
-  const handleValidation = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("1번자식 함수", diabetestype);
-    if (diabetestype) {
-      setSurvey2Valid(true);
-      onNext(e);
+
+  const categorys: { [key: string]: string[] } = {
+    Category1: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "청국장",
+      "짬뽕",
+    ],
+    Category2: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category3: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category4: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category5: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category6: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category7: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category8: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category9: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+    Category10: [
+      "김치찌개",
+      "된장찌개",
+      "부대찌개",
+      "버섯전골",
+      "샤브샤브",
+      "롤",
+    ],
+  };
+
+  const handleSelectAll = (category: string, selectAll: boolean) => {
+    const allFoods = categorys[category] || [];
+    const currentSelectedFoods = selectedFoods[category] || [];
+
+    let updatedSelectedFoods: string[];
+
+    if (selectAll) {
+      // 전체 선택
+      updatedSelectedFoods = Array.from(
+        new Set([...currentSelectedFoods, ...allFoods])
+      );
     } else {
-      setSurvey2Valid(false);
+      // 전체 선택 해제
+      updatedSelectedFoods = currentSelectedFoods.filter(
+        (food) => !allFoods.includes(food)
+      );
     }
+
+    handleFoodSelection(category, updatedSelectedFoods);
   };
 
   return (
@@ -39,226 +149,28 @@ const Survey5: React.FunctionComponent<Survey2Props> = ({
             </div>
           </div>
           <div className={styles.Survey5_Page}>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>{" "}
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>{" "}
-            <div className={styles.Survey5_select_div}>
-              <div className={styles.Survey5_select_foodName}>
-                <p>찌개 및 전골류</p>
-              </div>
-              <div className={styles.Survey5_select_food}>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>김치찌개</td>
-                      <td>된장찌개</td>
-                      <td>부대찌개</td>
-                    </tr>
-                    <tr>
-                      <td>버섯전골</td>
-                      <td>샤브샤브</td>
-                      <td>배고파</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            {Object.keys(selectedFoods).map((category, index) => (
+              <SelectedFood
+                key={category}
+                categoryName={category}
+                categoryIndex={index}
+                foods={categorys[category] || []} // 각 카테고리에 해당하는 음식 목록 전달
+                selectedFoods={selectedFoods[category] || []} // 각 카테고리에 해당하는 선택된 음식 목록 전달
+                onSelect={(category, upDatedSelectedFoods) =>
+                  handleFoodSelection(category, upDatedSelectedFoods)
+                }
+                onSelectAll={(category, selectAll) =>
+                  handleSelectAll(category, selectAll)
+                }
+              />
+            ))}
           </div>
+
           <div className={styles.Survey_btn}>
             <button onClick={(e) => onPast(e)} className={styles.Past_btn}>
               이전
             </button>
-            <button
-              onClick={(e) => handleValidation(e)}
-              className={styles.Next_btn}
-              disabled={!diabetestype}
-            >
+            <button onClick={(e) => onNext(e)} className={styles.Next_btn}>
               다음
             </button>
           </div>
