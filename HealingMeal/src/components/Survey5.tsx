@@ -30,7 +30,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
     dairyProducts: [],
   });
   console.log(selectedFoods.stewsAndHotpots);
-  const handleValidation = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handlePostAndNext = (e: React.MouseEvent<HTMLButtonElement>) => {
     onNext(e);
     PostSurvey5();
   };
@@ -246,7 +246,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
               이전
             </button>
             <button
-              onClick={(e) => handleValidation(e)}
+              onClick={(e) => handlePostAndNext(e)}
               className={styles.Next_btn}
             >
               다음
