@@ -34,7 +34,7 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
     if (kcal) {
       setSurvey4Valid(true);
       onNext(e);
-      PostSurvey();
+      PostSurvey4();
     } else {
       setSurvey4Valid(false);
     }
@@ -124,7 +124,7 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
       setBMIResponse("체중감량");
     }
   };
-  const PostSurvey = async () => {
+  const PostSurvey4 = async () => {
     const UserID = window.sessionStorage.getItem("userID");
     const Survey4Data = {
       age: age,
@@ -146,7 +146,8 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
         },
       });
       if (response.status === 200) {
-        console.log(response.data);
+        console.log("surveyid", response.data);
+        window.sessionStorage.setItem("surveyID", response.data);
       }
     } catch (error) {
       console.log(error);

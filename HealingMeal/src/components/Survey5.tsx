@@ -1,28 +1,39 @@
 import { useState } from "react";
 import styles from "../styles/Styles.module.less";
 import SelectedFood from "./SelectedFood";
+import CustomAxios from "../api/Axios";
 
 interface Survey5Props {
   onNext: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onPast: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
+interface FormattedData {
+  selectedFoods: {
+    [category: string]: string;
+  };
+}
+
 const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
   const [selectedFoods, setSelectedFoods] = useState<{
     [key: string]: string[];
   }>({
-    Category1: [],
-    Category2: [],
-    Category3: [],
-    Category4: [],
-    Category5: [],
-    Category6: [],
-    Category7: [],
-    Category8: [],
-    Category9: [],
-    Category10: [],
+    stewsAndHotpots: [],
+    stewedFood: [],
+    stirFriedFood: [],
+    grilledFood: [],
+    vegetableFood: [],
+    steamedFood: [],
+    pancakeFood: [],
+    breadAndConfectionery: [],
+    beveragesAndTeas: [],
+    dairyProducts: [],
   });
-  console.log(selectedFoods);
+  console.log(selectedFoods.stewsAndHotpots);
+  const handleValidation = (e: React.MouseEvent<HTMLButtonElement>) => {
+    onNext(e);
+    PostSurvey5();
+  };
 
   const handleFoodSelection = (
     category: string,
@@ -35,7 +46,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
   };
 
   const categorys: { [key: string]: string[] } = {
-    Category1: [
+    stewsAndHotpots: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -43,7 +54,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "청국장",
       "짬뽕",
     ],
-    Category2: [
+    stewedFood: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -51,7 +62,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category3: [
+    stirFriedFood: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -59,7 +70,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category4: [
+    grilledFood: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -67,7 +78,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category5: [
+    vegetableFood: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -75,7 +86,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category6: [
+    steamedFood: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -83,7 +94,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category7: [
+    pancakeFood: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -91,7 +102,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category8: [
+    breadAndConfectionery: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -99,7 +110,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category9: [
+    beveragesAndTeas: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -107,7 +118,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "샤브샤브",
       "롤",
     ],
-    Category10: [
+    dairyProducts: [
       "김치찌개",
       "된장찌개",
       "부대찌개",
@@ -136,6 +147,70 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
     }
 
     handleFoodSelection(category, updatedSelectedFoods);
+  };
+
+  const formattedData: FormattedData = {
+    selectedFoods: {},
+  };
+
+  // 각 카테고리에 대해 선택된 음식 배열을 문자열로 변환하여 formattedData에 추가
+  Object.keys(selectedFoods).forEach((category: string) => {
+    formattedData.selectedFoods[category] = selectedFoods[category].join(", ");
+  });
+
+  const removeLastComma = (str: string) => {
+    if (str.endsWith(", ")) {
+      return str.slice(0, -2);
+    }
+    return str;
+  };
+
+  console.log(
+    "리무브",
+    removeLastComma(formattedData.selectedFoods.stewedFood)
+  );
+
+  const PostSurvey5 = async () => {
+    const SurveyID = window.sessionStorage.getItem("surveyID");
+    const Survey5Data = {
+      stewsAndHotpots: removeLastComma(
+        formattedData.selectedFoods.stewsAndHotpots
+      ),
+      stewedFood: removeLastComma(formattedData.selectedFoods.stewedFood),
+      stirFriedFood: removeLastComma(formattedData.selectedFoods.stirFriedFood),
+      grilledFood: removeLastComma(formattedData.selectedFoods.grilledFood),
+      vegetableFood: removeLastComma(formattedData.selectedFoods.vegetableFood),
+      steamedFood: removeLastComma(formattedData.selectedFoods.steamedFood),
+      pancakeFood: removeLastComma(formattedData.selectedFoods.pancakeFood),
+      breadAndConfectionery: removeLastComma(
+        formattedData.selectedFoods.breadAndConfectionery
+      ),
+      beveragesAndTeas: removeLastComma(
+        formattedData.selectedFoods.beveragesAndTeas
+      ),
+      dairyProducts: removeLastComma(formattedData.selectedFoods.dairyProducts),
+    };
+
+    console.log("5data", Survey5Data);
+
+    try {
+      const response = await CustomAxios.post(
+        SurveyID + "/filterFood",
+        Survey5Data,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("survey5 post 응답", response.data);
+        window.sessionStorage.setItem("surveyID", response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -170,7 +245,10 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
             <button onClick={(e) => onPast(e)} className={styles.Past_btn}>
               이전
             </button>
-            <button onClick={(e) => onNext(e)} className={styles.Next_btn}>
+            <button
+              onClick={(e) => handleValidation(e)}
+              className={styles.Next_btn}
+            >
               다음
             </button>
           </div>
