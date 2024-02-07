@@ -5,10 +5,18 @@ import MainPage from "./pages/MainPage";
 import FindIDPage from "./pages/FindID";
 import FindPWPage from "./pages/FindPW";
 import SurveyPage from "./pages/SurveyPage";
+import MyPage from "./pages/MyPage";
+import FavoritesComponents from "./components/FavoritesComponents";
+import MyInforChangeComponents from "./components/MyInforChange";
 
 function App() {
   return (
     <Routes>
+      <Route path="/mypage" element={<MyPage />}>
+        <Route path="favorites" element={<FavoritesComponents />} />
+        <Route path="change" element={<MyInforChangeComponents />} />
+      </Route>
+
       <Route path="/survey" element={<SurveyPage />} />
       <Route path="/findpw" element={<FindPWPage />} />
       <Route path="/findid" element={<FindIDPage />} />

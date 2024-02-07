@@ -2,15 +2,19 @@ const MealComponent = ({
   food,
   openModal,
 }: {
-  food: { foodName: string; imageURL: string };
-  openModal: (food: { foodName: string; imageURL: string }) => void;
+  food: { mainDish: string; imageURL: string; meals: string };
+  openModal: (food: {
+    mainDish: string;
+    imageURL: string;
+    meals: string;
+  }) => void;
 }) => {
   return (
     <div className="Meal_components" onClick={() => openModal(food)}>
       <div className="Meal_components_img">
         <img src={food.imageURL} />
       </div>
-      <p className="Meal_components_text">{food.foodName}</p>
+      <p className="Meal_components_text">{food.mainDish}</p>
     </div>
   );
 };

@@ -1,0 +1,158 @@
+html,
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@main-color: #163d26;
+
+.MyInforPage {
+  width: 100vw;
+  height: 100vh;
+
+  header {
+    height: 5%;
+    width: 100%;
+    display: flex;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: @main-color;
+    }
+  }
+  .MyInforContainer {
+    width: 100%;
+    height: 100%;
+
+    padding: 2vw;
+    .MyInforContainer2 {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      border: 1px solid #ccc;
+      border-radius: 3vw;
+      .LeftContainer {
+        width: 24%;
+        height: 100%;
+        border-right: 1px solid #ccc;
+
+        border-top-left-radius: 3vw;
+        border-bottom-left-radius: 3vw;
+        .MyInforBox {
+          display: flex;
+          flex-direction: column;
+          padding: 0 5vw;
+          width: 100%;
+          height: 30%;
+
+          .imageBox {
+            width: 100%;
+            height: 70%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            div {
+              width: 100px;
+              height: 100px;
+              border: 1px solid #000;
+              border-radius: 50%;
+              img {
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                border-radius: 50%;
+              }
+            }
+          }
+          .nameBox {
+            width: 100%;
+            height: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        .listBox {
+          width: 100%;
+          height: 70%;
+
+          .listItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 10%;
+            border-bottom: 1px solid #ccc;
+            font-weight: bold;
+            &:nth-child(1) {
+              border-top: 1px solid #ccc;
+            }
+          }
+        }
+      }
+      .RightContainer {
+        width: 76%;
+        height: 100%;
+
+        border-top-right-radius: 3vw;
+        border-bottom-right-radius: 3vw;
+        .title {
+          width: 100%;
+          height: 10%;
+          font-size: 1.5rem;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          margin-left: 1vw;
+        }
+        .Container2 {
+          width: 100%;
+          height: 90%;
+
+          padding: 1vw 3vw;
+          overflow-y: scroll;
+
+          .MyInforBox,
+          .MySurveyBox {
+            width: 100%;
+            height: 50%;
+            .InforList {
+              margin-top: 0.5vw;
+              margin-bottom: 0.5vw;
+              width: 100%;
+              height: 15%;
+              border: 1px solid #ccc;
+              display: flex;
+              .titleText {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: bold;
+                width: 20%;
+                height: 100%;
+                background-color: blue;
+              }
+              .Text {
+                display: flex;
+                align-items: center;
+                font-weight: bold;
+                width: 80%;
+                height: 100%;
+                background-color: aqua;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

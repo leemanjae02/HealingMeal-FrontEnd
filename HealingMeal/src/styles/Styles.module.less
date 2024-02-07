@@ -33,11 +33,70 @@
           line-height: 2.5vh;
         }
       }
+      .Survey_Result {
+        width: 100%;
+        height: 90%;
+        padding: 2vw 4vw 0 4vw;
+
+        .SurveyResult_Chart {
+          box-sizing: border-box;
+          width: 100%;
+          height: 60%;
+          border: 1px solid #ccc;
+        }
+        .SurveyResult_infor {
+          width: 100%;
+          height: 40%;
+
+          .SurveyResult_box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 60%;
+
+            .SurveyResult_icon {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .mini_icon {
+                margin-left: 1.5vw;
+                margin-right: 1.5vw;
+                display: flex;
+                flex-direction: column;
+
+                img {
+                  width: 30px;
+                  height: 30px;
+                  background-size: cover;
+                }
+                .icon_name,
+                .icon_text {
+                  color: #ccc;
+                  margin-top: 0.3vw;
+                }
+              }
+            }
+          }
+          .SurveyResult_box2 {
+            width: 100%;
+            height: 40%;
+            p {
+              color: #ccc;
+              span {
+                color: #ff8080;
+              }
+            }
+          }
+        }
+      }
+
       .Survey_container {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100;
+        width: 100%;
         height: 90%;
         .Survey2_box {
           width: 80%;
@@ -283,6 +342,28 @@
       cursor: not-allowed;
     }
   }
+  .Home_btn {
+    width: 10vw;
+    height: 100%;
+    border-radius: 1vw;
+    border: 1px solid #ccc;
+    &:hover {
+      cursor: pointer;
+      background-color: #163d26;
+      color: #fff;
+    }
+  }
+  .Result_btn {
+    width: 7vw;
+    height: 100%;
+    border-radius: 1vw;
+    border: 1px solid #ccc;
+    &:hover {
+      cursor: pointer;
+      background-color: #163d26;
+      color: #fff;
+    }
+  }
 }
 .Survey4_Container {
   width: 100%;
@@ -509,4 +590,9 @@
       }
     }
   }
+}
+
+.svg {
+  width: 500px;
+  height: 500px;
 }
