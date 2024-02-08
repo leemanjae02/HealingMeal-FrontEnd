@@ -1,25 +1,28 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/MainPage.less";
 import { useNavigate } from "react-router-dom";
 import CustomAxios from "../api/Axios";
-import { UserContext } from "../api/ContextAPI";
 import MealComponent from "../components/MealInfor";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.less";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import PieChartComponents from "../components/PieChart";
+import AuthStore from "../stores/AuthStore";
+import { observer } from "mobx-react";
+// import { action } from "mobx";
 
 document.addEventListener("DOMContentLoaded", function () {
   AOS.init();
   AOS.refresh();
 });
-
-const MainPage = () => {
+const MainPage = observer(() => {
   const navigate = useNavigate();
-  const [loginCheck, setLoginCheck] = useState<boolean>(false);
-  const { userName, setUserName } = useContext(UserContext);
+  // const [loginCheck, setLoginCheck] = useState<boolean>(false);
+  // const [userName, setUserName] = useState<string | null>(null);
+  const { isLoggedIn, userName } = AuthStore;
   const [loding, setLoding] = useState<boolean>(false);
+  const [checkMealResult, setCheckMealResult] = useState<boolean>(false);
   const [checkSurveyResult, setCheckSurveyResult] = useState<boolean>(false);
   const [mealAiText, setMealAiText] = useState<{
     breakfastAi: string;
@@ -119,230 +122,274 @@ const MainPage = () => {
   });
 
   useEffect(() => {
-    const UserID = window.sessionStorage.getItem("userID");
-    const isLoginCheck = async () => {
+    const loginCheck = async () => {
       try {
-        const response = await CustomAxios.get("/user/confirm", {
-          withCredentials: true,
-        });
-        if (response.status === 200) {
-          setUserName(response.data);
-          console.log(response.data);
-          setLoginCheck(true);
+        await AuthStore.checkLoginStatus();
+        if (AuthStore.isLoggedIn) {
+          console.log(
+            AuthStore.isLoggedIn,
+            AuthStore.userID,
+            AuthStore.userName
+          );
           await checkSurvey();
         }
       } catch (error) {
-        setUserName("OOO");
         console.log(error);
       }
     };
-    const checkSurvey = async () => {
-      try {
-        const response = await CustomAxios.get(UserID + "/checkingSurvey", {
+
+    loginCheck();
+  }, [AuthStore.isLoggedIn]);
+
+  const checkSurvey = async () => {
+    try {
+      const response = await CustomAxios.get(
+        AuthStore.userID + "/checkingSurvey",
+        {
           withCredentials: true,
-        });
-        if (response.data.includes("설문 내용 있음.")) {
-          setCheckSurveyResult(true);
-          await generate();
-        } else {
-          // 설문 내용이 없는 경우
-          console.log("설문 내용 없음");
         }
-      } catch (error) {
-        console.log(error);
+      );
+      if (response.data === "설문 내용 있음.") {
+        console.log(response.data);
+        setCheckSurveyResult(true);
+        await checkMeal();
+      } else {
+        // 설문 내용이 없는 경우
+        console.log("설문 내용 없음");
       }
-    };
-    const generate = async () => {
-      try {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const checkMeal = async () => {
+    try {
+      const response = await CustomAxios.get(AuthStore.userID + "/check", {
+        withCredentials: true,
+      });
+      if (response.data === true) {
+        setCheckMealResult(true);
+        console.log("식단생성됨", response.data);
         setLoding(true);
-        const response = await CustomAxios.post(UserID + "/generate", {
-          withCredentials: true,
-        });
-        if (response.status === 200) {
-          console.log("식단생성 성공");
-          await Promise.all([
-            getBreakfast(),
-            getLunch(),
-            getDinner(),
-            getBreakfastSnack(),
-            getLunchSnack(),
-          ]);
-          setLoding(false);
-          await getMealAiText();
-        }
-      } catch (error) {
-        console.log(error);
+        await Promise.all([
+          getBreakfast(),
+          getLunch(),
+          getDinner(),
+          getBreakfastSnack(),
+          getLunchSnack(),
+          getMealAiText(),
+        ]);
+        setLoding(false);
+      } else if (checkMealResult === false) {
+        generate();
       }
-    };
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    const getBreakfast = async () => {
-      try {
-        const response = await CustomAxios.get(UserID + "/provide/breakfast", {
-          withCredentials: true,
-        });
-        if (response.status === 200) {
-          setBreakfastInfor({
-            mainDish: response.data.main_dish,
-            imageURL: response.data.imageURL,
-            rice: response.data.rice,
-            meals: response.data.meals,
-            sideDish: response.data.sideDishForUserMenu,
-            kcal: response.data.kcal,
-            protein: response.data.protein,
-            carbohydrate: response.data.carbohydrate,
-            fat: response.data.fat,
-          });
-          console.log("아침식단 생성 성공", response.data);
-        }
-      } catch (error) {
-        console.log("아침식단 오류", error);
-      }
-    };
-    const getMealAiText = async () => {
-      try {
-        const [BreakfastAi, BreakfastSnackAi, LunchAi, LunchSnackAi, DinnerAi] =
-          await Promise.all([
-            CustomAxios.get(UserID + "/ai/breakfast"),
-            CustomAxios.get(UserID + "/ai/breakfast-snack-or-tea"),
-            CustomAxios.get(UserID + "/ai/lunch"),
-            CustomAxios.get(UserID + "/ai/lunch-snack-or-tea"),
-            CustomAxios.get(UserID + "/ai/dinner", { withCredentials: true }),
-          ]);
-        if (BreakfastAi.status !== 200) {
-          console.error("BreakfastAi API 호출 실패:", BreakfastAi.data);
-        }
-        if (BreakfastSnackAi.status !== 200) {
-          console.error(
-            "BreakfastSnackAi API 호출 실패:",
-            BreakfastSnackAi.data
-          );
-        }
-        if (LunchAi.status !== 200) {
-          console.error("LunchAi API 호출 실패:", LunchAi.data);
-        }
-        if (LunchSnackAi.status !== 200) {
-          console.error("LunchSnackAi API 호출 실패:", LunchSnackAi.data);
-        }
-        if (DinnerAi.status !== 200) {
-          console.error("DinnerAi API 호출 실패:", DinnerAi.data);
-        }
+  // useEffect(() => {
+  //   if (checkMealResult === false) {
+  //     checkMeal();
+  //   }
+  // }, [checkMealResult]);
 
-        if (
-          BreakfastAi.status === 200 &&
-          BreakfastSnackAi.status === 200 &&
-          LunchAi.status === 200 &&
-          LunchSnackAi.status === 200 &&
-          DinnerAi.status === 200
-        ) {
-          setMealAiText({
-            breakfastAi: BreakfastAi.data.answer,
-            breakfastSnackAi: BreakfastSnackAi.data.answer,
-            lunchAi: LunchAi.data.answer,
-            lunchSnackAi: LunchSnackAi.data.answer,
-            dinnerAi: DinnerAi.data.answer,
-          });
-        }
-      } catch (error) {
-        console.log("한 개 이상의 API 통신 에러", error);
+  const generate = async () => {
+    try {
+      setLoding(true);
+      const response = await CustomAxios.post(AuthStore.userID + "/generate", {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        console.log("식단생성 성공");
+        await Promise.all([
+          getBreakfast(),
+          getLunch(),
+          getDinner(),
+          getBreakfastSnack(),
+          getLunchSnack(),
+          getMealAiText(),
+        ]);
+        setLoding(false);
       }
-    };
-    const getLunch = async () => {
-      try {
-        const response = await CustomAxios.get(UserID + "/provide/lunch", {
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getBreakfast = async () => {
+    try {
+      const response = await CustomAxios.get(
+        AuthStore.userID + "/provide/breakfast",
+        {
           withCredentials: true,
-        });
-        if (response.status === 200) {
-          setLunchInfor({
-            mainDish: response.data.main_dish,
-            imageURL: response.data.imageURL,
-            rice: response.data.rice,
-            meals: response.data.meals,
-            sideDish: response.data.sideDishForUserMenu,
-            kcal: response.data.kcal,
-            protein: response.data.protein,
-            carbohydrate: response.data.carbohydrate,
-            fat: response.data.fat,
-          });
-          console.log("점심식단 성공", response.data);
         }
-      } catch (error) {
-        console.log("점심식단 오류", error);
-      }
-    };
-    const getDinner = async () => {
-      try {
-        const response = await CustomAxios.get(UserID + "/provide/dinner", {
-          withCredentials: true,
+      );
+      if (response.status === 200) {
+        setBreakfastInfor({
+          mainDish: response.data.main_dish,
+          imageURL: response.data.imageURL,
+          rice: response.data.rice,
+          meals: response.data.meals,
+          sideDish: response.data.sideDishForUserMenu,
+          kcal: response.data.kcal,
+          protein: response.data.protein,
+          carbohydrate: response.data.carbohydrate,
+          fat: response.data.fat,
         });
-        if (response.status === 200) {
-          setDinnerInfor({
-            mainDish: response.data.main_dish,
-            imageURL: response.data.imageURL,
-            rice: response.data.rice,
-            meals: response.data.meals,
-            sideDish: response.data.sideDishForUserMenu,
-            kcal: response.data.kcal,
-            protein: response.data.protein,
-            carbohydrate: response.data.carbohydrate,
-            fat: response.data.fat,
-          });
-          console.log("저녁식단 성공", response.data);
-        }
-      } catch (error) {
-        console.log("저녁식단 오류", error);
+        console.log("아침식단 생성 성공", response.data);
       }
-    };
-    const getBreakfastSnack = async () => {
-      try {
-        const response = await CustomAxios.get(
-          UserID + "/provide/breakfast-snack-or-tea",
-          {
+    } catch (error) {
+      console.log("아침식단 오류", error);
+    }
+  };
+  const getMealAiText = async () => {
+    try {
+      const [BreakfastAi, BreakfastSnackAi, LunchAi, LunchSnackAi, DinnerAi] =
+        await Promise.all([
+          CustomAxios.get(AuthStore.userID + "/ai/breakfast"),
+          CustomAxios.get(AuthStore.userID + "/ai/breakfast-snack-or-tea"),
+          CustomAxios.get(AuthStore.userID + "/ai/lunch"),
+          CustomAxios.get(AuthStore.userID + "/ai/lunch-snack-or-tea"),
+          CustomAxios.get(AuthStore.userID + "/ai/dinner", {
             withCredentials: true,
-          }
-        );
-        if (response.status === 200) {
-          setBreakfastSnack({
-            snack_or_tea: response.data.snack_or_tea,
-            imageURL: response.data.imageURL,
-            meals: response.data.meals,
-            kcal: response.data.kcal,
-            protein: response.data.protein,
-            carbohydrate: response.data.carbohydrate,
-            fat: response.data.fat,
-          });
-          console.log("아점간식식단 성공", response.data);
-        }
-      } catch (error) {
-        console.log("아점간식식단 오류", error);
+          }),
+        ]);
+      if (BreakfastAi.status !== 200) {
+        console.error("BreakfastAi API 호출 실패:", BreakfastAi.data);
       }
-    };
-    const getLunchSnack = async () => {
-      try {
-        const response = await CustomAxios.get(
-          UserID + "/provide/lunch-snack-or-tea",
-          {
-            withCredentials: true,
-          }
-        );
-        if (response.status === 200) {
-          setLunchSnack({
-            snack_or_tea: response.data.snack_or_tea,
-            imageURL: response.data.imageURL,
-            meals: response.data.meals,
-            kcal: response.data.kcal,
-            protein: response.data.protein,
-            carbohydrate: response.data.carbohydrate,
-            fat: response.data.fat,
-          });
-          console.log("점저간식식단 성공", response.data);
-        }
-      } catch (error) {
-        console.log("점저간식식단 오류", error);
+      if (BreakfastSnackAi.status !== 200) {
+        console.error("BreakfastSnackAi API 호출 실패:", BreakfastSnackAi.data);
       }
-    };
+      if (LunchAi.status !== 200) {
+        console.error("LunchAi API 호출 실패:", LunchAi.data);
+      }
+      if (LunchSnackAi.status !== 200) {
+        console.error("LunchSnackAi API 호출 실패:", LunchSnackAi.data);
+      }
+      if (DinnerAi.status !== 200) {
+        console.error("DinnerAi API 호출 실패:", DinnerAi.data);
+      }
 
-    isLoginCheck();
-  }, []);
+      if (
+        BreakfastAi.status === 200 &&
+        BreakfastSnackAi.status === 200 &&
+        LunchAi.status === 200 &&
+        LunchSnackAi.status === 200 &&
+        DinnerAi.status === 200
+      ) {
+        setMealAiText({
+          breakfastAi: BreakfastAi.data.answer,
+          breakfastSnackAi: BreakfastSnackAi.data.answer,
+          lunchAi: LunchAi.data.answer,
+          lunchSnackAi: LunchSnackAi.data.answer,
+          dinnerAi: DinnerAi.data.answer,
+        });
+      }
+    } catch (error) {
+      console.log("한 개 이상의 API 통신 에러", error);
+    }
+  };
+  const getLunch = async () => {
+    try {
+      const response = await CustomAxios.get(
+        AuthStore.userID + "/provide/lunch",
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        setLunchInfor({
+          mainDish: response.data.main_dish,
+          imageURL: response.data.imageURL,
+          rice: response.data.rice,
+          meals: response.data.meals,
+          sideDish: response.data.sideDishForUserMenu,
+          kcal: response.data.kcal,
+          protein: response.data.protein,
+          carbohydrate: response.data.carbohydrate,
+          fat: response.data.fat,
+        });
+        console.log("점심식단 성공", response.data);
+      }
+    } catch (error) {
+      console.log("점심식단 오류", error);
+    }
+  };
+  const getDinner = async () => {
+    try {
+      const response = await CustomAxios.get(
+        AuthStore.userID + "/provide/dinner",
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        setDinnerInfor({
+          mainDish: response.data.main_dish,
+          imageURL: response.data.imageURL,
+          rice: response.data.rice,
+          meals: response.data.meals,
+          sideDish: response.data.sideDishForUserMenu,
+          kcal: response.data.kcal,
+          protein: response.data.protein,
+          carbohydrate: response.data.carbohydrate,
+          fat: response.data.fat,
+        });
+        console.log("저녁식단 성공", response.data);
+      }
+    } catch (error) {
+      console.log("저녁식단 오류", error);
+    }
+  };
+  const getBreakfastSnack = async () => {
+    try {
+      const response = await CustomAxios.get(
+        AuthStore.userID + "/provide/breakfast-snack-or-tea",
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        setBreakfastSnack({
+          snack_or_tea: response.data.snack_or_tea,
+          imageURL: response.data.imageURL,
+          meals: response.data.meals,
+          kcal: response.data.kcal,
+          protein: response.data.protein,
+          carbohydrate: response.data.carbohydrate,
+          fat: response.data.fat,
+        });
+        console.log("아점간식식단 성공", response.data);
+      }
+    } catch (error) {
+      console.log("아점간식식단 오류", error);
+    }
+  };
+  const getLunchSnack = async () => {
+    try {
+      const response = await CustomAxios.get(
+        AuthStore.userID + "/provide/lunch-snack-or-tea",
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        setLunchSnack({
+          snack_or_tea: response.data.snack_or_tea,
+          imageURL: response.data.imageURL,
+          meals: response.data.meals,
+          kcal: response.data.kcal,
+          protein: response.data.protein,
+          carbohydrate: response.data.carbohydrate,
+          fat: response.data.fat,
+        });
+        console.log("점저간식식단 성공", response.data);
+      }
+    } catch (error) {
+      console.log("점저간식식단 오류", error);
+    }
+  };
 
   const clickLogin = () => {
     navigate("/login");
@@ -354,6 +401,10 @@ const MainPage = () => {
 
   const clickFavorites = () => {
     navigate("/mypage/favorites");
+  };
+
+  const clickMypage = () => {
+    navigate("/mypage");
   };
 
   const clickSignup = () => {
@@ -428,15 +479,9 @@ const MainPage = () => {
 
   const logout = async (): Promise<void> => {
     try {
-      const response = await CustomAxios.get("/user/logout", {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        setLoginCheck(false);
-        setUserName("OOO");
-      }
+      await AuthStore.logout();
     } catch (error) {
-      console.log(error);
+      console.log("메인페이지 로그아웃 호출 에러", error);
     }
   };
 
@@ -514,9 +559,12 @@ const MainPage = () => {
       <header>
         <p className="logo">Healing Meal</p>
         <div className="btn_Box">
-          {loginCheck ? (
+          {isLoggedIn ? (
             <>
-              <span className="user_name">{`${userName}님`}</span>
+              <span
+                className="user_name"
+                onClick={clickMypage}
+              >{`${userName}님`}</span>
               <button onClick={logout}>로그아웃</button>
             </>
           ) : (
@@ -534,7 +582,7 @@ const MainPage = () => {
             <img src="../../public/images/mainPageCover.jpg" />
             <p className="main_img_text">Welcome to healing meal</p>
             <div className="image_box_div">
-              {loginCheck ? (
+              {isLoggedIn ? (
                 <>
                   {checkSurveyResult ? (
                     <button className="Main_img_btn" onClick={clickFavorites}>
@@ -671,6 +719,6 @@ const MainPage = () => {
       </footer> */}
     </div>
   );
-};
+});
 
 export default MainPage;

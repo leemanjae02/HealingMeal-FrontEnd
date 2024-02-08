@@ -3,6 +3,7 @@ import CustomAxios from "../api/Axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BarChartComponents from "./BarChart";
+import AuthStore from "../stores/AuthStore";
 
 const SurveyResult = () => {
   const [kcal, setKcal] = useState<number>(0);
@@ -16,14 +17,16 @@ const SurveyResult = () => {
   };
   useEffect(() => {
     const SurveyResult = async () => {
-      const UserID = window.sessionStorage.getItem("userID");
       try {
-        const response = await CustomAxios.get(UserID + "/surveyResult", {
-          withCredentials: true,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await CustomAxios.get(
+          AuthStore.userID + "/surveyResult",
+          {
+            withCredentials: true,
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (response.status === 200) {
           console.log(response.data);
           setKcal(response.data.kcal);

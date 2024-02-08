@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "../styles/Styles.module.less";
 import { useForm } from "../hooks/useForm";
 import CustomAxios from "../api/Axios";
+import AuthStore from "../stores/AuthStore";
 
 interface Survey4Props {
   setKcal: (kcal: number) => void;
@@ -125,7 +126,6 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
     }
   };
   const PostSurvey4 = async () => {
-    const UserID = window.sessionStorage.getItem("userID");
     const Survey4Data = {
       age: age,
       diabetesType: diabetestype,
@@ -139,12 +139,16 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
       weightLevel: weightLevel,
     };
     try {
-      const response = await CustomAxios.post(UserID + "/survey", Survey4Data, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await CustomAxios.post(
+        AuthStore.userID + "/survey",
+        Survey4Data,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.status === 200) {
         console.log("surveyid", response.data);
         window.sessionStorage.setItem("surveyID", response.data);

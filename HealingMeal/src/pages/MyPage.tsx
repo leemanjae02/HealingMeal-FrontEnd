@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../styles/Myinfor.module.less";
 import MyInforComponents from "../components/MyInforComponents";
 import FavoritesComponents from "../components/FavoritesComponents";
-import MyInforChangeComponents from "../components/MyInforChange";
+import MyInforChangeComponents from "../components/MyInforChangeComponents";
 import CustomAxios from "../api/Axios";
+import PasswordCheckModal from "../components/PasswordCheckModal";
+import AuthStore from "../stores/AuthStore";
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { userName } = AuthStore;
   const [selectedTab, setSelectedTab] = useState("mypage");
+  const [passwordCheckModal, setPasswordCheckModal] = useState<boolean>(false);
+  const [checkPassword, setCheckPassword] = useState<string>("");
+  const [checkPasswordMSG, setCheckPasswordMSG] = useState<string>("");
   const [myData, setMyData] = useState<{
     loginID: string;
     name: string;
@@ -32,23 +39,71 @@ const MyPage = () => {
     beveragesAndTeas: string;
     dairyProducts: string;
   } | null>(null);
-
   const handleTabChange = (tab: any) => {
     setSelectedTab(tab);
     navigate(`/mypage/${tab}`);
+    if (tab === "change") {
+      setPasswordCheckModal(true);
+    }
   };
+  useEffect(() => {
+    const getPassword = async () => {
+      try {
+        const response = await CustomAxios.post(
+          AuthStore.userID + "/check/password",
+          {
+            password: checkPassword,
+            withCredentials: true,
+          }
+        );
+        if (response.status === 200) {
+          console.log("비밀번호 확인 완료", response.data);
+          openMyInfoChange();
+        }
+      } catch (error) {
+        console.log(error);
+        setCheckPasswordMSG("비밀번호를 다시 확인해주세요.");
+      }
+    };
+
+    const timeoutId = setTimeout(() => {
+      if (selectedTab === "change") {
+        getPassword();
+      }
+    }, 1000); //1초 딜레이
+    return () => clearTimeout(timeoutId);
+  }, [checkPassword, selectedTab]);
+  const openMyInfoChange = () => {
+    setPasswordCheckModal(false);
+  };
+
+  const closePasswordCheckModal = () => {
+    setPasswordCheckModal(false);
+  };
+
   const handleMyInfor = () => {
     setSelectedTab("");
     navigate("/mypage");
   };
 
   useEffect(() => {
-    const UserID = window.sessionStorage.getItem("userID");
+    const path = location.pathname;
+    if (path.includes("/mypage/change")) {
+      setSelectedTab("change");
+    } else if (path.includes("/mypage/favorites")) {
+      setSelectedTab("favorites");
+    } else {
+      setSelectedTab("");
+    }
+
     const getMyData = async () => {
       try {
-        const response = await CustomAxios.get(UserID + "/totalData", {
-          withCredentials: true,
-        });
+        const response = await CustomAxios.get(
+          AuthStore.userID + "/totalData",
+          {
+            withCredentials: true,
+          }
+        );
         if (response.status === 200) {
           setMyData({
             loginID: response.data.loginId,
@@ -82,12 +137,16 @@ const MyPage = () => {
     };
     getMyData();
   }, []);
-
+  const clickHome = () => {
+    navigate("/");
+  };
   return (
     <div className={styles.MyInforPage}>
-      <header>
-        <p className={styles.logo}>Healing Meal</p>
-      </header>
+      {/* <header>
+        <p className={styles.logo} onClick={clickHome}>
+          Healing Meal
+        </p>
+      </header> */}
       <div className={styles.MyInforContainer}>
         <div className={styles.MyInforContainer2}>
           <div className={styles.LeftContainer}>
@@ -98,7 +157,8 @@ const MyPage = () => {
                 </div>
               </div>
               <div className={styles.nameBox}>
-                <strong>{`${myData?.name || "000"}님`} </strong>&nbsp;환영합니다
+                <strong>{`${userName || "000"}님`} </strong>
+                &nbsp;환영합니다
               </div>
             </div>
             <div className={styles.listBox}>
@@ -118,108 +178,51 @@ const MyPage = () => {
                 즐겨찾기
               </div>
             </div>
+            <div className={styles.listBox2}>1</div>
           </div>
-          <div className={styles.RightContainer}>
-            <p className={styles.title}>내 정보</p>
-            <div className={styles.Container2}>
-              <div className={styles.MyInforBox}>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>이름 </div>
-                  <div className={styles.Text}>{myData?.name}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>성별 </div>
-                  <div className={styles.Text}>{gender}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>생년월일 </div>
-                  <div className={styles.Text}>{birthDate}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>전화번호 </div>
-                  <div className={styles.Text}>{phoneNumber}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>아이디 </div>
-                  <div className={styles.Text}>{loginID}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>이메일 </div>
-                  <div className={styles.Text}>{email}</div>
-                </div>
-              </div>
-              <div className={styles.MySurveyBox}>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>연령대 </div>
-                  <div className={styles.Text}>{age}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>당뇨유형</div>
-                  <div className={styles.Text}>{diabetesType}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>운동유형</div>
-                  <div className={styles.Text}>{numberOfExercises}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>키 </div>
-                  <div className={styles.Text}>{height}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>체중 </div>
-                  <div className={styles.Text}>{weight}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>성별 </div>
-                  <div className={styles.Text}>{gender}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>찌개 밎 전골류 </div>
-                  <div className={styles.Text}>{stewsAndHotpots}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>조림류 </div>
-                  <div className={styles.Text}>{stewedFood}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>볶음류 </div>
-                  <div className={styles.Text}>{stirFriedFood}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>구이류 </div>
-                  <div className={styles.Text}>{grilledFood}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>나물류 </div>
-                  <div className={styles.Text}>{vegetableFood}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>찜류 </div>
-                  <div className={styles.Text}>{steamedFood}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>부침류 </div>
-                  <div className={styles.Text}>{pancakeFood}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>빵 밎 과자류 </div>
-                  <div className={styles.Text}>{breadAndConfectionery}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>음료 밎 차류 </div>
-                  <div className={styles.Text}>{beveragesAndTeas}</div>
-                </div>
-                <div className={styles.InforList}>
-                  <div className={styles.titleText}>유제품류 </div>
-                  <div className={styles.Text}>{dairyProducts}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+          {selectedTab === "change" && (
+            <>
+              {passwordCheckModal ? (
+                <PasswordCheckModal
+                  setCheckPassword={setCheckPassword}
+                  checkPasswordMSG={checkPasswordMSG}
+                  onClose={closePasswordCheckModal}
+                />
+              ) : (
+                <MyInforChangeComponents />
+              )}
+            </>
+          )}
+          {selectedTab === "favorites" && <FavoritesComponents />}
+          {selectedTab !== "change" && selectedTab !== "favorites" && (
+            <MyInforComponents
+              loginID={myData?.loginID || ""}
+              name={myData?.name || ""}
+              email={myData?.email || ""}
+              birthDate={myData?.birthDate || 0}
+              phoneNumber={myData?.phoneNumber || 0}
+              gender={myData?.gender || ""}
+              diabetesType={myData?.diabetesType || 0}
+              age={myData?.age || ""}
+              numberOfExercises={myData?.numberOfExercises || 0}
+              height={myData?.height || 0}
+              weight={myData?.weight || 0}
+              stewsAndHotpots={myData?.stewsAndHotpots || ""}
+              stewedFood={myData?.stewedFood || ""}
+              stirFriedFood={myData?.stirFriedFood || ""}
+              grilledFood={myData?.grilledFood || ""}
+              vegetableFood={myData?.vegetableFood || ""}
+              steamedFood={myData?.steamedFood || ""}
+              pancakeFood={myData?.pancakeFood || ""}
+              breadAndConfectionery={myData?.breadAndConfectionery || ""}
+              beveragesAndTeas={myData?.beveragesAndTeas || ""}
+              dairyProducts={myData?.dairyProducts || ""}
+            />
+          )}
         </div>
       </div>
     </div>
   );
 };
-
 export default MyPage;

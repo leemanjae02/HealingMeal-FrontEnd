@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../styles/Myinfor.module.less";
+import { useState } from "react";
 
 interface MyInforProps {
   loginID: string;
@@ -47,18 +48,58 @@ const MyInforComponents: React.FunctionComponent<MyInforProps> = ({
   beveragesAndTeas,
   dairyProducts,
 }) => {
+  const [genderChange, setGenderChange] = useState<string>("");
+  const [diabetesTypeChange, setDiabetesTypeChange] = useState<string>("");
+  const [numberOfExercisesChange, setNumberOfExercisesChange] =
+    useState<string>("");
+  useEffect(() => {
+    const changeInfor = () => {
+      const chageGender = () => {
+        if (gender === "MALE") {
+          setGenderChange("남자");
+        } else if (gender === "FEMALE") {
+          setGenderChange("여자");
+        } else {
+          setGenderChange("");
+        }
+      };
+      const changeDiabetesType = () => {
+        if (diabetesType === 1) {
+          setDiabetesTypeChange("제 2형 당뇨병");
+        }
+      };
+      const changeExerciseType = () => {
+        if (numberOfExercises === 1) {
+          setNumberOfExercisesChange("주 0~2회");
+        } else if (numberOfExercises === 2) {
+          setNumberOfExercisesChange("주 3~4회");
+        } else if (numberOfExercises === 3) {
+          setNumberOfExercisesChange("주 5~7회");
+        } else {
+          setNumberOfExercisesChange("");
+        }
+      };
+      chageGender();
+      changeDiabetesType();
+      changeExerciseType();
+    };
+
+    changeInfor();
+  }, [gender, diabetesType, numberOfExercises]);
+
   return (
     <div className={styles.RightContainer}>
       <p className={styles.title}>내 정보</p>
       <div className={styles.Container2}>
         <div className={styles.MyInforBox}>
+          <p className={styles.InforTitle}>회원가입 정보</p>
           <div className={styles.InforList}>
             <div className={styles.titleText}>이름 </div>
             <div className={styles.Text}>{name}</div>
           </div>
           <div className={styles.InforList}>
             <div className={styles.titleText}>성별 </div>
-            <div className={styles.Text}>{gender}</div>
+            <div className={styles.Text}>{genderChange}</div>
           </div>
           <div className={styles.InforList}>
             <div className={styles.titleText}>생년월일 </div>
@@ -78,17 +119,18 @@ const MyInforComponents: React.FunctionComponent<MyInforProps> = ({
           </div>
         </div>
         <div className={styles.MySurveyBox}>
+          <p className={styles.InforTitle}>설문조사 정보</p>
           <div className={styles.InforList}>
             <div className={styles.titleText}>연령대 </div>
             <div className={styles.Text}>{age}</div>
           </div>
           <div className={styles.InforList}>
             <div className={styles.titleText}>당뇨유형</div>
-            <div className={styles.Text}>{diabetesType}</div>
+            <div className={styles.Text}>{diabetesTypeChange}</div>
           </div>
           <div className={styles.InforList}>
             <div className={styles.titleText}>운동유형</div>
-            <div className={styles.Text}>{numberOfExercises}</div>
+            <div className={styles.Text}>{numberOfExercisesChange}</div>
           </div>
           <div className={styles.InforList}>
             <div className={styles.titleText}>키 </div>
@@ -100,7 +142,7 @@ const MyInforComponents: React.FunctionComponent<MyInforProps> = ({
           </div>
           <div className={styles.InforList}>
             <div className={styles.titleText}>성별 </div>
-            <div className={styles.Text}>{gender}</div>
+            <div className={styles.Text}>{genderChange}</div>
           </div>
           <div className={styles.InforList}>
             <div className={styles.titleText}>찌개 밎 전골류 </div>

@@ -7,7 +7,7 @@ import FindPWPage from "./pages/FindPW";
 import SurveyPage from "./pages/SurveyPage";
 import MyPage from "./pages/MyPage";
 import FavoritesComponents from "./components/FavoritesComponents";
-import MyInforChangeComponents from "./components/MyInforChange";
+import MyInforChangeComponents from "./components/MyInforChangeComponents";
 
 function App() {
   return (

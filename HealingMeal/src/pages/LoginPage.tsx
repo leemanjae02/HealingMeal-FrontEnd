@@ -28,7 +28,6 @@ const LoginPage = () => {
         if (response.status === 200) {
           navigate("/");
           console.log("로그인 성공!");
-          window.sessionStorage.setItem("userID", response.data);
         }
       } catch (error) {
         console.log(error);
