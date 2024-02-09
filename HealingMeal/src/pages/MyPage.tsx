@@ -7,11 +7,12 @@ import MyInforChangeComponents from "../components/MyInforChangeComponents";
 import CustomAxios from "../api/Axios";
 import PasswordCheckModal from "../components/PasswordCheckModal";
 import AuthStore from "../stores/AuthStore";
+import { observer } from "mobx-react";
 
-const MyPage = () => {
+const MyPage = observer(() => {
   const navigate = useNavigate();
+  const { isLoggedIn, userName } = AuthStore;
   const location = useLocation();
-  const { userName } = AuthStore;
   const [selectedTab, setSelectedTab] = useState("mypage");
   const [passwordCheckModal, setPasswordCheckModal] = useState<boolean>(false);
   const [checkPassword, setCheckPassword] = useState<string>("");
@@ -39,13 +40,46 @@ const MyPage = () => {
     beveragesAndTeas: string;
     dairyProducts: string;
   } | null>(null);
+
+  useEffect(() => {
+    const loginCheck = async () => {
+      try {
+        await AuthStore.checkLoginStatus();
+        if (AuthStore.isLoggedIn) {
+          console.log(
+            AuthStore.isLoggedIn,
+            AuthStore.userID,
+            AuthStore.userName
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loginCheck();
+  }, [AuthStore.isLoggedIn]);
+
+  useEffect(() => {});
+
   const handleTabChange = (tab: any) => {
     setSelectedTab(tab);
     navigate(`/mypage/${tab}`);
     if (tab === "change") {
       setPasswordCheckModal(true);
+      window.sessionStorage.setItem("passwordCheckModal", JSON.stringify(true));
     }
   };
+
+  console.log(selectedTab);
+
+  useEffect(() => {
+    const savePasswordCheckModal =
+      window.sessionStorage.getItem("passwordCheckModal");
+    if (savePasswordCheckModal) {
+      setPasswordCheckModal(JSON.parse(savePasswordCheckModal));
+    }
+  }, []);
   useEffect(() => {
     const getPassword = async () => {
       try {
@@ -75,10 +109,12 @@ const MyPage = () => {
   }, [checkPassword, selectedTab]);
   const openMyInfoChange = () => {
     setPasswordCheckModal(false);
+    window.sessionStorage.removeItem("passwordCheckModal");
   };
 
   const closePasswordCheckModal = () => {
     setPasswordCheckModal(false);
+    window.sessionStorage.removeItem("passwordCheckModal");
   };
 
   const handleMyInfor = () => {
@@ -136,9 +172,17 @@ const MyPage = () => {
       }
     };
     getMyData();
-  }, []);
+  }, [AuthStore.isLoggedIn]);
   const clickHome = () => {
     navigate("/");
+  };
+  const logout = async (): Promise<void> => {
+    try {
+      await AuthStore.logout();
+      navigate("/login");
+    } catch (error) {
+      console.log("마이페이지 로그아웃 호출 에러", error);
+    }
   };
   return (
     <div className={styles.MyInforPage}>
@@ -150,35 +194,70 @@ const MyPage = () => {
       <div className={styles.MyInforContainer}>
         <div className={styles.MyInforContainer2}>
           <div className={styles.LeftContainer}>
-            <div className={styles.MyInforBox}>
-              <div className={styles.imageBox}>
-                <div>
-                  <img src="../../public/images/userLogo.png" />
+            <div className={styles.header_logo}>
+              <p>Healing Meal</p>
+            </div>
+            <div className={styles.LeftContainer2}>
+              <div className={styles.MyInforBox}>
+                <div className={styles.imageBox}>
+                  <div>
+                    <img src="../../public/images/userLogo.png" />
+                  </div>
+                </div>
+                <div className={styles.nameBox}>
+                  <strong>{`${userName || "000"}님`} </strong>
+                  &nbsp;환영합니다
                 </div>
               </div>
-              <div className={styles.nameBox}>
-                <strong>{`${userName || "000"}님`} </strong>
-                &nbsp;환영합니다
+              <div className={styles.listBox}>
+                <div
+                  className={`${styles.listItem} ${
+                    selectedTab === "" ? styles.selected : ""
+                  }`}
+                  onClick={handleMyInfor}
+                >
+                  내정보
+                </div>
+                <div
+                  className={`${styles.listItem} ${
+                    selectedTab === "change" ? styles.selected : ""
+                  }`}
+                  onClick={() => handleTabChange("change")}
+                >
+                  내정보수정
+                </div>
+                <div
+                  className={`${styles.listItem} ${
+                    selectedTab === "favorites" ? styles.selected : ""
+                  }`}
+                  onClick={() => handleTabChange("favorites")}
+                >
+                  즐겨찾기
+                </div>
+              </div>
+              <div className={styles.listBox2}>
+                <div className={styles.listItem2}>
+                  오직 나를 위한 당뇨 맞춤식단
+                </div>
+                <div className={styles.listItem2}>
+                  <div className={styles.listItem2_footer}>
+                    <div>
+                      {isLoggedIn ? ( // 사용자한테는 로그인 상태 체크 후 동적으로 버튼이 바뀌는게 보여지지 않음
+                        <div>
+                          <button onClick={logout}>로그아웃</button>
+                        </div>
+                      ) : (
+                        <div>
+                          <button onClick={() => navigate("/login")}>
+                            로그인
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className={styles.listBox}>
-              <div className={styles.listItem} onClick={handleMyInfor}>
-                내 정보
-              </div>
-              <div
-                className={styles.listItem}
-                onClick={() => handleTabChange("change")}
-              >
-                내 정보 수정
-              </div>
-              <div
-                className={styles.listItem}
-                onClick={() => handleTabChange("favorites")}
-              >
-                즐겨찾기
-              </div>
-            </div>
-            <div className={styles.listBox2}>1</div>
           </div>
 
           {selectedTab === "change" && (
@@ -190,7 +269,7 @@ const MyPage = () => {
                   onClose={closePasswordCheckModal}
                 />
               ) : (
-                <MyInforChangeComponents />
+                <MyInforChangeComponents loginID={myData?.loginID || ""} />
               )}
             </>
           )}
@@ -224,5 +303,5 @@ const MyPage = () => {
       </div>
     </div>
   );
-};
+});
 export default MyPage;

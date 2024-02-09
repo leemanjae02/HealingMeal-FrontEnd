@@ -14,7 +14,7 @@ function App() {
     <Routes>
       <Route path="/mypage" element={<MyPage />}>
         <Route path="favorites" element={<FavoritesComponents />} />
-        <Route path="change" element={<MyInforChangeComponents />} />
+        <Route path="change" element={<MyInforChangeComponents loginID="" />} />
       </Route>
 
       <Route path="/survey" element={<SurveyPage />} />
