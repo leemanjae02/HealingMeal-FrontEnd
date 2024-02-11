@@ -206,7 +206,6 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       );
       if (response.status === 200) {
         console.log("survey5 post 응답", response.data);
-        window.sessionStorage.setItem("surveyID", response.data);
       }
     } catch (error) {
       console.log(error);

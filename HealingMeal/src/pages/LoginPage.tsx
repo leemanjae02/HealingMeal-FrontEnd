@@ -122,8 +122,6 @@ const LoginPage = () => {
         </div>
         <div className="Page2">
           <p className="Page2_textBox">
-            — CONTACT
-            <br />
             <strong>
               FIND YOUR
               <br />

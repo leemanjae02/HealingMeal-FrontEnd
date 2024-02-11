@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/Styles.module.less";
+import styles from "../styles/SelectedFood.module.less";
 
 interface SelectedFoodProps {
   categoryIndex: number;

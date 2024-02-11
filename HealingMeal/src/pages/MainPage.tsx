@@ -553,6 +553,20 @@ const MainPage = observer(() => {
         return meals;
     }
   };
+  console.log(selectedFood?.meals);
+  const clickFavoritesMeal = async () => {
+    try {
+      const response = await CustomAxios.post(AuthStore.userID + "/bookmark", {
+        meals: selectedFood?.meals,
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        console.log(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="MainPage_Container">
@@ -611,9 +625,9 @@ const MainPage = observer(() => {
               ) : (
                 <>
                   <Slider {...settings} className="custom-slick-slider">
-                    {foods.map((food, index) => (
+                    {foods.map((food, meal) => (
                       <MealComponent
-                        key={index}
+                        key={meal}
                         food={food}
                         openModal={() => openModal(food)}
                       />
@@ -705,7 +719,9 @@ const MainPage = observer(() => {
                 </div>
               </div>
               <div className="closePopUp">
-                <button className="favorites_btn">즐겨찾기</button>
+                <button className="favorites_btn" onClick={clickFavoritesMeal}>
+                  즐겨찾기
+                </button>
                 <button className="close_Btn" onClick={closeModal}>
                   X
                 </button>

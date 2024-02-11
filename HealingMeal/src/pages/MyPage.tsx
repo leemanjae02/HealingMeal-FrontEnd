@@ -21,8 +21,8 @@ const MyPage = observer(() => {
     loginID: string;
     name: string;
     email: string;
-    birthDate: number;
-    phoneNumber: number;
+    birthDate: string;
+    phoneNumber: string;
     gender: string;
     diabetesType: number;
     age: string;
@@ -80,33 +80,26 @@ const MyPage = observer(() => {
       setPasswordCheckModal(JSON.parse(savePasswordCheckModal));
     }
   }, []);
-  useEffect(() => {
-    const getPassword = async () => {
-      try {
-        const response = await CustomAxios.post(
-          AuthStore.userID + "/check/password",
-          {
-            password: checkPassword,
-            withCredentials: true,
-          }
-        );
-        if (response.status === 200) {
-          console.log("비밀번호 확인 완료", response.data);
-          openMyInfoChange();
-        }
-      } catch (error) {
-        console.log(error);
-        setCheckPasswordMSG("비밀번호를 다시 확인해주세요.");
-      }
-    };
 
-    const timeoutId = setTimeout(() => {
-      if (selectedTab === "change") {
-        getPassword();
+  const getPassword = async () => {
+    try {
+      const response = await CustomAxios.post(
+        AuthStore.userID + "/check/password",
+        {
+          password: checkPassword,
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        console.log("비밀번호 확인 완료", response.data);
+        openMyInfoChange();
       }
-    }, 1000); //1초 딜레이
-    return () => clearTimeout(timeoutId);
-  }, [checkPassword, selectedTab]);
+    } catch (error) {
+      console.log(error);
+      setCheckPasswordMSG("비밀번호를 다시 확인해주세요.");
+    }
+  };
+
   const openMyInfoChange = () => {
     setPasswordCheckModal(false);
     window.sessionStorage.removeItem("passwordCheckModal");
@@ -266,6 +259,7 @@ const MyPage = observer(() => {
                 <PasswordCheckModal
                   setCheckPassword={setCheckPassword}
                   checkPasswordMSG={checkPasswordMSG}
+                  getPassword={getPassword}
                   onClose={closePasswordCheckModal}
                 />
               ) : (
@@ -279,8 +273,8 @@ const MyPage = observer(() => {
               loginID={myData?.loginID || ""}
               name={myData?.name || ""}
               email={myData?.email || ""}
-              birthDate={myData?.birthDate || 0}
-              phoneNumber={myData?.phoneNumber || 0}
+              birthDate={myData?.birthDate || ""}
+              phoneNumber={myData?.phoneNumber || ""}
               gender={myData?.gender || ""}
               diabetesType={myData?.diabetesType || 0}
               age={myData?.age || ""}

@@ -6,8 +6,8 @@ interface MyInforProps {
   loginID: string;
   name: string;
   email: string;
-  birthDate: number;
-  phoneNumber: number;
+  birthDate: string;
+  phoneNumber: string;
   gender: string;
   diabetesType: number;
   age: string;
@@ -145,7 +145,7 @@ const MyInforComponents: React.FunctionComponent<MyInforProps> = ({
             <div className={styles.Text}>{genderChange}</div>
           </div>
           <div className={styles.InforList}>
-            <div className={styles.titleText}>찌개 밎 전골류 </div>
+            <div className={styles.titleText}>찌개류 </div>
             <div className={styles.Text}>{stewsAndHotpots}</div>
           </div>
           <div className={styles.InforList}>
@@ -173,11 +173,11 @@ const MyInforComponents: React.FunctionComponent<MyInforProps> = ({
             <div className={styles.Text}>{pancakeFood}</div>
           </div>
           <div className={styles.InforList}>
-            <div className={styles.titleText}>빵 밎 과자류 </div>
+            <div className={styles.titleText}>제과류 </div>
             <div className={styles.Text}>{breadAndConfectionery}</div>
           </div>
           <div className={styles.InforList}>
-            <div className={styles.titleText}>음료 밎 차류 </div>
+            <div className={styles.titleText}>음료류 </div>
             <div className={styles.Text}>{beveragesAndTeas}</div>
           </div>
           <div className={styles.InforList}>

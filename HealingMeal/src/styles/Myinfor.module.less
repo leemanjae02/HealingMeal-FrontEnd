@@ -12,7 +12,8 @@ body,
 .MyInforPage {
   width: 100vw;
   height: 100vh;
-
+  min-width: 1183px;
+  min-height: 824px;
   header {
     height: 5%;
     width: 100%;
@@ -159,14 +160,14 @@ body,
         .Container2 {
           width: 100%;
           height: 90%;
-
+          min-height: 741px;
           padding: 1vw 3vw;
           overflow-y: scroll;
 
           .MyInforBox,
           .MySurveyBox {
             width: 100%;
-            height: 50%;
+            height: auto;
             min-height: 50%;
 
             .InforTitle {
@@ -178,15 +179,20 @@ body,
               align-items: center;
             }
             .InforList {
-              margin-top: 0.5vw;
-              margin-bottom: 0.5vw;
+              box-sizing: border-box;
+              margin-top: 1.5vh;
+              margin-bottom: 1.5vh;
               width: 100%;
               height: auto;
+              min-height: 8%;
               border: 1px solid #ccc;
               display: flex;
               align-items: center;
               justify-content: center;
+
               .titleText {
+                box-sizing: border-box;
+                padding: 0.5vw;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -194,8 +200,10 @@ body,
                 font-weight: bold;
                 width: 20%;
                 height: 100%;
+                min-height: 30px;
                 border-right: 1px solid #ccc;
               }
+
               .Text {
                 padding: 0 1vw;
                 display: flex;
@@ -204,6 +212,7 @@ body,
                 margin-left: 1vw;
                 width: 80%;
                 height: 100%;
+
                 span {
                   font-size: 0.8rem;
                   color: red;
@@ -213,6 +222,81 @@ body,
                   width: 100%;
                   border: none;
                   outline: none;
+                }
+                .radioInput {
+                  width: auto;
+                }
+                label {
+                  display: inline-block;
+                  margin-right: 1vw;
+                }
+                .checkPassword_btn {
+                  width: 20%;
+                  height: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  button {
+                    width: 100%;
+                    height: 100%;
+                    border: 1px solid #ccc;
+                    border-radius: 1vw;
+                    &:hover {
+                      cursor: pointer;
+                      background-color: #009900;
+                      color: #fff;
+                    }
+                  }
+                }
+              }
+            }
+            .checkMSG {
+              font-size: 0.8rem;
+              color: red;
+            }
+            .changeJoin {
+              font-size: 0.8rem;
+              color: #009900;
+            }
+            .changeInfor {
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              button {
+                width: 8vw;
+                height: 3vh;
+                border: 1px solid #ccc;
+                border-radius: 1vw;
+                &:hover {
+                  cursor: pointer;
+                  background-color: #009900;
+                  color: #fff;
+                }
+              }
+            }
+          }
+          .FoodSelected {
+            width: 100%;
+            height: 100%;
+            padding: 1vw;
+            overflow-y: auto; /* 세로 스크롤이 필요한 경우 자동으로 스크롤바가 나타납니다. */
+            max-height: 80vh;
+
+            .changeInfor {
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              button {
+                width: 8vw;
+                height: 3vh;
+                border: 1px solid #ccc;
+                border-radius: 1vw;
+                &:hover {
+                  cursor: pointer;
+                  background-color: #009900;
+                  color: #fff;
                 }
               }
             }
