@@ -1,0 +1,32 @@
+.Meal_components {
+  width: 16vw;
+  margin-left: 0.5vw;
+  height: 36vh;
+  border: 1px solid #ccc;
+  border-radius: 1vw;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05) translateY(-20px);
+  }
+
+  .Meal_components_img {
+    width: 100%;
+    height: 80%;
+    border-bottom: 1px solid #ccc;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-top-left-radius: 1vw;
+      border-top-right-radius: 1vw;
+    }
+  }
+  .Meal_components_text {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

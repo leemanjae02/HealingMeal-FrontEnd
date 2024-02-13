@@ -127,45 +127,48 @@ const MyPage = observer(() => {
 
     const getMyData = async () => {
       try {
-        const response = await CustomAxios.get(
-          AuthStore.userID + "/totalData",
-          {
-            withCredentials: true,
-          }
-        );
-        if (response.status === 200) {
-          setMyData({
-            loginID: response.data.loginId,
-            name: response.data.name,
-            email: response.data.email,
-            birthDate: response.data.birthDate,
-            phoneNumber: response.data.phoneNumber,
-            gender: response.data.gender,
-            diabetesType: response.data.diabetesType,
-            age: response.data.age,
-            numberOfExercises: response.data.numberOfExercises,
-            height: response.data.height,
-            weight: response.data.weight,
-            stewsAndHotpots: response.data.stewsAndHotpots,
-            stewedFood: response.data.stewedFood,
-            stirFriedFood: response.data.stirFriedFood,
-            grilledFood: response.data.grilledFood,
-            vegetableFood: response.data.vegetableFood,
-            steamedFood: response.data.steamedFood,
-            pancakeFood: response.data.pancakeFood,
-            breadAndConfectionery: response.data.breadAndConfectionery,
-            beveragesAndTeas: response.data.beveragesAndTeas,
-            dairyProducts: response.data.dairyProducts,
-          });
+        if (AuthStore.userID) {
+          const response = await CustomAxios.get(
+            AuthStore.userID + "/totalData",
+            {
+              withCredentials: true,
+            }
+          );
+          if (response.status === 200) {
+            setMyData({
+              loginID: response.data.loginId,
+              name: response.data.name,
+              email: response.data.email,
+              birthDate: response.data.birthDate,
+              phoneNumber: response.data.phoneNumber,
+              gender: response.data.gender,
+              diabetesType: response.data.diabetesType,
+              age: response.data.age,
+              numberOfExercises: response.data.numberOfExercises,
+              height: response.data.height,
+              weight: response.data.weight,
+              stewsAndHotpots: response.data.stewsAndHotpots,
+              stewedFood: response.data.stewedFood,
+              stirFriedFood: response.data.stirFriedFood,
+              grilledFood: response.data.grilledFood,
+              vegetableFood: response.data.vegetableFood,
+              steamedFood: response.data.steamedFood,
+              pancakeFood: response.data.pancakeFood,
+              breadAndConfectionery: response.data.breadAndConfectionery,
+              beveragesAndTeas: response.data.beveragesAndTeas,
+              dairyProducts: response.data.dairyProducts,
+            });
 
-          console.log(response.data);
+            console.log(response.data);
+          }
         }
       } catch (error) {
         console.log(error);
       }
     };
     getMyData();
-  }, [AuthStore.isLoggedIn]);
+  }, [AuthStore.userID]);
+
   const clickHome = () => {
     navigate("/");
   };

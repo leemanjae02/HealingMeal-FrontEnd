@@ -7,34 +7,46 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  { name: "단백질", value: 30 },
-  { name: "탄수화물", value: 40 },
-  { name: "지방", value: 20 },
-];
+interface ChartDataProps {
+  protein: number;
+  fat: number;
+  carbohydrate: number;
+}
 
-const COLORS = ["#00C49F", "#FFBB28", "#FF8954"];
+const PieChartComponents: React.FunctionComponent<ChartDataProps> = ({
+  protein,
+  fat,
+  carbohydrate,
+}) => {
+  const data = [
+    { name: "단백질", value: protein },
+    { name: "탄수화물", value: carbohydrate },
+    { name: "지방", value: fat },
+  ];
 
-const PieChartComponents = () => (
-  <ResponsiveContainer width="100%" height="100%">
-    <PieChart>
-      <Pie
-        data={data}
-        cx="50%"
-        cy="50%"
-        labelLine={false}
-        outerRadius="70%"
-        fill="#8884d8"
-        dataKey="value"
-      >
-        {data.map((_, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-        ))}
-      </Pie>
-      <Tooltip />
-      <Legend />
-    </PieChart>
-  </ResponsiveContainer>
-);
+  const COLORS = ["#80bfff", "#80d4ff", "#4d94ff"];
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <PieChart>
+        <Pie
+          data={data}
+          cx="50%"
+          cy="50%"
+          labelLine={false}
+          outerRadius="70%"
+          fill="#8884d8"
+          dataKey="value"
+        >
+          {data.map((_, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip />
+        <Legend />
+      </PieChart>
+    </ResponsiveContainer>
+  );
+};
 
 export default PieChartComponents;

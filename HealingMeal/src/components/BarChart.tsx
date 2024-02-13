@@ -16,7 +16,7 @@ interface BarChartProps {
   fat: number;
 }
 
-const BarChartComponents: React.FC<BarChartProps> = ({
+const BarChartComponents: React.FunctionComponent<BarChartProps> = ({
   protein,
   kcal,
   carbohydrate,

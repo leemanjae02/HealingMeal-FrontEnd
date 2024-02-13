@@ -37,12 +37,6 @@ class AuthStore {
     this.userID = userID;
   };
 
-  // logout = action(() => {
-  //   this.isLoggedIn = false;
-  //   this.userName = "000";
-  //   this.userID = "";
-  // });
-
   logout = async () => {
     try {
       const response = await CustomAxios.get("/user/logout", {

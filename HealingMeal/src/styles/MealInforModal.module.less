@@ -1,0 +1,126 @@
+.popup {
+  background-color: #fff;
+  position: fixed;
+  width: 35vw;
+  height: 60vh; // ai텍스트 길이에 따라 팝엉창 길이가 길어짐
+  box-shadow: 0px 0px 2px rgb(0, 0, 0, 0.1);
+  border-radius: 1vw;
+  padding: 1vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .Menu_box {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    .popup_image {
+      width: 100%;
+      height: 100%;
+      border-left: 1px solid #ccc;
+      border-top-left-radius: 1vw;
+      border-top: 1px solid #ccc;
+      img {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        border-top-left-radius: 1vw;
+      }
+    }
+    .Menu_info {
+      width: 100%;
+      height: 100%;
+      padding: 1vw 0 1vw 1vw;
+      border-top: 1px solid #ccc;
+      border-left: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+      border-top-right-radius: 1vw;
+      border-top-right-radius: 1vw;
+      justify-content: center;
+      p {
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+      }
+      span {
+        color: #ff4d4d;
+      }
+    }
+  }
+
+  .NutritionInfo {
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
+    .NutritionInfo_Icon {
+      margin-top: 1vh;
+      width: 80%;
+      height: 50%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      .mini_icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 30px;
+          height: 30px;
+        }
+
+        .IconName,
+        .mini_text {
+          margin-top: 0.3vw;
+          color: #ccc;
+        }
+      }
+    }
+    .NutritionInfo_ai {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+      width: 100%;
+      height: 40%;
+      padding: 1vw;
+      border-top: 1px solid #ccc;
+    }
+  }
+
+  .closePopUp {
+    width: 100%;
+    height: 20%;
+    padding: 0 1vw;
+    .close_Btn {
+      background-color: #ff4d4d;
+      border-radius: 1vw;
+      color: #fff;
+      width: 50px;
+      height: 30px;
+      float: right;
+      margin-top: 1vw;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .favorites_btn {
+      background-color: #00e68a;
+      border-radius: 1vw;
+      color: #fff;
+      width: 70px;
+      height: 30px;
+      float: left;
+      margin-top: 1vw;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
