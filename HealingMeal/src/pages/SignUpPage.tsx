@@ -307,7 +307,7 @@ const SignUpPage = () => {
           <form>
             <div className="box">
               <div className="idbox">
-                <img src="../../public/images/person.svg" />
+                <img src="/images/person.svg" />
                 <input
                   type="text"
                   placeholder="아이디"
@@ -324,7 +324,7 @@ const SignUpPage = () => {
                 </button>
               </div>
               <div>
-                <img src="../../public/images/lock.svg" />
+                <img src="/images/lock.svg" />
                 <input
                   type="password"
                   placeholder="비밀번호"
@@ -344,7 +344,7 @@ const SignUpPage = () => {
             </ul>
             <div className="SingupBox2">
               <div>
-                <img src="../../public/images/person.svg" />
+                <img src="/images/person.svg" />
                 <input
                   type="text"
                   placeholder="이름"
@@ -353,7 +353,7 @@ const SignUpPage = () => {
                 />
               </div>
               <div>
-                <img src="../../public/images/phone.svg" />
+                <img src="/images/phone.svg" />
                 <input
                   type="tel"
                   placeholder="전화번호"
@@ -362,7 +362,7 @@ const SignUpPage = () => {
                 />
               </div>
               <div>
-                <img src="../../public/images/badge.svg" />
+                <img src="/images/badge.svg" />
                 <input
                   type="number"
                   placeholder="생년월일 6자리"
@@ -387,7 +387,7 @@ const SignUpPage = () => {
                 </button>
               </div>
               <div>
-                <img src="../../public/images/email.svg" />
+                <img src="/images/email.svg" />
                 <input
                   type="email"
                   placeholder="이메일 @gmail.com"

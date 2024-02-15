@@ -68,7 +68,7 @@ const MainPage = observer(() => {
 
   const [breakfastInfor, setBreakfastInfor] = useState<MealData>({
     main_dish: "된장찌개",
-    imageURL: "../../public/images/defaultBreakfast.png",
+    imageURL: "/images/defaultBreakfast.png",
     rice: "",
     meals: "아침식단",
     sideDishForUserMenu: [],
@@ -80,7 +80,7 @@ const MainPage = observer(() => {
 
   const [breakfastSnack, setBreakfastSnack] = useState<SnackData>({
     snack_or_tea: "샌드위치",
-    imageURL: "../../public/images/defaultBreakfastSnack.jpg",
+    imageURL: "/images/defaultBreakfastSnack.jpg",
     meals: "아침간식",
     kcal: "",
     protein: "",
@@ -90,7 +90,7 @@ const MainPage = observer(() => {
 
   const [lunchInfor, setLunchInfor] = useState<MealData>({
     main_dish: "제육볶음",
-    imageURL: "../../public/images/defaultLunch.png",
+    imageURL: "/images/defaultLunch.png",
     rice: "",
     meals: "점심식단",
     sideDishForUserMenu: [],
@@ -102,7 +102,7 @@ const MainPage = observer(() => {
 
   const [lunchSnack, setLunchSnack] = useState<SnackData>({
     snack_or_tea: "그릭요거트",
-    imageURL: "../../public/images/defaultLunchSnack.jpg",
+    imageURL: "/images/defaultLunchSnack.jpg",
     meals: "점심간식",
     kcal: "",
     protein: "",
@@ -112,7 +112,7 @@ const MainPage = observer(() => {
 
   const [dinnerInfor, setDinnerInfor] = useState<MealData>({
     main_dish: "칼국수",
-    imageURL: "../../public/images/defaultDinner.jpg",
+    imageURL: "/images/defaultDinner.jpg",
     rice: "",
     meals: "저녁식단",
     sideDishForUserMenu: [],
@@ -141,19 +141,6 @@ const MainPage = observer(() => {
 
     loginCheck();
   }, [AuthStore.isLoggedIn]);
-
-  // const ChartData = () => {
-  //   const _kcal = window.sessionStorage.getItem("kcal");
-  //   const kcal = _kcal ? parseInt(_kcal) : 0;
-  //   const _protein = window.sessionStorage.getItem("protein");
-  //   const protein = _protein ? parseInt(_protein) : 0;
-  //   const _fat = window.sessionStorage.getItem("fat");
-  //   const fat = _fat ? parseInt(_fat) : 0;
-  //   const _carbohydrate = window.sessionStorage.getItem("carbohydrate");
-  //   const carbohydrate = _carbohydrate ? parseInt(_carbohydrate) : 0;
-
-  //   return { kcal, protein, fat, carbohydrate };
-  // };
 
   const checkSurvey = async () => {
     try {
@@ -265,14 +252,6 @@ const MainPage = observer(() => {
       );
       if (response.status === 200) {
         console.log("ai생성 성공");
-        // await Promise.all([
-        //   getBreakfast(),
-        //   getLunch(),
-        //   getDinner(),
-        //   getBreakfastSnack(),
-        //   getLunchSnack(),
-        //   getMealAiText(),
-        // ]);
       }
     } catch (error) {
       console.log(error);
@@ -289,17 +268,7 @@ const MainPage = observer(() => {
       );
       if (response.status === 200) {
         setBreakfastInfor(response.data);
-        // setBreakfastInfor({
-        //   mainDish: response.data.main_dish,
-        //   imageURL: response.data.imageURL,
-        //   rice: response.data.rice,
-        //   meals: response.data.meals,
-        //   sideDish: response.data.sideDishForUserMenu,
-        //   kcal: response.data.kcal,
-        //   protein: response.data.protein,
-        //   carbohydrate: response.data.carbohydrate,
-        //   fat: response.data.fat,
-        // });
+
         console.log("아침식단 생성 성공", response.data);
       }
     } catch (error) {
@@ -515,7 +484,7 @@ const MainPage = observer(() => {
       await AuthStore.logout();
       setBreakfastInfor({
         main_dish: "된장찌개",
-        imageURL: "../../public/images/defaultBreakfast.png",
+        imageURL: "/images/defaultBreakfast.png",
         rice: "",
         meals: "아침식단",
         sideDishForUserMenu: [],
@@ -526,7 +495,7 @@ const MainPage = observer(() => {
       });
       setBreakfastSnack({
         snack_or_tea: "샌드위치",
-        imageURL: "../../public/images/defaultBreakfastSnack.jpg",
+        imageURL: "/images/defaultBreakfastSnack.jpg",
         meals: "아침간식",
         kcal: "",
         protein: "",
@@ -535,7 +504,7 @@ const MainPage = observer(() => {
       });
       setLunchInfor({
         main_dish: "제육볶음",
-        imageURL: "../../public/images/defaultLunch.png",
+        imageURL: "/images/defaultLunch.png",
         rice: "",
         meals: "점심식단",
         sideDishForUserMenu: [],
@@ -546,7 +515,7 @@ const MainPage = observer(() => {
       });
       setLunchSnack({
         snack_or_tea: "그릭요거트",
-        imageURL: "../../public/images/defaultLunchSnack.jpg",
+        imageURL: "/images/defaultLunchSnack.jpg",
         meals: "점심간식",
         kcal: "",
         protein: "",
@@ -555,7 +524,7 @@ const MainPage = observer(() => {
       });
       setDinnerInfor({
         main_dish: "칼국수",
-        imageURL: "../../public/images/defaultDinner.jpg",
+        imageURL: "/images/defaultDinner.jpg",
         rice: "",
         meals: "저녁식단",
         sideDishForUserMenu: [],
@@ -674,7 +643,7 @@ const MainPage = observer(() => {
       <div className="main_Container">
         <div className="infor_Container">
           <div className="image_box">
-            <img src="../../public/images/mainPageCover.jpg" />
+            <img src="/images/mainPageCover.jpg" />
             <p className="main_img_text">Welcome to healing meal</p>
             <div className="image_box_div">
               {isLoggedIn ? (
