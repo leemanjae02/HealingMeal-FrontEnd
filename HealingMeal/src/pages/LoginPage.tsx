@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../styles/LoginPage.less";
-import CustomAxios from "../api/Axios";
+import CustomAxios from "../api/Axios.tsx";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [id, setID] = useState<string>("");
