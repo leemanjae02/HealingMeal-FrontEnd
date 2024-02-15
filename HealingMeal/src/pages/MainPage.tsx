@@ -11,7 +11,7 @@ import PieChartComponents from "../components/PieChart.tsx";
 import AuthStore from "../stores/AuthStore.ts";
 import { observer } from "mobx-react";
 import MealInforModal from "../components/MealInforModal.tsx";
-import chartDataStore from "../stores/ChartDataStore.tsx";
+import chartDataStore from "../stores/ChartDataStore.ts";
 interface MealData {
   main_dish: string;
   imageURL: string;
