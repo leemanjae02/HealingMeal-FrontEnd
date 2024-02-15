@@ -89,22 +89,22 @@ const MealInforModal: React.FC<MealInforModalProps> = ({
       <div className={styles.NutritionInfo}>
         <div className={styles.NutritionInfo_Icon}>
           <div className={styles.mini_icon}>
-            <img src="../../public/images/kcal-icon.png" />
+            <img src="/images/kcal-icon.png" />
             <p className={styles.IconName}>칼로리</p>
             <p className={styles.mini_text}>{food.kcal}Kcal</p>
           </div>
           <div className={styles.mini_icon}>
-            <img src="../../public/images/meat-icon.png" />
+            <img src="/images/meat-icon.png" />
             <p className={styles.IconName}>단백질</p>
             <p className={styles.mini_text}>{food.protein}g</p>
           </div>
           <div className={styles.mini_icon}>
-            <img src="../../public/images/bab-icon.png" />
+            <img src="/images/bab-icon.png" />
             <p className={styles.IconName}>탄수화물</p>
             <p className={styles.mini_text}>{food.carbohydrate}g</p>
           </div>
           <div className={styles.mini_icon}>
-            <img src="../../public/images/fat-icon.png" />
+            <img src="/images/fat-icon.png" />
             <p className={styles.IconName}>지방</p>
             <p className={styles.mini_text}>{food.fat}g</p>
           </div>

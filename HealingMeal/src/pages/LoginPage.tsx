@@ -86,7 +86,7 @@ const LoginPage = () => {
             <form>
               <div className="LoginBox2">
                 <div className="idbox">
-                  <img src="../../public/images/person.svg" />
+                  <img src="/images/person.svg" />
                   <input
                     type="text"
                     placeholder="아이디"
@@ -95,7 +95,7 @@ const LoginPage = () => {
                   />
                 </div>
                 <div>
-                  <img src="../../public/images/lock.svg" />
+                  <img src="/images/lock.svg" />
                   <input
                     type="password"
                     placeholder="비밀번호"
