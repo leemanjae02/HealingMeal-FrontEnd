@@ -11,7 +11,7 @@ import PieChartComponents from "../components/PieChart";
 import AuthStore from "../stores/AuthStore";
 import { observer } from "mobx-react";
 import MealInforModal from "../components/MealInforModal";
-import mealAiStore from "../stores/ChartDataStore";
+import chartDataStore from "../stores/ChartDataStore";
 interface MealData {
   main_dish: string;
   imageURL: string;
@@ -142,21 +142,18 @@ const MainPage = observer(() => {
     loginCheck();
   }, [AuthStore.isLoggedIn]);
 
-  const ChartData = () => {
-    const _kcal = window.sessionStorage.getItem("kcal");
-    const kcal = _kcal ? parseInt(_kcal) : 0;
-    const _protein = window.sessionStorage.getItem("protein");
-    const protein = _protein ? parseInt(_protein) : 0;
-    const _fat = window.sessionStorage.getItem("fat");
-    const fat = _fat ? parseInt(_fat) : 0;
-    const _carbohydrate = window.sessionStorage.getItem("carbohydrate");
-    const carbohydrate = _carbohydrate ? parseInt(_carbohydrate) : 0;
+  // const ChartData = () => {
+  //   const _kcal = window.sessionStorage.getItem("kcal");
+  //   const kcal = _kcal ? parseInt(_kcal) : 0;
+  //   const _protein = window.sessionStorage.getItem("protein");
+  //   const protein = _protein ? parseInt(_protein) : 0;
+  //   const _fat = window.sessionStorage.getItem("fat");
+  //   const fat = _fat ? parseInt(_fat) : 0;
+  //   const _carbohydrate = window.sessionStorage.getItem("carbohydrate");
+  //   const carbohydrate = _carbohydrate ? parseInt(_carbohydrate) : 0;
 
-    return { kcal, protein, fat, carbohydrate };
-  };
-  useEffect(() => {
-    ChartData();
-  }, []);
+  //   return { kcal, protein, fat, carbohydrate };
+  // };
 
   const checkSurvey = async () => {
     try {
@@ -168,6 +165,7 @@ const MainPage = observer(() => {
       );
       if (response.data === "설문 내용 있음.") {
         console.log(response.data);
+        chartDataStore.getChartData();
         setCheckSurveyResult(true);
         await checkMeal();
       } else {
@@ -178,6 +176,34 @@ const MainPage = observer(() => {
       console.log(error);
     }
   };
+
+  const getNextDayMidnightTime = () => {
+    //매일 자정까지의 시간을 계산
+    const now = new Date();
+    const midnight = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 1, // 다음날
+      0, //0시
+      0, //0분
+      0 //0초
+    );
+    console.log("자정까지 남은 밀리초", midnight.getTime() - now.getTime());
+    return midnight.getTime() - now.getTime();
+  };
+
+  useEffect(() => {
+    const nextMidnightTime = getNextDayMidnightTime(); //자정까지의 시간 계산
+
+    const timer = setTimeout(() => {
+      //매일 자정 실행
+      checkMeal();
+    }, nextMidnightTime);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   const checkMeal = async () => {
     try {
@@ -204,12 +230,6 @@ const MainPage = observer(() => {
       console.log(error);
     }
   };
-
-  // useEffect(() => {
-  //   if (checkMealResult === false) {
-  //     checkMeal();
-  //   }
-  // }, [checkMealResult]);
 
   const generate = async () => {
     try {
@@ -434,11 +454,6 @@ const MainPage = observer(() => {
           lunchSnackAi: LunchSnackAi.data.answer,
           dinnerAi: DinnerAi.data.answer,
         });
-        mealAiStore.setBreakfastAiText(BreakfastAi.data.ansewer);
-        mealAiStore.setLunchAiText(LunchAi.data.answer);
-        mealAiStore.setDinnerAiText(DinnerAi.data.answer);
-        mealAiStore.setBreakfastSnackAiText(BreakfastSnackAi.data.answer);
-        mealAiStore.setLunchSnackAiText(LunchSnackAi.data.answer);
       }
     } catch (error) {
       console.log("한 개 이상의 API 통신 에러", error);
@@ -534,6 +549,57 @@ const MainPage = observer(() => {
   const logout = async (): Promise<void> => {
     try {
       await AuthStore.logout();
+      setBreakfastInfor({
+        main_dish: "된장찌개",
+        imageURL: "../../public/images/defaultBreakfast.png",
+        rice: "",
+        meals: "아침식단",
+        sideDishForUserMenu: [],
+        kcal: "",
+        protein: "",
+        carbohydrate: "",
+        fat: "",
+      });
+      setBreakfastSnack({
+        snack_or_tea: "샌드위치",
+        imageURL: "../../public/images/defaultBreakfastSnack.jpg",
+        meals: "아침간식",
+        kcal: "",
+        protein: "",
+        carbohydrate: "",
+        fat: "",
+      });
+      setLunchInfor({
+        main_dish: "제육볶음",
+        imageURL: "../../public/images/defaultLunch.png",
+        rice: "",
+        meals: "점심식단",
+        sideDishForUserMenu: [],
+        kcal: "",
+        protein: "",
+        carbohydrate: "",
+        fat: "",
+      });
+      setLunchSnack({
+        snack_or_tea: "그릭요거트",
+        imageURL: "../../public/images/defaultLunchSnack.jpg",
+        meals: "점심간식",
+        kcal: "",
+        protein: "",
+        carbohydrate: "",
+        fat: "",
+      });
+      setDinnerInfor({
+        main_dish: "칼국수",
+        imageURL: "../../public/images/defaultDinner.jpg",
+        rice: "",
+        meals: "저녁식단",
+        sideDishForUserMenu: [],
+        kcal: "",
+        protein: "",
+        carbohydrate: "",
+        fat: "",
+      });
     } catch (error) {
       console.log("메인페이지 로그아웃 호출 에러", error);
     }
@@ -599,18 +665,50 @@ const MainPage = observer(() => {
   // };
   console.log(selectedFood?.meals);
   const clickFavoritesMeal = async () => {
-    try {
-      const response = await CustomAxios.post(AuthStore.userID + "/bookmark", {
-        meals: selectedFood?.meals,
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        console.log(response.data);
+    if (
+      selectedFood?.meals === "BREAKFAST" ||
+      selectedFood?.meals === "LUNCH" ||
+      selectedFood?.meals === "DINNER"
+    ) {
+      try {
+        const response = await CustomAxios.post(
+          AuthStore.userID + "/bookmark",
+          {
+            meals: selectedFood?.meals,
+            withCredentials: true,
+          }
+        );
+
+        if (response.status === 200) {
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      try {
+        const response = await CustomAxios.post(
+          AuthStore.userID + "/snack/bookmark",
+          {
+            meals: selectedFood?.meals,
+            withCredentials: true,
+          }
+        );
+        if (response.status === 200) {
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
+
+  const kcal = chartDataStore.kcal;
+  const protein = chartDataStore.protein;
+  const fat = chartDataStore.fat;
+  const carbohydrate = chartDataStore.carbohydrate;
+
+  console.log("store kcal", kcal);
 
   return (
     <div className="MainPage_Container">
@@ -683,16 +781,22 @@ const MainPage = observer(() => {
           </div>
           <div data-aos="fade-up" className="kcal_box">
             <div className="chart_box">
-              <div className="_kcal">칼로리: {ChartData().kcal}kcal</div>
+              <div className="_kcal">칼로리: {kcal}kcal</div>
               <div className="pieChart">
                 <PieChartComponents
-                  protein={ChartData().protein}
-                  fat={ChartData().fat}
-                  carbohydrate={ChartData().carbohydrate}
+                  protein={protein}
+                  fat={fat}
+                  carbohydrate={carbohydrate}
                 />
               </div>
             </div>
-            <div className="chart_infor">{`${userName}님`}</div>
+            <div className="chart_infor">
+              <p className="chartInforText">
+                <span className="chartUserName">{`${userName}님`}</span>을 위한
+                하루 필요 열량 및 <br />
+                영양소입니다.
+              </p>
+            </div>
           </div>
           {selectedFood && (
             <MealInforModal

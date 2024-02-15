@@ -87,20 +87,20 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
       "유채나물",
     ],
     steamedFood: [
-      "김치찌개",
-      "된장찌개",
-      "부대찌개",
-      "버섯전골",
-      "샤브샤브",
-      "롤",
-    ],
-    pancakeFood: [
       "아귀찜",
       "애호박찜",
       "달걀찜",
       "옥수수",
       "풋고추찜",
       "코다리찜",
+    ],
+    pancakeFood: [
+      "채소전",
+      "닭발볶음",
+      "고구마전",
+      "부추전",
+      "맛살전",
+      "감자전",
     ],
     breadAndConfectionery: [
       "호두호밀브레드",

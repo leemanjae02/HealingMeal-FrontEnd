@@ -1,5 +1,6 @@
 import { action, makeAutoObservable } from "mobx";
 import CustomAxios from "../api/Axios";
+import chartDataStore from "./ChartDataStore";
 
 class AuthStore {
   isLoggedIn: boolean = false;
@@ -54,6 +55,7 @@ class AuthStore {
     this.isLoggedIn = false;
     this.userName = "000";
     this.userID = "";
+    chartDataStore.clearCharData();
   }
 }
 

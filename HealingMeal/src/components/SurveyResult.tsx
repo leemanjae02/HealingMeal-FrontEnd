@@ -33,13 +33,6 @@ const SurveyResult = () => {
           setProtein(response.data.protein);
           setCarbohydrate(response.data.carbohydrate);
           setFat(response.data.fat);
-          window.sessionStorage.setItem("kcal", response.data.kcal);
-          window.sessionStorage.setItem("protein", response.data.protein);
-          window.sessionStorage.setItem(
-            "carbohydrate",
-            response.data.carbohydrate
-          );
-          window.sessionStorage.setItem("fat", response.data.fat);
         }
       } catch (error) {
         console.log(error);

@@ -4,11 +4,12 @@ import MealComponent from "../components/MealInfor";
 import CustomAxios from "../api/Axios";
 import AuthStore from "../stores/AuthStore";
 import MealInforModal from "./MealInforModal";
-import mealAiStore from "../stores/ChartDataStore";
+import mealAiStore from "../stores/MealAiTextStore";
 
 interface MealData {
   bookmarkId: number;
   main_dish: string;
+  snack_or_tea?: string;
   imageURL: string;
   rice?: string;
   meals: string;
@@ -23,6 +24,7 @@ console.log("이름", AuthStore.userID);
 const FavoritesComponents = () => {
   const [selectedFood, setSelectedFood] = useState<MealData | null>(null);
   const [favorites, setFavorites] = useState<MealData[]>([]);
+  const [favoritesSnack, setFavoritesSnack] = useState<MealData[]>([]);
 
   const getFavoritesMeal = async () => {
     if (AuthStore.userID) {
@@ -37,11 +39,26 @@ const FavoritesComponents = () => {
       } catch (error) {
         console.log(error);
       }
+      try {
+        const response = await CustomAxios.get(
+          AuthStore.userID + "/snack/bookmark",
+          {
+            withCredentials: true,
+          }
+        );
+        if (response.status === 200) {
+          console.log("간식", response.data);
+          setFavoritesSnack(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   useEffect(() => {
     getFavoritesMeal();
+    mealAiStore.getMealAiText();
   }, [AuthStore.userID]);
 
   const openModal = (food: MealData) => {
@@ -54,17 +71,39 @@ const FavoritesComponents = () => {
 
   const clickDeleteFavoritesMeal = async () => {
     const bookmarkId = selectedFood?.bookmarkId;
-    try {
-      const response = await CustomAxios.delete(bookmarkId + "/bookmark", {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        console.log("삭제 성공");
-        getFavoritesMeal();
-        closeModal();
+    if (
+      selectedFood?.meals === "BREAKFAST" ||
+      selectedFood?.meals === "LUNCH" ||
+      selectedFood?.meals === "DINNER"
+    ) {
+      try {
+        const response = await CustomAxios.delete(bookmarkId + "/bookmark", {
+          withCredentials: true,
+        });
+        if (response.status === 200) {
+          console.log("삭제 성공");
+          getFavoritesMeal();
+          closeModal();
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      try {
+        const response = await CustomAxios.delete(
+          bookmarkId + "/snack/bookmark",
+          {
+            withCredentials: true,
+          }
+        );
+        if (response.status === 200) {
+          console.log("삭제 성공");
+          getFavoritesMeal();
+          closeModal();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -115,7 +154,9 @@ const FavoritesComponents = () => {
             </div>
           </div>
           <div className={styles.Favorites_box}>
-            <div className={styles.Meal_Title}>저녁식단</div>
+            <div className={styles.Meal_Title}>
+              <p>저녁식단</p>
+            </div>
             <div className={styles.Meal_List}>
               {favorites
                 .filter((food) => food.meals === "DINNER")
@@ -130,9 +171,35 @@ const FavoritesComponents = () => {
           </div>
           <div className={styles.Favorites_box}>
             <div className={styles.Meal_Title}>
-              <p>간식식단</p>
+              <p>아침 간식식단</p>
             </div>
-            <div className={styles.Meal_List}>1</div>
+            <div className={styles.Meal_List}>
+              {favoritesSnack
+                .filter((food) => food.meals === "BREAKFAST_SNACKORTEA")
+                .map((food) => (
+                  <MealComponent
+                    key={food.bookmarkId}
+                    food={food}
+                    openModal={() => openModal(food)}
+                  />
+                ))}
+            </div>
+          </div>
+          <div className={styles.Favorites_box}>
+            <div className={styles.Meal_Title}>
+              <p>점심 간식식단</p>
+            </div>
+            <div className={styles.Meal_List}>
+              {favoritesSnack
+                .filter((food) => food.meals === "LUNCH_SNACKORTEA")
+                .map((food) => (
+                  <MealComponent
+                    key={food.bookmarkId}
+                    food={food}
+                    openModal={() => openModal(food)}
+                  />
+                ))}
+            </div>
           </div>
         </div>
       </div>

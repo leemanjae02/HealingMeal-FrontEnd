@@ -168,7 +168,6 @@ const MyPage = observer(() => {
     };
     getMyData();
   }, [AuthStore.userID]);
-
   const clickHome = () => {
     navigate("/");
   };
@@ -182,16 +181,11 @@ const MyPage = observer(() => {
   };
   return (
     <div className={styles.MyInforPage}>
-      {/* <header>
-        <p className={styles.logo} onClick={clickHome}>
-          Healing Meal
-        </p>
-      </header> */}
       <div className={styles.MyInforContainer}>
         <div className={styles.MyInforContainer2}>
           <div className={styles.LeftContainer}>
             <div className={styles.header_logo}>
-              <p>Healing Meal</p>
+              <p onClick={clickHome}>Healing Meal</p>
             </div>
             <div className={styles.LeftContainer2}>
               <div className={styles.MyInforBox}>

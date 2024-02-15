@@ -36,7 +36,7 @@ const BarChartComponents: React.FunctionComponent<BarChartProps> = ({
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="dailyCalories" fill="#8884d8" />
+        <Bar dataKey="dailyCalories" fill="#80d4ff" />
       </BarChart>
     </ResponsiveContainer>
   );

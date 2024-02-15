@@ -71,7 +71,8 @@ const MealInforModal: React.FC<MealInforModalProps> = ({
             <span>식단:</span> {convertMealsToKorean(food.meals)}
           </p>
           <p>
-            <span>대표메뉴:</span> {food.main_dish}
+            <span>대표메뉴:</span>{" "}
+            {food.main_dish ? food.main_dish : food.snack_or_tea}
           </p>
           {food.rice && (
             <p>

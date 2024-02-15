@@ -1,42 +1,61 @@
 import { makeAutoObservable, action } from "mobx";
+import CustomAxios from "../api/Axios";
+import AuthStore from "./AuthStore";
 
-class MealAiStore {
-  BreakfastAiText: string = "";
-  LunchAiText: string = "";
-  DinnerAiText: string = "";
-  BreakfastSnackAiText: string = "";
-  LunchSnackAiText: string = "";
+class ChartDataStore {
+  kcal: number = 0;
+  protein: number = 0;
+  fat: number = 0;
+  carbohydrate: number = 0;
 
   constructor() {
     makeAutoObservable(this, {
-      setBreakfastAiText: action,
-      setLunchAiText: action,
-      setDinnerAiText: action,
-      setBreakfastSnackAiText: action,
-      setLunchSnackAiText: action,
+      setKcal: action,
+      setFat: action,
+      setCarbohydrate: action,
+      setProtein: action,
+      clearCharData: action,
     });
   }
 
-  setBreakfastAiText(text: string) {
-    this.BreakfastAiText = text;
-  }
+  getChartData = async () => {
+    try {
+      const response = await CustomAxios.get(
+        AuthStore.userID + "/surveyResult",
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.status === 200) {
+        this.setKcal(response.data.kcal);
+        this.setProtein(response.data.protein);
+        this.setCarbohydrate(response.data.carbohydrate);
+        this.setFat(response.data.fat);
+      }
+    } catch (error) {
+      console.log("chartDataStoreError", error);
+    }
+  };
 
-  setLunchAiText(text: string) {
-    this.LunchAiText = text;
+  clearCharData() {
+    this.kcal = 0;
+    this.protein = 0;
+    this.carbohydrate = 0;
+    this.fat = 0;
   }
-
-  setDinnerAiText(text: string) {
-    this.DinnerAiText = text;
+  setKcal(data: number) {
+    this.kcal = data;
   }
-
-  setBreakfastSnackAiText(text: string) {
-    this.BreakfastSnackAiText = text;
+  setProtein(data: number) {
+    this.protein = data;
   }
-
-  setLunchSnackAiText(text: string) {
-    this.LunchSnackAiText = text;
+  setFat(data: number) {
+    this.fat = data;
+  }
+  setCarbohydrate(data: number) {
+    this.carbohydrate = data;
   }
 }
 
-const mealAiStore = new MealAiStore();
-export default mealAiStore;
+const chartDataStore = new ChartDataStore();
+export default chartDataStore;
