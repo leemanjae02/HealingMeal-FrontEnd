@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const CustomAxios = axios.create({
-  baseURL: "https://ekwls20.duckdns.org/",
+  baseURL: "http://localhost:8080",
 });
 
 export default CustomAxios;
