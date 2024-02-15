@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
-import MainPage from "./pages/MainPage";
-import FindIDPage from "./pages/FindID";
-import FindPWPage from "./pages/FindPW";
-import SurveyPage from "./pages/SurveyPage";
-import MyPage from "./pages/MyPage";
-import FavoritesComponents from "./components/FavoritesComponents";
-import MyInforChangeComponents from "./components/MyInforChangeComponents";
+import LoginPage from "./pages/LoginPage.tsx";
+import SignUpPage from "./pages/SignUpPage.tsx";
+import MainPage from "./pages/MainPage.tsx";
+import FindIDPage from "./pages/FindID.tsx";
+import FindPWPage from "./pages/FindPW.tsx";
+import SurveyPage from "./pages/SurveyPage.tsx";
+import MyPage from "./pages/MyPage.tsx";
+import FavoritesComponents from "./components/FavoritesComponents.tsx";
+import MyInforChangeComponents from "./components/MyInforChangeComponents.tsx";
 
 function App() {
   return (
