@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/SurveyPage.less";
 import Survey1 from "../components/Survey1";
 import Survey2 from "../components/Survey2";
 import Survey3 from "../components/Survey3";
 import Survey4 from "../components/Survey4";
 import Survey5 from "../components/Survey5";
+import SurveyResult from "../components/SurveyResult";
 const SurveyPage = () => {
   const [age, setAge] = useState<string>("");
   const [diabetestype, setDiabetesType] = useState<number>(0);
   const [exerciseType, setExerciseType] = useState<number>(0);
   const [Kcal, setKcal] = useState<number>(0);
-  const [userID, setUserID] = useState<number>(0);
   const [ChangePage, setChangePage] = useState<number>(1);
+
   const [survey1Valid, setSurvey1Valid] = useState<boolean>(false);
   const [survey2Valid, setSurvey2Valid] = useState<boolean>(false);
   const [survey3Valid, setSurvey3Valid] = useState<boolean>(false);
@@ -19,11 +20,29 @@ const SurveyPage = () => {
   const [survey4ContinueiValid, setSurvey4ContinueValid] =
     useState<boolean>(false);
 
-  console.log("당뇨유형", diabetestype);
-  console.log("부모 1번 설문조사 유효성", survey1Valid);
-  console.log("부모 1번 설문조사 응답값", age);
-  console.log(Kcal);
-  console.log(userID);
+  const CheckSurveyValid = () => {
+    if (
+      survey1Valid === true &&
+      survey2Valid === true &&
+      survey3Valid === true &&
+      survey4ContinueiValid === true &&
+      survey4Valid === true
+    ) {
+      setChangePage(6);
+      console.log("유효성검사 통과");
+    }
+  };
+
+  useEffect(() => {
+    CheckSurveyValid();
+  }, [
+    survey1Valid,
+    survey2Valid,
+    survey3Valid,
+    survey4Valid,
+    survey4ContinueiValid,
+  ]);
+
   const handleNextPage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setChangePage((Next) => Next + 1);
@@ -79,14 +98,9 @@ const SurveyPage = () => {
           />
         )}
         {ChangePage === 5 && (
-          <Survey5
-            setDiabetesType={setDiabetesType}
-            onNext={handleNextPage}
-            onPast={handlePastPage}
-            setSurvey2Valid={setSurvey2Valid}
-            diabetestype={diabetestype}
-          />
+          <Survey5 onNext={handleNextPage} onPast={handlePastPage} />
         )}
+        {ChangePage === 6 && <SurveyResult />}
       </div>
 
       <footer className="SurveyPage_footer">

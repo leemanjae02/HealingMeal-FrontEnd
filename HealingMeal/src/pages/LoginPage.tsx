@@ -28,7 +28,6 @@ const LoginPage = () => {
         if (response.status === 200) {
           navigate("/");
           console.log("로그인 성공!");
-          window.sessionStorage.setItem("userID", response.data);
         }
       } catch (error) {
         console.log(error);
@@ -123,8 +122,6 @@ const LoginPage = () => {
         </div>
         <div className="Page2">
           <p className="Page2_textBox">
-            — CONTACT
-            <br />
             <strong>
               FIND YOUR
               <br />

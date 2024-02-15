@@ -334,7 +334,11 @@ const SignUpPage = () => {
               </div>
             </div>
             <ul className="messagebox">
-              {idcheckMessage && <li>•{idcheckMessage}</li>}
+              {idcheckMessage && (
+                <li style={{ color: idcheck ? "green" : "red" }}>
+                  •{idcheckMessage}
+                </li>
+              )}
               {idMessage && <li>•{idMessage}</li>}
               {passwordMessage && <li>•{passwordMessage}</li>}
             </ul>
@@ -444,7 +448,7 @@ const SignUpPage = () => {
         </div>
       </div>
       <footer className="Signup_footer">
-        <p className="footer_text">Healing Meal</p>
+        <p className="footer_text">Sungkonghoe University GDSC </p>
       </footer>
     </div>
   );
