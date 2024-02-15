@@ -1,6 +1,6 @@
-import { useForm } from "../hooks/useForm";
+import { useForm } from "../hooks/useForm.tsx";
 import { useState } from "react";
-import CustomAxios from "../api/Axios";
+import CustomAxios from "../api/Axios.tsx";
 import "../styles/FindIdPage.less";
 const FindIDPage = () => {
   const [name, onChangeName] = useForm();

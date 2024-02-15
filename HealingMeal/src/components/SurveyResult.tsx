@@ -1,9 +1,9 @@
 import styles from "../styles/Styles.module.less";
-import CustomAxios from "../api/Axios";
+import CustomAxios from "../api/Axios.tsx";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BarChartComponents from "./BarChart";
-import AuthStore from "../stores/AuthStore";
+import BarChartComponents from "./BarChart.tsx";
+import AuthStore from "../stores/AuthStore.ts";
 
 const SurveyResult = () => {
   const [kcal, setKcal] = useState<number>(0);

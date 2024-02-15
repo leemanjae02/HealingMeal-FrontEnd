@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/SignUpPage.less";
 import { useNavigate } from "react-router-dom";
-import CustomAxios from "../api/Axios";
+import CustomAxios from "../api/Axios.tsx";
 
 const SignUpPage = () => {
   const navigate = useNavigate();

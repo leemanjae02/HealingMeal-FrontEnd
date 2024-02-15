@@ -1,6 +1,6 @@
 import { makeAutoObservable, action } from "mobx";
-import CustomAxios from "../api/Axios";
-import AuthStore from "./AuthStore";
+import CustomAxios from "../api/Axios.tsx";
+import AuthStore from "./AuthStore.ts";
 
 class MealAiStore {
   BreakfastAiText: string = "";

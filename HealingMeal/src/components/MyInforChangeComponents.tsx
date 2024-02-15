@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/Myinfor.module.less";
-import { useForm } from "../hooks/useForm";
-import CustomAxios from "../api/Axios";
-import AuthStore from "../stores/AuthStore";
-import StatusModal from "./StatusModal";
-import SelectedFood from "./SelectedFood";
+import { useForm } from "../hooks/useForm.tsx";
+import CustomAxios from "../api/Axios.tsx";
+import AuthStore from "../stores/AuthStore.ts";
+import StatusModal from "./StatusModal.tsx";
+import SelectedFood from "./SelectedFood.tsx";
 interface MyInforChangeProps {
   loginID: string;
 }
