@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import "../styles/MainPage.less";
 import { useNavigate } from "react-router-dom";
-import CustomAxios from "../api/Axios";
-import MealComponent from "../components/MealInfor";
+import CustomAxios from "../api/Axios.tsx";
+import MealComponent from "../components/MealInfor.tsx";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.less";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import PieChartComponents from "../components/PieChart";
-import AuthStore from "../stores/AuthStore";
+import PieChartComponents from "../components/PieChart.tsx";
+import AuthStore from "../stores/AuthStore.tsx";
 import { observer } from "mobx-react";
-import MealInforModal from "../components/MealInforModal";
-import chartDataStore from "../stores/ChartDataStore";
+import MealInforModal from "../components/MealInforModal.tsx";
+import chartDataStore from "../stores/ChartDataStore.tsx";
 interface MealData {
   main_dish: string;
   imageURL: string;
