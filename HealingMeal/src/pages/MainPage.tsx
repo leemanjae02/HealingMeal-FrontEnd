@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.less";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import PieChartComponents from "../components/PieChart.tsx";
-import AuthStore from "../stores/AuthStore.tsx";
+import AuthStore from "../stores/AuthStore.ts";
 import { observer } from "mobx-react";
 import MealInforModal from "../components/MealInforModal.tsx";
 import chartDataStore from "../stores/ChartDataStore.tsx";

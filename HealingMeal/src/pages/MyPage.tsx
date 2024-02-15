@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "../styles/Myinfor.module.less";
-import MyInforComponents from "../components/MyInforComponents";
-import FavoritesComponents from "../components/FavoritesComponents";
-import MyInforChangeComponents from "../components/MyInforChangeComponents";
-import CustomAxios from "../api/Axios";
-import PasswordCheckModal from "../components/PasswordCheckModal";
-import AuthStore from "../stores/AuthStore";
+import MyInforComponents from "../components/MyInforComponents.tsx";
+import FavoritesComponents from "../components/FavoritesComponents.tsx";
+import MyInforChangeComponents from "../components/MyInforChangeComponents.tsx";
+import CustomAxios from "../api/Axios.tsx";
+import PasswordCheckModal from "../components/PasswordCheckModal.tsx";
+import AuthStore from "../stores/AuthStore.ts";
 import { observer } from "mobx-react";
 
 const MyPage = observer(() => {

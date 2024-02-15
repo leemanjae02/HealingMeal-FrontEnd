@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import styles from "../styles/Favorites.module.less";
-import MealComponent from "../components/MealInfor";
-import CustomAxios from "../api/Axios";
-import AuthStore from "../stores/AuthStore";
-import MealInforModal from "./MealInforModal";
-import mealAiStore from "../stores/MealAiTextStore";
+import MealComponent from "../components/MealInfor.tsx";
+import CustomAxios from "../api/Axios.tsx";
+import AuthStore from "../stores/AuthStore.ts";
+import MealInforModal from "./MealInforModal.tsx";
+import mealAiStore from "../stores/MealAiTextStore.ts";
 
 interface MealData {
   bookmarkId: number;

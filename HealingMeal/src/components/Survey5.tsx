@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "../styles/Styles.module.less";
-import SelectedFood from "./SelectedFood";
-import CustomAxios from "../api/Axios";
+import SelectedFood from "./SelectedFood.tsx";
+import CustomAxios from "../api/Axios.tsx";
 
 interface Survey5Props {
   onNext: (e: React.MouseEvent<HTMLButtonElement>) => void;

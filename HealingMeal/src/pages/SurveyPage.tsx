@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../styles/SurveyPage.less";
-import Survey1 from "../components/Survey1";
-import Survey2 from "../components/Survey2";
-import Survey3 from "../components/Survey3";
-import Survey4 from "../components/Survey4";
-import Survey5 from "../components/Survey5";
-import SurveyResult from "../components/SurveyResult";
+import Survey1 from "../components/Survey1.tsx";
+import Survey2 from "../components/Survey2.tsx";
+import Survey3 from "../components/Survey3.tsx";
+import Survey4 from "../components/Survey4.tsx";
+import Survey5 from "../components/Survey5.tsx";
+import SurveyResult from "../components/SurveyResult.tsx";
 const SurveyPage = () => {
   const [age, setAge] = useState<string>("");
   const [diabetestype, setDiabetesType] = useState<number>(0);

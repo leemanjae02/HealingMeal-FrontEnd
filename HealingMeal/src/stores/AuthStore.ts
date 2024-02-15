@@ -1,6 +1,6 @@
 import { action, makeAutoObservable } from "mobx";
-import CustomAxios from "../api/Axios";
-import chartDataStore from "./ChartDataStore";
+import CustomAxios from "../api/Axios.tsx";
+import chartDataStore from "./ChartDataStore.ts";
 
 class AuthStore {
   isLoggedIn: boolean = false;
