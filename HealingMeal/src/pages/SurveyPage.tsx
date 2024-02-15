@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/SurveyPage.less";
 import Survey1 from "../components/Survey1";
 import Survey2 from "../components/Survey2";
@@ -20,10 +20,29 @@ const SurveyPage = () => {
   const [survey4ContinueiValid, setSurvey4ContinueValid] =
     useState<boolean>(false);
 
-  console.log("당뇨유형", diabetestype);
-  console.log("부모 1번 설문조사 유효성", survey1Valid);
-  console.log("부모 1번 설문조사 응답값", age);
-  console.log(Kcal);
+  const CheckSurveyValid = () => {
+    if (
+      survey1Valid === true &&
+      survey2Valid === true &&
+      survey3Valid === true &&
+      survey4ContinueiValid === true &&
+      survey4Valid === true
+    ) {
+      setChangePage(6);
+      console.log("유효성검사 통과");
+    }
+  };
+
+  useEffect(() => {
+    CheckSurveyValid();
+  }, [
+    survey1Valid,
+    survey2Valid,
+    survey3Valid,
+    survey4Valid,
+    survey4ContinueiValid,
+  ]);
+
   const handleNextPage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setChangePage((Next) => Next + 1);

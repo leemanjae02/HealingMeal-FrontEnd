@@ -317,17 +317,7 @@ const MainPage = observer(() => {
       );
       if (response.status === 200) {
         setLunchInfor(response.data);
-        // setLunchInfor({
-        //   mainDish: response.data.main_dish,
-        //   imageURL: response.data.imageURL,
-        //   rice: response.data.rice,
-        //   meals: response.data.meals,
-        //   sideDish: response.data.sideDishForUserMenu,
-        //   kcal: response.data.kcal,
-        //   protein: response.data.protein,
-        //   carbohydrate: response.data.carbohydrate,
-        //   fat: response.data.fat,
-        // });
+
         console.log("점심식단 성공", response.data);
       }
     } catch (error) {
@@ -344,17 +334,7 @@ const MainPage = observer(() => {
       );
       if (response.status === 200) {
         setDinnerInfor(response.data);
-        // setDinnerInfor({
-        //   mainDish: response.data.main_dish,
-        //   imageURL: response.data.imageURL,
-        //   rice: response.data.rice,
-        //   meals: response.data.meals,
-        //   sideDish: response.data.sideDishForUserMenu,
-        //   kcal: response.data.kcal,
-        //   protein: response.data.protein,
-        //   carbohydrate: response.data.carbohydrate,
-        //   fat: response.data.fat,
-        // });
+
         console.log("저녁식단 성공", response.data);
       }
     } catch (error) {
@@ -371,15 +351,7 @@ const MainPage = observer(() => {
       );
       if (response.status === 200) {
         setBreakfastSnack(response.data);
-        // setBreakfastSnack({
-        //   snack_or_tea: response.data.snack_or_tea,
-        //   imageURL: response.data.imageURL,
-        //   meals: response.data.meals,
-        //   kcal: response.data.kcal,
-        //   protein: response.data.protein,
-        //   carbohydrate: response.data.carbohydrate,
-        //   fat: response.data.fat,
-        // });
+
         console.log("아점간식식단 성공", response.data);
       }
     } catch (error) {
@@ -396,15 +368,7 @@ const MainPage = observer(() => {
       );
       if (response.status === 200) {
         setLunchSnack(response.data);
-        // setLunchSnack({
-        //   snack_or_tea: response.data.snack_or_tea,
-        //   imageURL: response.data.imageURL,
-        //   meals: response.data.meals,
-        //   kcal: response.data.kcal,
-        //   protein: response.data.protein,
-        //   carbohydrate: response.data.carbohydrate,
-        //   fat: response.data.fat,
-        // });
+
         console.log("점저간식식단 성공", response.data);
       }
     } catch (error) {
@@ -638,31 +602,6 @@ const MainPage = observer(() => {
     );
   };
 
-  // const replaceBreakfastAi = mealAiText?.breakfastAi.replace(/-/g, "\n");
-  // const replaceBreakfastSnactAi = mealAiText?.breakfastSnackAi.replace(
-  //   /-/g,
-  //   "\n"
-  // );
-  // const replaceLunchAi = mealAiText?.lunchAi.replace(/-/g, "\n");
-  // const replaceLunchSnackAi = mealAiText?.lunchSnackAi.replace(/-/g, "\n");
-  // const replaceDinnerAi = mealAiText?.dinnerAi.replace(/-/g, "\n");
-
-  // const convertMealsToKorean = (meals: string): string => {
-  //   switch (meals) {
-  //     case "BREAKFAST":
-  //       return "아침식단";
-  //     case "LUNCH":
-  //       return "점심식단";
-  //     case "DINNER":
-  //       return "저녁식단";
-  //     case "BREAKFAST_SNACKORTEA":
-  //       return "아침간식";
-  //     case "LUNCH_SNACKORTEA":
-  //       return "점심간식";
-  //     default:
-  //       return meals;
-  //   }
-  // };
   console.log(selectedFood?.meals);
   const clickFavoritesMeal = async () => {
     if (
@@ -805,93 +744,9 @@ const MainPage = observer(() => {
               closeModal={closeModal}
               clickFavoritesMeal={clickFavoritesMeal}
             />
-
-            // <div className="popup">
-            //   <div className="Menu_box">
-            //     <div className="popup_image">
-            //       <img src={selectedFood.imageURL} />
-            //     </div>
-            //     <div className="Menu_info">
-            //       <p>
-            //         <span>식단:</span>{" "}
-            //         {convertMealsToKorean(selectedFood.meals)}
-            //       </p>
-            //       <p>
-            //         <span>대표메뉴:</span> {selectedFood.mainDish}
-            //       </p>
-            //       {selectedFood.rice && (
-            //         <p>
-            //           <span>밥:</span> {selectedFood.rice}
-            //         </p>
-            //       )}
-            //       {selectedFood.sideDish && (
-            //         <p>
-            //           <span>반찬:</span> {selectedFood.sideDish.join(", ")}
-            //         </p>
-            //       )}
-            //     </div>
-            //   </div>
-            //   <div className="NutritionInfo">
-            //     <div className="NutritionInfo_Icon">
-            //       <div className="mini_icon">
-            //         <img src="../../public/images/kcal-icon.png" />
-            //         <p className="IconName">칼로리</p>
-            //         <p className="mini_text">{selectedFood.kcal}Kcal</p>
-            //       </div>
-            //       <div className="mini_icon">
-            //         <img src="../../public/images/meat-icon.png" />
-            //         <p className="IconName">단백질</p>
-            //         <p className="mini_text">{selectedFood.protein}g</p>
-            //       </div>
-            //       <div className="mini_icon">
-            //         <img src="../../public/images/bab-icon.png" />
-            //         <p className="IconName">탄수화물</p>
-            //         <p className="mini_text">{selectedFood.carbohydrate}g</p>
-            //       </div>
-            //       <div className="mini_icon">
-            //         <img src="../../public/images/fat-icon.png" />
-            //         <p className="IconName">지방</p>
-            //         <p className="mini_text">{selectedFood.fat}g</p>
-            //       </div>
-            //     </div>
-            //     <div className="NutritionInfo_ai">
-            //       {selectedFood.meals === "BREAKFAST" &&
-            //         replaceBreakfastAi
-            //           ?.split("\n")
-            //           .map((line, index) => <p key={index}>{line}</p>)}
-            //       {selectedFood.meals === "BREAKFAST_SNACKORTEA" &&
-            //         replaceBreakfastSnactAi
-            //           ?.split("\n")
-            //           .map((line, index) => <p key={index}>{line}</p>)}
-            //       {selectedFood.meals === "LUNCH" &&
-            //         replaceLunchAi
-            //           ?.split("\n")
-            //           .map((line, index) => <p key={index}>{line}</p>)}
-            //       {selectedFood.meals === "LUNCH_SNACKORTEA" &&
-            //         replaceLunchSnackAi
-            //           ?.split("\n")
-            //           .map((line, index) => <p key={index}>{line}</p>)}
-            //       {selectedFood.meals === "DINNER" &&
-            //         replaceDinnerAi
-            //           ?.split("\n")
-            //           .map((line, index) => <p key={index}>{line}</p>)}
-            //     </div>
-            //   </div>
-            //   <div className="closePopUp">
-            //     <button className="favorites_btn" onClick={clickFavoritesMeal}>
-            //       즐겨찾기
-            //     </button>
-            //     <button className="close_Btn" onClick={closeModal}>
-            //       X
-            //     </button>
-            //   </div>
-            // </div>
           )}
         </div>
       </div>
-      {/* <footer className="MainPage_footer">
-        <p className="footer_text">Sungkonghoe University GDSC </p>
-      </footer> */}
     </div>
   );
 });
