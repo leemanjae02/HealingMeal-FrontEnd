@@ -47,7 +47,7 @@ const Survey1: React.FunctionComponent<Survey1Props> = ({
                   onClick={() => handleAgeSelect("18~29")}
                 >
                   <div className={styles.btn_img}>
-                    <img src="../../public/images/18.png" />
+                    <img src="/images/18.png" />
                   </div>
                   <div className={styles.btn}>
                     <div className={styles.age_btn}>18~29</div>
@@ -61,7 +61,7 @@ const Survey1: React.FunctionComponent<Survey1Props> = ({
                   onClick={() => handleAgeSelect("30~39")}
                 >
                   <div className={styles.btn_img}>
-                    <img src="../../public/images/30.png" />
+                    <img src="/images/30.png" />
                   </div>
                   <div className={styles.btn}>
                     <div className={styles.age_btn}>30~39</div>
@@ -76,7 +76,7 @@ const Survey1: React.FunctionComponent<Survey1Props> = ({
                   onClick={() => handleAgeSelect("40~49")}
                 >
                   <div className={styles.btn_img}>
-                    <img src="../../public/images/40.png" />
+                    <img src="/images/40.png" />
                   </div>
                   <div className={styles.btn}>
                     <div className={styles.age_btn}>40~49</div>
@@ -89,7 +89,7 @@ const Survey1: React.FunctionComponent<Survey1Props> = ({
                   onClick={() => handleAgeSelect("50~")}
                 >
                   <div className={styles.btn_img}>
-                    <img src="../../public/images/50.png" />
+                    <img src="/images/50.png" />
                   </div>
                   <div className={styles.btn}>
                     <div className={styles.age_btn}>50~</div>

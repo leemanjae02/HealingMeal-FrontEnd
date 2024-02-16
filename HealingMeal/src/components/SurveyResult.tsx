@@ -21,7 +21,6 @@ const SurveyResult = () => {
         const response = await CustomAxios.get(
           AuthStore.userID + "/surveyResult",
           {
-            withCredentials: true,
             headers: {
               "Content-Type": "application/json",
             },
@@ -63,22 +62,22 @@ const SurveyResult = () => {
               <div className={styles.SurveyResult_box}>
                 <div className={styles.SurveyResult_icon}>
                   <div className={styles.mini_icon}>
-                    <img src="../../public/images/kcal-icon.png" />
+                    <img src="/images/kcal-icon.png" />
                     <p className={styles.icon_name}>칼로리</p>
                     <p className={styles.icon_text}>{kcal}kcal</p>
                   </div>
                   <div className={styles.mini_icon}>
-                    <img src="../../public/images/meat-icon.png" />
+                    <img src="/images/meat-icon.png" />
                     <p className={styles.icon_name}>단백질</p>
                     <p className={styles.icon_text}>{protein}g</p>
                   </div>
                   <div className={styles.mini_icon}>
-                    <img src="../../public/images/bab-icon.png" />
+                    <img src="/images/bab-icon.png" />
                     <p className={styles.icon_name}>탄수화물</p>
                     <p className={styles.icon_text}>{carbohydrate}g</p>
                   </div>
                   <div className={styles.mini_icon}>
-                    <img src="../../public/images/fat-icon.png" />
+                    <img src="/images/fat-icon.png" />
                     <p className={styles.icon_name}>지방</p>
                     <p className={styles.icon_text}>{fat}g</p>
                   </div>

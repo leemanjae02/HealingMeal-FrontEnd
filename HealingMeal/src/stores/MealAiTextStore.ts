@@ -26,9 +26,7 @@ class MealAiStore {
           CustomAxios.get(AuthStore.userID + "/ai/breakfast-snackortea"),
           CustomAxios.get(AuthStore.userID + "/ai/lunch"),
           CustomAxios.get(AuthStore.userID + "/ai/lunch-snackortea"),
-          CustomAxios.get(AuthStore.userID + "/ai/dinner", {
-            withCredentials: true,
-          }),
+          CustomAxios.get(AuthStore.userID + "/ai/dinner"),
         ]);
       if (BreakfastAi.status !== 200) {
         console.error("BreakfastAi API 호출 실패:", BreakfastAi.data);

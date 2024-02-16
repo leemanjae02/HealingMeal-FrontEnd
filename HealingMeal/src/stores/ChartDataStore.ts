@@ -21,10 +21,7 @@ class ChartDataStore {
   getChartData = async () => {
     try {
       const response = await CustomAxios.get(
-        AuthStore.userID + "/surveyResult",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/surveyResult"
       );
       if (response.status === 200) {
         this.setKcal(response.data.kcal);

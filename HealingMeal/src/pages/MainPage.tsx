@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
   AOS.refresh();
 });
 const MainPage = observer(() => {
+  console.log("base_url", import.meta.env.VITE_BASE_URL);
   const navigate = useNavigate();
   // const [loginCheck, setLoginCheck] = useState<boolean>(false);
   // const [userName, setUserName] = useState<string | null>(null);
@@ -145,10 +146,7 @@ const MainPage = observer(() => {
   const checkSurvey = async () => {
     try {
       const response = await CustomAxios.get(
-        AuthStore.userID + "/checkingSurvey",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/checkingSurvey"
       );
       if (response.data === "설문 내용 있음.") {
         console.log(response.data);
@@ -194,9 +192,7 @@ const MainPage = observer(() => {
 
   const checkMeal = async () => {
     try {
-      const response = await CustomAxios.get(AuthStore.userID + "/check", {
-        withCredentials: true,
-      });
+      const response = await CustomAxios.get(AuthStore.userID + "/check");
       if (response.data === true) {
         setCheckMealResult(true);
         console.log("식단생성됨", response.data);
@@ -221,9 +217,7 @@ const MainPage = observer(() => {
   const generate = async () => {
     try {
       setLoding(true);
-      const response = await CustomAxios.post(AuthStore.userID + "/generate", {
-        withCredentials: true,
-      });
+      const response = await CustomAxios.post(AuthStore.userID + "/generate");
       if (response.status === 200) {
         console.log("식단생성 성공");
         await AiGenerate();
@@ -245,10 +239,7 @@ const MainPage = observer(() => {
   const AiGenerate = async () => {
     try {
       const response = await CustomAxios.post(
-        AuthStore.userID + "/ai/generate",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/ai/generate"
       );
       if (response.status === 200) {
         console.log("ai생성 성공");
@@ -261,10 +252,7 @@ const MainPage = observer(() => {
   const getBreakfast = async () => {
     try {
       const response = await CustomAxios.get(
-        AuthStore.userID + "/provide/breakfast",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/provide/breakfast"
       );
       if (response.status === 200) {
         setBreakfastInfor(response.data);
@@ -279,10 +267,7 @@ const MainPage = observer(() => {
   const getLunch = async () => {
     try {
       const response = await CustomAxios.get(
-        AuthStore.userID + "/provide/lunch",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/provide/lunch"
       );
       if (response.status === 200) {
         setLunchInfor(response.data);
@@ -296,10 +281,7 @@ const MainPage = observer(() => {
   const getDinner = async () => {
     try {
       const response = await CustomAxios.get(
-        AuthStore.userID + "/provide/dinner",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/provide/dinner"
       );
       if (response.status === 200) {
         setDinnerInfor(response.data);
@@ -313,10 +295,7 @@ const MainPage = observer(() => {
   const getBreakfastSnack = async () => {
     try {
       const response = await CustomAxios.get(
-        AuthStore.userID + "/provide/breakfast-snack-or-tea",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/provide/breakfast-snack-or-tea"
       );
       if (response.status === 200) {
         setBreakfastSnack(response.data);
@@ -330,10 +309,7 @@ const MainPage = observer(() => {
   const getLunchSnack = async () => {
     try {
       const response = await CustomAxios.get(
-        AuthStore.userID + "/provide/lunch-snack-or-tea",
-        {
-          withCredentials: true,
-        }
+        AuthStore.userID + "/provide/lunch-snack-or-tea"
       );
       if (response.status === 200) {
         setLunchSnack(response.data);
@@ -353,9 +329,7 @@ const MainPage = observer(() => {
           CustomAxios.get(AuthStore.userID + "/ai/breakfast-snackortea"),
           CustomAxios.get(AuthStore.userID + "/ai/lunch"),
           CustomAxios.get(AuthStore.userID + "/ai/lunch-snackortea"),
-          CustomAxios.get(AuthStore.userID + "/ai/dinner", {
-            withCredentials: true,
-          }),
+          CustomAxios.get(AuthStore.userID + "/ai/dinner"),
         ]);
       if (BreakfastAi.status !== 200) {
         console.error("BreakfastAi API 호출 실패:", BreakfastAi.data);
@@ -482,6 +456,7 @@ const MainPage = observer(() => {
   const logout = async (): Promise<void> => {
     try {
       await AuthStore.logout();
+      setLoding(false);
       setBreakfastInfor({
         main_dish: "된장찌개",
         imageURL: "/images/defaultBreakfast.png",
@@ -583,7 +558,6 @@ const MainPage = observer(() => {
           AuthStore.userID + "/bookmark",
           {
             meals: selectedFood?.meals,
-            withCredentials: true,
           }
         );
 
@@ -599,7 +573,6 @@ const MainPage = observer(() => {
           AuthStore.userID + "/snack/bookmark",
           {
             meals: selectedFood?.meals,
-            withCredentials: true,
           }
         );
         if (response.status === 200) {

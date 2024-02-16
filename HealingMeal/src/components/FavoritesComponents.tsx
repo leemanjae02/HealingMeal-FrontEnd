@@ -29,9 +29,10 @@ const FavoritesComponents = () => {
   const getFavoritesMeal = async () => {
     if (AuthStore.userID) {
       try {
-        const response = await CustomAxios.get(AuthStore.userID + "/bookmark", {
-          withCredentials: true,
-        });
+        const response = await CustomAxios.get(
+          AuthStore.userID + "/bookmark",
+          {}
+        );
         if (response.status === 200) {
           console.log(response.data);
           setFavorites(response.data);
@@ -41,10 +42,7 @@ const FavoritesComponents = () => {
       }
       try {
         const response = await CustomAxios.get(
-          AuthStore.userID + "/snack/bookmark",
-          {
-            withCredentials: true,
-          }
+          AuthStore.userID + "/snack/bookmark"
         );
         if (response.status === 200) {
           console.log("간식", response.data);
@@ -77,9 +75,7 @@ const FavoritesComponents = () => {
       selectedFood?.meals === "DINNER"
     ) {
       try {
-        const response = await CustomAxios.delete(bookmarkId + "/bookmark", {
-          withCredentials: true,
-        });
+        const response = await CustomAxios.delete(bookmarkId + "/bookmark");
         if (response.status === 200) {
           console.log("삭제 성공");
           getFavoritesMeal();
@@ -91,10 +87,7 @@ const FavoritesComponents = () => {
     } else {
       try {
         const response = await CustomAxios.delete(
-          bookmarkId + "/snack/bookmark",
-          {
-            withCredentials: true,
-          }
+          bookmarkId + "/snack/bookmark"
         );
         if (response.status === 200) {
           console.log("삭제 성공");

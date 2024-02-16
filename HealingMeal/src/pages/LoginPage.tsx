@@ -21,13 +21,13 @@ const LoginPage = () => {
         formData.append("loginId", id);
         formData.append("password", password);
 
-        const response = await CustomAxios.post("/user/login", formData, {
-          withCredentials: true,
-        });
+        const response = await CustomAxios.post("/user/login", formData);
 
         if (response.status === 200) {
           navigate("/");
+          window.sessionStorage.setItem("loginID", response.data);
           console.log("로그인 성공!");
+          console.log("로그인 성공 서버 응답", response.data);
         }
       } catch (error) {
         console.log(error);
