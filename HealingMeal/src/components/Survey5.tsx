@@ -198,7 +198,6 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
         SurveyID + "/filterFood",
         Survey5Data,
         {
-          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },

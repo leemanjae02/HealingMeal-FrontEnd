@@ -143,7 +143,6 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
         AuthStore.userID + "/survey",
         Survey4Data,
         {
-          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },

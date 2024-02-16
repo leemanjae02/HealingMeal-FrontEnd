@@ -28,7 +28,7 @@ const SurveyPage = () => {
       survey4ContinueiValid === true &&
       survey4Valid === true
     ) {
-      setChangePage(6);
+      setChangePage(5);
       console.log("유효성검사 통과");
     }
   };

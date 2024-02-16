@@ -87,7 +87,6 @@ const MyPage = observer(() => {
         AuthStore.userID + "/check/password",
         {
           password: checkPassword,
-          withCredentials: true,
         }
       );
       if (response.status === 200) {
@@ -129,10 +128,7 @@ const MyPage = observer(() => {
       try {
         if (AuthStore.userID) {
           const response = await CustomAxios.get(
-            AuthStore.userID + "/totalData",
-            {
-              withCredentials: true,
-            }
+            AuthStore.userID + "/totalData"
           );
           if (response.status === 200) {
             setMyData({

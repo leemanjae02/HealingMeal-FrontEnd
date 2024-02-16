@@ -270,7 +270,6 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
         AuthStore.userID + "/check/password",
         {
           password,
-          withCredentials: true,
         }
       );
       if (response.status === 200) {
@@ -287,10 +286,9 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
     // const passwordRule =
     //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     try {
-      const response = await CustomAxios.put("/change/pwd", {
+      const response = await CustomAxios.put(AuthStore.userID + "/change/pwd", {
         nowPwd: password,
         changePwd: newPassword,
-        withCredentials: true,
       });
       if (response.status === 200) {
         console.log("비밀번호 변경 성공");
@@ -324,7 +322,6 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
           gender,
           birthDate,
           phoneNumber,
-          withCredentials: true,
         }
       );
       if (response.status === 200) {
@@ -419,7 +416,6 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
           bodyMassIndex: showbmi,
           caloriesNeededPerDay: calculatedKcal,
           weightLevel,
-          withCredentials: true,
         }
       );
       if (response.status === 200) {
@@ -459,7 +455,6 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
         SurveyID + "/change/filterFood",
         ChangeFoodData,
         {
-          withCredentials: true,
           headers: {
             "Content-Type": "application/json",
           },

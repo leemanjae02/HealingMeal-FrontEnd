@@ -15,21 +15,22 @@ class AuthStore {
     this.checkLoginStatus();
   }
   async checkLoginStatus() {
-    try {
-      const response = await CustomAxios.get("/user/confirm", {
-        withCredentials: true,
-      });
-      if (response.status === 200) {
-        const userData = response.data;
-        if (userData.length >= 2) {
-          const userName = userData[0];
-          const userID = userData[1];
+    const loginID = window.sessionStorage.getItem("loginID");
+    if (loginID !== null) {
+      try {
+        const response = await CustomAxios.get(loginID + "/user/confirm");
+        if (response.status === 200) {
+          const userData = response.data;
+          if (userData.length >= 2) {
+            const userName = userData[0];
+            const userID = userData[1];
 
-          this.login(userName, userID);
+            this.login(userName, userID);
+          }
         }
+      } catch (error) {
+        this.logout();
       }
-    } catch (error) {
-      this.logout();
     }
   }
   login = (userName: string, userID: string) => {
@@ -40,9 +41,7 @@ class AuthStore {
 
   logout = async () => {
     try {
-      const response = await CustomAxios.get("/user/logout", {
-        withCredentials: true,
-      });
+      const response = await CustomAxios.get("/user/logout");
       if (response.status === 200) {
         this.setLoggedOut();
       }
@@ -56,6 +55,7 @@ class AuthStore {
     this.userName = "000";
     this.userID = "";
     chartDataStore.clearCharData();
+    window.sessionStorage.removeItem("loginID");
   }
 }
 
