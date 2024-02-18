@@ -6,6 +6,7 @@ import Survey3 from "../components/Survey3.tsx";
 import Survey4 from "../components/Survey4.tsx";
 import Survey5 from "../components/Survey5.tsx";
 import SurveyResult from "../components/SurveyResult.tsx";
+import "../index.css";
 const SurveyPage = () => {
   const [age, setAge] = useState<string>("");
   const [diabetestype, setDiabetesType] = useState<number>(0);

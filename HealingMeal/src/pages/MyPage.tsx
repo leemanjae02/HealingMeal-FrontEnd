@@ -8,6 +8,7 @@ import CustomAxios from "../api/Axios.tsx";
 import PasswordCheckModal from "../components/PasswordCheckModal.tsx";
 import AuthStore from "../stores/AuthStore.ts";
 import { observer } from "mobx-react";
+import "../index.css";
 
 const MyPage = observer(() => {
   const navigate = useNavigate();
