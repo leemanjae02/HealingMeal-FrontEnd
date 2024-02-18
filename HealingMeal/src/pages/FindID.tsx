@@ -2,6 +2,7 @@ import { useForm } from "../hooks/useForm.tsx";
 import { useState } from "react";
 import CustomAxios from "../api/Axios.tsx";
 import "../styles/FindIdPage.less";
+import "../index.css";
 const FindIDPage = () => {
   const [name, onChangeName] = useForm();
   const [email, onChangeEmail] = useForm();

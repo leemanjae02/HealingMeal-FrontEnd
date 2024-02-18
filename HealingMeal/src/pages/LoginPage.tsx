@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../styles/LoginPage.less";
 import CustomAxios from "../api/Axios.tsx";
+import "../index.css";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [id, setID] = useState<string>("");

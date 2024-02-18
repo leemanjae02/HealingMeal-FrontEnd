@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "NotoSerifKR";
+  font-weight: 400;
+  font-style: normal;
+  src: url("../src/fonts/NotoSerifKR-Regular.otf") format("woff2");
+}
+
+body {
+  font-family: "NotoSerifKR";
+}
+
+input::placeholder {
+  font-family: "NotoSerifKR";
+}
