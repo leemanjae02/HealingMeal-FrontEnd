@@ -187,7 +187,7 @@ const MyPage = observer(() => {
               <div className={styles.MyInforBox}>
                 <div className={styles.imageBox}>
                   <div>
-                    <img src="../../public/images/userLogo.png" />
+                    <img src="/images/userLogo.png" />
                   </div>
                 </div>
                 <div className={styles.nameBox}>
