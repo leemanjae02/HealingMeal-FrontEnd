@@ -1,0 +1,243 @@
+* {
+  box-sizing: border-box;
+}
+@main-color: #163d26;
+
+.SurveyContainer {
+  width: 100%;
+  height: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .Survey_Page {
+    width: 40%;
+    height: 100%;
+    border: 1px solid #ccc;
+    border-radius: 1vw;
+    .Survey_title {
+      width: 100%;
+      height: 10%;
+      background-color: #163d26;
+      border-top-left-radius: 1vw;
+      border-top-right-radius: 1vw;
+      display: flex;
+      align-items: center;
+      color: #fff;
+      .title_text {
+        width: 100%;
+        margin-left: 1vw;
+        line-height: 2.5vh;
+      }
+    }
+    .Page_infor {
+      width: 100%;
+      height: 90%;
+
+      .Page_Scorll {
+        width: 100%;
+        height: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+
+        .Survey4_inforBox1 {
+          width: 100%;
+          height: 100%;
+          padding: 0 1vw;
+          .infor1 {
+            width: 100%;
+            height: 25%;
+
+            .infor1_title {
+              display: flex;
+              align-items: center;
+              width: 100%;
+              height: 25%;
+
+              font-size: 1.2rem;
+            }
+            .infor1_inforText {
+              display: flex;
+              align-items: center;
+              width: 100%;
+              height: 75%;
+
+              span {
+                color: #ff8080;
+              }
+            }
+          }
+          .infor1_imgBox {
+            width: 100%;
+            height: 65%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            .imgBox {
+              width: 100%;
+              height: 30%;
+
+              border: 1px solid #000;
+              display: flex;
+
+              margin-top: 1vh;
+              margin-bottom: 1vh;
+              .imgBox_icon {
+                width: 20%;
+                height: 100%;
+                border-right: 1px solid #000;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  background-size: cover;
+                }
+              }
+              .imgBox_text {
+                width: 80%;
+                height: 100%;
+                background-color: #f0f8ff;
+                div {
+                  display: flex;
+                  align-items: center;
+                  width: 100%;
+                  height: 50%;
+                  &:nth-child(1) {
+                    border-bottom: 1px solid #000;
+                  }
+                  p {
+                    margin-left: 1vw;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .Survey4_inforBox2 {
+          width: 100%;
+          height: 100%;
+
+          padding: 0 1vw;
+          .inforBox2_text {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 20%;
+
+            span {
+              color: #ff8080;
+            }
+          }
+          .calculator_box {
+            width: 100%;
+            height: 70%;
+
+            .calculator {
+              width: 100%;
+              height: 50%;
+              &:nth-child(1) {
+                margin-bottom: 1vh;
+              }
+              table {
+                width: 100%;
+                height: 100%;
+                th {
+                  width: 40%;
+                  height: 33%;
+                  border: 1px solid #ccc;
+                }
+                td {
+                  width: 60%;
+                  height: 33%;
+                  border: 1px solid #ccc;
+                  span {
+                    color: #ff8080;
+                  }
+                  input {
+                    outline: none;
+                    border: none;
+                  }
+                }
+                .calculator_result {
+                  width: 60%;
+                  height: 33%;
+                  border: 1px solid #ccc;
+                  text-align: center;
+                  span {
+                    color: #ff8080;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .Survey4_inforBox3 {
+          width: 100%;
+          height: 40%;
+          padding: 0 1vw;
+
+          .Survey4_calculator_result {
+            width: 100%;
+            height: 100%;
+
+            div {
+              line-height: 3.7vh;
+              span {
+                color: #ff8080;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.Survey4_btn {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .continue_btn {
+    width: 7vw;
+    height: 5vh;
+    border-radius: 1vw;
+    border: 1px solid #ccc;
+    &:hover {
+      cursor: pointer;
+      color: #fff;
+      background-color: @main-color;
+    }
+    &:disabled {
+      background-color: #ccc;
+      color: #fff;
+      cursor: not-allowed;
+    }
+  }
+  .Survey4_Past_btn {
+    border-radius: 1vw;
+    border: 1px solid #ccc;
+    width: 7vw;
+    height: 5vh;
+    margin-right: 0.5vw;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #a32929;
+      color: #fff;
+    }
+  }
+  .Survey4_Next_btn {
+    border-radius: 1vw;
+    border: 1px solid #ccc;
+    width: 7vw;
+    height: 5vh;
+    margin-left: 0.5vw;
+    &:hover {
+      cursor: pointer;
+      background-color: @main-color;
+      color: #fff;
+    }
+  }
+}
