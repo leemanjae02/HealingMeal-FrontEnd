@@ -34,6 +34,7 @@ p {
       color: @main-color;
     }
     .btn_Box {
+      position: relative;
       display: flex;
       float: right;
       margin-left: auto;
@@ -50,22 +51,23 @@ p {
     }
   }
   .toggle {
-    width: 100%;
-    height: 5%;
-    background-color: #163d26;
+    position: absolute;
+    left: 90%;
+    width: 10%;
+    height: 20%;
+    border: 1px solid #ccc;
+    border-bottom-left-radius: 1vw;
+    border-bottom-right-radius: 1vw;
     .toggle_item {
       width: 100%;
       height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
     }
     .toggle_item_list {
+      width: 100%;
+      height: 20%;
       color: #ccc;
-      .list_btn1 {
-        background-color: #ff4d4d;
-        width: 100px;
-        height: 100%;
+      &:nth-child(n - 1) {
+        border-bottom: 1px solid #ccc;
       }
     }
   }
