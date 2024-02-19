@@ -1,0 +1,155 @@
+html,
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@main-color: #163d26;
+
+.Container {
+  min-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  header {
+    height: 5%;
+    width: 100%;
+    .logo {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+      strong {
+        color: @main-color;
+        margin-right: 0.5rem;
+      }
+    }
+  }
+  .Box {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2vw;
+    .textbox {
+      width: 50%;
+      height: 50%;
+      padding: 1vw;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      .text {
+        width: 100%;
+        height: 25%;
+        display: flex;
+        flex-direction: column;
+
+        p {
+          color: #ccc;
+          font-size: 0.8rem;
+        }
+      }
+
+      .Form_div {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+        height: 75%;
+        form {
+          width: 100%;
+          height: 40%;
+
+          .InputBox {
+            width: 300px;
+            height: 30px;
+            justify-content: center;
+            align-items: center;
+
+            .InforInput {
+              width: 100%;
+              height: 100%;
+              display: flex;
+              align-items: center;
+
+              table {
+                width: 70%;
+                height: 100%;
+                th {
+                  width: 30%;
+                  height: 100%;
+                }
+                td {
+                  width: 70%;
+                  height: 100%;
+                  input {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    outline: none;
+                    border: 1px solid #ccc;
+                    border-radius: 0.5vw;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .msgBox {
+          width: 100%;
+          height: 60%;
+
+          .answerBox {
+            display: flex;
+            align-items: center;
+            margin-top: 5vw;
+            div {
+              text-align: center;
+              width: 25vw;
+              border: 2px solid #ccc;
+              color: @main-color;
+              font-size: 2rem;
+            }
+          }
+
+          .FindId_message_box {
+            p {
+              color: red;
+              font-size: medium;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    font-size: 0.7rem;
+    color: red;
+  }
+}
+
+.next_Btn {
+  width: 6vw;
+  height: 5vh;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  margin-top: 20px;
+  justify-content: center;
+  &:hover {
+    background-color: @main-color;
+    color: #fff;
+    cursor: pointer;
+  }
+}

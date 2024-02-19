@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/SurveyPage.less";
+import styles from "../styles/SurveyPage.module.less";
 import Survey1 from "../components/Survey1.tsx";
 import Survey2 from "../components/Survey2.tsx";
 import Survey3 from "../components/Survey3.tsx";
@@ -7,6 +7,7 @@ import Survey4 from "../components/Survey4.tsx";
 import Survey5 from "../components/Survey5.tsx";
 import SurveyResult from "../components/SurveyResult.tsx";
 import "../index.css";
+import Footer from "../components/Footer.tsx";
 const SurveyPage = () => {
   const [age, setAge] = useState<string>("");
   const [diabetestype, setDiabetesType] = useState<number>(0);
@@ -54,11 +55,11 @@ const SurveyPage = () => {
     setChangePage((Next) => Next - 1);
   };
   return (
-    <div className="SurveyContainer">
+    <div className={styles.SurveyContainer}>
       <header>
-        <p className="logo">Healing Meal</p>
+        <p className={styles.logo}>Healing Meal</p>
       </header>
-      <div className="SurveyContainer2">
+      <div className={styles.SurveyContainer2}>
         {ChangePage === 1 && (
           <Survey1
             setAge={setAge}
@@ -103,10 +104,7 @@ const SurveyPage = () => {
         )}
         {ChangePage === 6 && <SurveyResult />}
       </div>
-
-      <footer className="SurveyPage_footer">
-        <p className="footer_text">Sungkonghoe University GDSC </p>
-      </footer>
+      <Footer />
     </div>
   );
 };

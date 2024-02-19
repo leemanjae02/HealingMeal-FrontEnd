@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "../styles/SignUpPage.less";
+import styles from "../styles/SignUpPage.module.less";
 import { useNavigate } from "react-router-dom";
 import CustomAxios from "../api/Axios.tsx";
+import Footer from "../components/Footer.tsx";
 import "../index.css";
 
 const SignUpPage = () => {
@@ -298,16 +299,16 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="SignupPage_Container">
+    <div className={styles.SignupPage_Container}>
       <header>
-        <p className="logo">Healing Meal</p>
+        <p className={styles.logo}>Healing Meal</p>
       </header>
-      <div className="SingupPage">
-        <div className="SingupBox1">
+      <div className={styles.SingupPage}>
+        <div className={styles.SingupBox1}>
           <p>Healing Meal</p>
           <form>
-            <div className="box">
-              <div className="idbox">
+            <div className={styles.box}>
+              <div className={styles.idbox}>
                 <img src="/images/person.svg" />
                 <input
                   type="text"
@@ -317,7 +318,9 @@ const SignUpPage = () => {
                 />
                 <button
                   id="idCheckBtn"
-                  className={`IDcheck ${idcheck && isid ? "disabled" : ""}`}
+                  className={`IDcheck ${
+                    idcheck && isid ? styles.disabled : ""
+                  }`}
                   type="submit"
                   onClick={handleIdcheck}
                 >
@@ -334,7 +337,7 @@ const SignUpPage = () => {
                 />
               </div>
             </div>
-            <ul className="messagebox">
+            <ul className={styles.messagebox}>
               {idcheckMessage && (
                 <li style={{ color: idcheck ? "green" : "red" }}>
                   •{idcheckMessage}
@@ -343,7 +346,7 @@ const SignUpPage = () => {
               {idMessage && <li>•{idMessage}</li>}
               {passwordMessage && <li>•{passwordMessage}</li>}
             </ul>
-            <div className="SingupBox2">
+            <div className={styles.SingupBox2}>
               <div>
                 <img src="/images/person.svg" />
                 <input
@@ -371,7 +374,7 @@ const SignUpPage = () => {
                   onChange={onChangeBirth}
                 />
               </div>
-              <div className="gender">
+              <div className={styles.gender}>
                 <button
                   type="button"
                   onClick={onClickGender}
@@ -397,7 +400,7 @@ const SignUpPage = () => {
                 />
               </div>
             </div>
-            <ul className="messagebox">
+            <ul className={styles.messagebox}>
               {nameMessage && <li>•{nameMessage}</li>}
               {callMessage && <li>•{callMessage}</li>}
               {birthMessage && <li>•{birthMessage}</li>}
@@ -405,7 +408,7 @@ const SignUpPage = () => {
               {mailMessage && <li>•{mailMessage}</li>}
             </ul>
             {showcertification && (
-              <div className="showbox">
+              <div className={styles.showbox}>
                 <input
                   type="text"
                   placeholder="인증번호"
@@ -413,7 +416,7 @@ const SignUpPage = () => {
                   onChange={handeleEmailCheckChange}
                 />
                 <button
-                  className="Re-request-btn"
+                  className={styles.Re_request_btn}
                   type="submit"
                   onClick={onClickRerequest}
                 >
@@ -433,7 +436,7 @@ const SignUpPage = () => {
 
             <button
               type="submit"
-              className="certification-btn"
+              className={styles.certification_btn}
               onClick={(e) => {
                 e.preventDefault();
                 if (!checkInput()) {
@@ -448,9 +451,7 @@ const SignUpPage = () => {
           </form>
         </div>
       </div>
-      <footer className="Signup_footer">
-        <p className="footer_text">Sungkonghoe University GDSC </p>
-      </footer>
+      <Footer />
     </div>
   );
 };

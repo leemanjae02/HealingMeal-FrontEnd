@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import styles from "../styles/Myinfor.module.less";
+import styles from "../styles/MyPage.module.less";
 import MyInforComponents from "../components/MyInforComponents.tsx";
 import FavoritesComponents from "../components/FavoritesComponents.tsx";
 import MyInforChangeComponents from "../components/MyInforChangeComponents.tsx";

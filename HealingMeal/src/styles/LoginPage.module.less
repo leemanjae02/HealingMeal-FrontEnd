@@ -10,6 +10,7 @@ body,
 @main-color: #163d26;
 
 .LoginPage_Container {
+  min-width: 1450px;
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -94,6 +95,10 @@ body,
         height: 50%;
         .idbox {
           border-bottom: 1px solid #ccc;
+          img {
+            width: 20px;
+            height: 20px;
+          }
         }
 
         div {
@@ -129,11 +134,6 @@ body,
   }
 }
 
-svg {
-  width: 20px;
-  height: 20px;
-}
-
 .LoginBox2 {
   display: flex;
   flex-direction: column;
@@ -161,14 +161,17 @@ ul {
   }
 }
 
-.login_footer {
-  display: flex;
-  align-items: center;
-  height: 6vw;
-  background-color: #163d26;
-  .footer_text {
-    font-size: 2rem;
-    margin-left: 1rem;
-    color: #fff;
-  }
+.certification_btn {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background-color: @main-color;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+.certification_btn:hover {
+  background-color: darken(@main-color, 10%);
 }

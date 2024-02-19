@@ -15,16 +15,13 @@ p {
   box-sizing: border-box;
 }
 @main-color: #163d26;
-// @font-face {
-//   font-family: Playfair Display;
-//   src: url("../fonts/PlayfairDisplay-ExtraBoldItalic.ttf");
-// }
 
 .MainPage_Container {
   width: 100vw;
   height: 100vh;
+  min-width: 1420px;
   header {
-    height: 50px;
+    height: 5%;
     width: 100%;
     display: flex;
 
@@ -35,8 +32,6 @@ p {
       font-weight: bold;
       font-size: 1.2em;
       color: @main-color;
-      // font-family: "Playfair Display", serif;
-      // font-style: italic;
     }
     .btn_Box {
       display: flex;
@@ -202,14 +197,17 @@ p {
           width: 50%;
           height: 100%;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
           background-color: #f9fbfc;
           border-top-right-radius: 1vw;
           border-bottom-right-radius: 1vw;
           .chartInforText {
+            display: flex;
+            align-items: center;
             width: 100%;
-            height: 50%;
+            height: 40%;
             color: #ccc;
             padding: 3vw;
             font-weight: bold;
@@ -219,26 +217,43 @@ p {
               font-size: 1.5rem;
             }
           }
+          .TextChart {
+            width: 100%;
+            height: 60%;
+            padding: 0 3vw 3vw 3vw;
+            div {
+              width: 100%;
+              height: 100%;
+              border: 1px solid #ccc;
+              border-radius: 1vw;
+              table {
+                width: 100%;
+                height: 100%;
+                border-collapse: collapse;
+                border-style: hidden;
+                th {
+                  color: #006699;
+                  width: 30%;
+                  height: 33%;
+                  border: 1px solid #ccc;
+                }
+                td {
+                  text-align: center;
+
+                  width: 70%;
+                  height: 33%;
+                  border: 1px solid #ccc;
+                }
+              }
+            }
+          }
         }
       }
     }
   }
 }
 
-// .MainPage_footer {
-//   height: 6vh;
-//   background-color: @main-color;
-//   z-index: 1;
-
-//   .footer_text {
-//     box-sizing: border-box;
-//     font-size: 2rem;
-//     margin-left: 1rem;
-//     color: #fff;
-//   }
-// }
-
-.custom-slick-slider {
+.custom_slick_slider {
   width: 100%;
   .slick-list {
     // 상단 짤림 방지 커스텀 스타일 조정 불필요 !

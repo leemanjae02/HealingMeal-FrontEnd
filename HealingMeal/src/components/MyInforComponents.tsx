@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from "../styles/Myinfor.module.less";
+import styles from "../styles/MyPage.module.less";
 import { useState } from "react";
 
 interface MyInforProps {

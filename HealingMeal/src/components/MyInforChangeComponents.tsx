@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles/Myinfor.module.less";
+import styles from "../styles/MyPage.module.less";
 import { useForm } from "../hooks/useForm.tsx";
 import CustomAxios from "../api/Axios.tsx";
 import AuthStore from "../stores/AuthStore.ts";
