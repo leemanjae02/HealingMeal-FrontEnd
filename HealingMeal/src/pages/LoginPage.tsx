@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import "../styles/LoginPage.less";
+import styles from "../styles/LoginPage.module.less";
 import CustomAxios from "../api/Axios.tsx";
 import "../index.css";
+import Footer from "../components/Footer.tsx";
 const LoginPage = () => {
   const navigate = useNavigate();
   const [id, setID] = useState<string>("");
@@ -62,10 +63,10 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="LoginPage_Container">
+    <div className={styles.LoginPage_Container}>
       <header>
-        <p className="logo">Healing Meal</p>
-        <div className="Link_Box">
+        <p className={styles.logo}>Healing Meal</p>
+        <div className={styles.Link_Box}>
           <div>
             <Link to="/findid">아이디 찾기</Link>
           </div>
@@ -78,13 +79,13 @@ const LoginPage = () => {
         </div>
       </header>
 
-      <div className="LoginPage">
-        <div className="Page1">
-          <div className="LoginBox1">
+      <div className={styles.LoginPage}>
+        <div className={styles.Page1}>
+          <div className={styles.LoginBox1}>
             <p>Healing Meal</p>
             <form>
-              <div className="LoginBox2">
-                <div className="idbox">
+              <div className={styles.LoginBox2}>
+                <div className={styles.idbox}>
                   <img src="/images/person.svg" />
                   <input
                     type="text"
@@ -103,24 +104,24 @@ const LoginPage = () => {
                   />
                 </div>
               </div>
-              <ul className="messagebox">
+              <ul className={styles.messagebox}>
                 {idMessage && <li>•{idMessage}</li>}
                 {passwordMessage && <li>•{passwordMessage}</li>}
                 {loginMessage && <li>•{loginMessage}</li>}
               </ul>
               <button
                 type="submit"
-                className="certification-btn"
+                className={styles.certification_btn}
                 onClick={login}
               >
                 로그인
               </button>
-              <div className="linkbox"></div>
+              <div className={styles.linkbox}></div>
             </form>
           </div>
         </div>
-        <div className="Page2">
-          <p className="Page2_textBox">
+        <div className={styles.Page2}>
+          <p className={styles.Page2_textBox}>
             <strong>
               FIND YOUR
               <br />
@@ -131,9 +132,7 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
-      <footer className="login_footer">
-        <p className="footer_text">Sungkonghoe University GDSC </p>
-      </footer>
+      <Footer />
     </div>
   );
 };

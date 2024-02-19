@@ -15,13 +15,13 @@ body,
   width: 100vw;
   height: 100vh;
   header {
-    height: 50px;
+    height: 5%;
     width: 100%;
     .logo {
       height: 100%;
       display: flex;
       align-items: center;
-      margin-left: 1rem;
+      margin-left: 1vw;
       font-weight: bold;
       color: @main-color;
     }
@@ -31,12 +31,11 @@ body,
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+
     .SingupBox1 {
-      box-sizing: border-box;
       width: 400px;
       height: 500px;
-      padding: 30px;
+      padding: 2vw;
       p {
         text-align: center;
         font-weight: bold;
@@ -49,9 +48,6 @@ body,
       flex-direction: column;
       width: 100%;
       height: 50%;
-      .idbox {
-        border-bottom: 1px solid #ccc;
-      }
 
       div {
         display: flex;
@@ -68,28 +64,24 @@ body,
   }
 }
 
-img {
-  width: 20px;
-  height: 20px;
-}
-
 .box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 300px;
   height: 70px;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 0.5vw;
   .idbox {
+    border-bottom: 1px solid #ccc;
     button {
-      width: 80px;
-      height: 20px;
+      width: 6vw;
+      height: 2.5vh;
       border: 1px solid #ccc;
-      margin-right: 10px;
+      margin-right: 0.5vw;
       color: #ccc;
-      border-radius: 10px;
+      border-radius: 1vw;
       cursor: pointer;
       &:hover {
         color: #000;
@@ -104,14 +96,14 @@ img {
 }
 
 .SingupBox2 {
-  margin-top: 15px;
+  margin-top: 2vh;
   display: flex;
   flex-direction: column;
   width: 300px;
   height: 500px;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
   border: 1px solid #ccc;
-  border-radius: 3px;
+  border-radius: 0.5vw;
   div:not(:nth-child(n + 5)) {
     border-bottom: 1px solid #ccc;
     width: 100%;
@@ -124,13 +116,13 @@ img {
   }
   .gender {
     box-sizing: border-box;
-    padding: 5px;
+    padding: 1vw;
     display: flex;
     align-items: center;
     justify-content: center;
     button {
-      width: 100px;
-      height: 25px;
+      width: 7vw;
+      height: 3vh;
       border: 1px solid #ccc;
       cursor: pointer;
     }
@@ -146,18 +138,17 @@ button {
   background-color: transparent;
 }
 
-.certification-btn {
+.certification_btn {
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  line-height: 5vh;
   background-color: @main-color;
   color: #fff;
   border: none;
   cursor: pointer;
-  margin-top: 10px;
-  border-radius: 3px;
+  margin-top: 2vh;
+  border-radius: 0.5vw;
 }
-.certification-btn:hover {
+.certification_btn:hover {
   background-color: darken(@main-color, 10%);
 }
 
@@ -176,18 +167,18 @@ ul {
 
 .showbox {
   border: 1px solid #ccc;
-  border-radius: 3px;
-  margin-bottom: 5px;
+  border-radius: 0.5vw;
+  margin-bottom: 2vh;
   input {
-    margin-left: 5px;
+    margin-left: 1vw;
   }
-  .Re-request-btn {
-    width: 60px;
-    height: 20px;
+  .Re_request_btn {
+    width: 5vw;
+    height: 2.5vh;
     border: 1px solid #ccc;
-    margin-right: 10px;
+    margin-right: 0.5vw;
     color: #ccc;
-    border-radius: 10px;
+    border-radius: 1vw;
     cursor: pointer;
     &:hover {
       color: #000;
@@ -214,18 +205,5 @@ ul {
   &:hover:not(.disabled) {
     color: #000;
     border: 1px solid #000;
-  }
-}
-
-.Signup_footer {
-  display: flex;
-  height: 6vw;
-  background-color: #163d26;
-  .footer_text {
-    display: flex;
-    align-items: center;
-    font-size: 2rem;
-    margin-left: 1rem;
-    color: #fff;
   }
 }

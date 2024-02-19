@@ -19,8 +19,8 @@ const PieChartComponents: React.FunctionComponent<ChartDataProps> = ({
   carbohydrate,
 }) => {
   const data = [
-    { name: "단백질", value: protein },
     { name: "탄수화물", value: carbohydrate },
+    { name: "단백질", value: protein },
     { name: "지방", value: fat },
   ];
 
