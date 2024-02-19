@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/MainPage.module.less";
+import "../styles/MainPage.less";
 import { useNavigate } from "react-router-dom";
 import CustomAxios from "../api/Axios.tsx";
 import MealComponent from "../components/MealInfor.tsx";
@@ -538,7 +538,7 @@ const MainPage = observer(() => {
     }, []);
 
     return (
-      <div className={styles.LoadingAnimation}>
+      <div className="LoadingAnimation">
         {`${userName}님`} 맞춤 식단 준비 중{dots} <br />
         잠시만 기다려주세요😄
       </div>
@@ -590,69 +590,70 @@ const MainPage = observer(() => {
 
   console.log("store kcal", kcal);
 
+  const [toggleBar, setToggleBar] = useState<boolean>(false);
+  const clickToggleBar = () => {
+    setToggleBar(!toggleBar);
+  };
+
   return (
-    <div className={styles.MainPage_Container}>
+    <div className="MainPage_Container">
       <header>
-        <p className={styles.logo}>Healing Meal</p>
-        <div className={styles.btn_Box}>
+        <p className="logo">Healing Meal</p>
+        <div className="btn_Box">
           {isLoggedIn ? (
             <>
-              <span
-                className={styles.user_name}
-                onClick={clickMypage}
-              >{`${userName}님`}</span>
-              <button onClick={logout}>로그아웃</button>
+              <p className="user_name" onClick={clickMypage}>
+                {`${userName}님`}
+              </p>
+
+              <div>
+                <button onClick={logout}>로그아웃</button>
+              </div>
             </>
           ) : (
             <>
-              <button onClick={clickLogin}>로그인</button>
+              <button onClick={clickToggleBar}>로그인</button>
               <button onClick={clickSignup}>회원가입</button>
             </>
           )}
         </div>
       </header>
 
-      <div className={styles.main_Container}>
-        <div className={styles.infor_Container}>
-          <div className={styles.image_box}>
+      <div className="main_Container">
+        <div className="infor_Container">
+          <div className="image_box">
             <img src="/images/mainPageCover.jpg" />
-            <p className={styles.main_img_text}>Welcome To Healing Meal</p>
-            <div className={styles.image_box_div}>
+            <p className="main_img_text">Welcome To Healing Meal</p>
+            <div className="image_box_div">
               {isLoggedIn ? (
                 <>
                   {checkSurveyResult ? (
-                    <button
-                      className={styles.Main_img_btn}
-                      onClick={clickFavorites}
-                    >
+                    <button className="Main_img_btn" onClick={clickFavorites}>
                       나의 식단 즐겨찾기
                     </button>
                   ) : (
-                    <button
-                      className={styles.Main_img_btn}
-                      onClick={clicksurvey}
-                    >
+                    <button className="Main_img_btn" onClick={clicksurvey}>
                       나만의 식단찾기
                     </button>
                   )}
                 </>
               ) : (
-                <button className={styles.Main_img_btn} onClick={clickLogin}>
+                <button className="Main_img_btn" onClick={clickLogin}>
                   로그인
                 </button>
               )}
             </div>
           </div>
-          <div className={styles.Meal_box}>
-            <p className={styles.Meal_box_user}>
+          <div className="Meal_box">
+            <p className="Meal_box_user">
               {`${userName}님`} <span>&nbsp;당뇨 맞춤 식단</span>
             </p>
-            <div className={styles.Meal_infor}>
+            <div className="Meal_infor">
               {loding ? (
                 <LoadingAnimation />
               ) : (
                 <>
-                  <Slider {...settings} className={styles.custom_slick_slider}>
+                  <Slider {...settings} className="custom_slick_slider">
                     {foods.map((food, meal) => (
                       <MealComponent
                         key={meal}
@@ -665,10 +666,10 @@ const MainPage = observer(() => {
               )}
             </div>
           </div>
-          <div data-aos="fade-up" className={styles.kcal_box}>
-            <div className={styles.chart_box}>
-              <div className={styles._kcal}>칼로리: {kcal}kcal</div>
-              <div className={styles.pieChart}>
+          <div data-aos="fade-up" className="kcal_box">
+            <div className="chart_box">
+              <div className="_kcal">칼로리: {kcal}kcal</div>
+              <div className="pieChart">
                 <PieChartComponents
                   protein={protein}
                   fat={fat}
@@ -676,12 +677,12 @@ const MainPage = observer(() => {
                 />
               </div>
             </div>
-            <div className={styles.chart_infor}>
-              <p className={styles.chartInforText}>
-                <span className={styles.chartUserName}>{`${userName}님`}</span>
-                을 위한 하루 필요 열량 및 영양소
+            <div className="chart_infor">
+              <p className="chartInforText">
+                <span className="chartUserName">{`${userName}님`}</span>을 위한
+                하루 필요 열량 및 영양소
               </p>
-              <div className={styles.TextChart}>
+              <div className="TextChart">
                 <div>
                   <table>
                     <tbody>
