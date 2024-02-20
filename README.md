@@ -55,7 +55,8 @@ GDSC Solution Challenge 2024
 - Axios
 
 ## Architecture 
-![image](https://github.com/inhooo00/healingmeal-back/assets/129029251/4171d97e-3776-4c5d-bd5a-0b68a0b5ffe0)
+![healingmeal_architecture](https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/5bf2d67c-9e8c-4295-9e46-fd911631fe2b)
+
 
 1. The Frontend Deployment was done through the Vercel cloud platform.
 2. I create a Dockerfile to build an image of **HealingMeal**. And Push the image to the DockerHub.
