@@ -48,7 +48,7 @@ GDSC Solution Challenge 2024
 ## Frontend
 ### Tech Stack
 - React 
-- React Router
+- React Router DOM
 - mobX
 - vite
 - css module, less
