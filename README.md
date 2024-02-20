@@ -23,9 +23,12 @@ GDSC Solution Challenge 2024
 - You can save and manage your preferred diet using the favorite feature.
 
 # App Demo
-<img width="1470" alt="스크린샷 2024-02-19 오전 12 06 38" src="https://github.com/inhooo00/healingmeal-back/assets/129029251/22d34cfc-9b04-41a0-afba-98bbb8662333">
-<img width="1045" alt="스크린샷 2024-02-19 오후 2 03 24" src="https://github.com/inhooo00/healingmeal-back/assets/129029251/d7c848dc-99a1-4699-b10e-7e0683294898">
-<img width="1068" alt="스크린샷 2024-02-19 오후 2 05 15" src="https://github.com/inhooo00/healingmeal-back/assets/129029251/c4b7edca-a423-4e89-ae67-da2badfdcbb5">
+<img width="1512" alt="스크린샷 2024-02-20 오후 11 28 01" src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/85021836-0f20-4ab2-a26c-3dbe93acba6d">
+<img width="1512" alt="스크린샷 2024-02-20 오후 11 35 21" src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/5aecaa57-68b0-4c7e-a8ac-b6f658b48b6c">
+<img width="1512" alt="스크린샷 2024-02-20 오후 11 35 33" src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/4cb495a6-0374-450e-b726-b6de9a45b632">
+<img width="1512" alt="스크린샷 2024-02-20 오후 11 28 40" src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/a22bd163-b609-4e1a-90dd-b0157f226352">
+<img width="1512" alt="스크린샷 2024-02-20 오후 11 30 21" src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/0d952c53-065a-4564-825d-1e59cf3df6f1">
+<img width="1512" alt="스크린샷 2024-02-20 오후 11 39 57" src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/2cd503a7-bde7-4f69-ae52-d67ea74fc103">
 
 
 # About Implementation
