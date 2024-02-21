@@ -10,7 +10,8 @@ body,
 @main-color: #163d26;
 
 .Container {
-  min-width: 1300px;
+  min-width: 1000px;
+  min-height: 700px;
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -18,14 +19,19 @@ body,
   header {
     height: 5%;
     width: 100%;
+    display: flex;
     .logo {
-      height: 100%;
       display: flex;
       align-items: center;
-      margin-left: 1rem;
+      margin-left: 1vw;
+      font-weight: bold;
+      color: @main-color;
       strong {
-        color: @main-color;
-        margin-right: 0.5rem;
+        margin-right: 0.5vw;
+      }
+      img {
+        width: 50px;
+        height: 50px;
       }
     }
   }
@@ -108,7 +114,7 @@ body,
           .answerBox {
             display: flex;
             align-items: center;
-            margin-top: 5vw;
+            margin-top: 3vw;
             div {
               text-align: center;
               width: 25vw;

@@ -65,7 +65,10 @@ const LoginPage = () => {
   return (
     <div className={styles.LoginPage_Container}>
       <header>
-        <p className={styles.logo}>Healing Meal</p>
+        <div className={styles.logo}>
+          <img src="/images/logo2.png" />
+          <p>Healing Meal</p>
+        </div>
         <div className={styles.Link_Box}>
           <div>
             <Link to="/findid">아이디 찾기</Link>

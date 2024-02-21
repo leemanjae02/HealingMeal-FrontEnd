@@ -115,6 +115,7 @@ const SignUpPage = () => {
           navigate("/login");
         }
       } catch (error) {
+        setCallMessage("중복된 전화번호입니다. 다시 입력해주세요.");
         console.log(error);
       }
     } else {
@@ -261,7 +262,7 @@ const SignUpPage = () => {
   const handeleEmailCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailCheck(e.target.value.trim());
 
-    if (certification === e.target.value && certification !== "") {
+    if (certification === e.target.value.trim() && certification !== "") {
       setIscertification(true);
       setEmailCheckMessage("인증번호가 일치합니다.");
     } else {
@@ -301,7 +302,10 @@ const SignUpPage = () => {
   return (
     <div className={styles.SignupPage_Container}>
       <header>
-        <p className={styles.logo}>Healing Meal</p>
+        <div className={styles.logo}>
+          <img src="/images/logo2.png" />
+          <p>Healing Meal</p>
+        </div>
       </header>
       <div className={styles.SingupPage}>
         <div className={styles.SingupBox1}>
@@ -378,14 +382,14 @@ const SignUpPage = () => {
                 <button
                   type="button"
                   onClick={onClickGender}
-                  className={gender === "MALE" ? "selected" : ""}
+                  className={gender === "MALE" ? styles.selected : ""}
                 >
                   남자
                 </button>
                 <button
                   type="button"
                   onClick={onClickGender}
-                  className={gender === "FEMALE" ? "selected" : ""}
+                  className={gender === "FEMALE" ? styles.selected : ""}
                 >
                   여자
                 </button>

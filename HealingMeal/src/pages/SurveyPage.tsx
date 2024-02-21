@@ -57,7 +57,10 @@ const SurveyPage = () => {
   return (
     <div className={styles.SurveyContainer}>
       <header>
-        <p className={styles.logo}>Healing Meal</p>
+        <div className={styles.logo}>
+          <img src="/images/logo2.png" />
+          <p>Healing Meal</p>
+        </div>
       </header>
       <div className={styles.SurveyContainer2}>
         {ChangePage === 1 && (
