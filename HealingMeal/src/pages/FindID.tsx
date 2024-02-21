@@ -1,14 +1,17 @@
 import { useForm } from "../hooks/useForm.tsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CustomAxios from "../api/Axios.tsx";
 import styles from "../styles/FindPage.module.less";
 import Footer from "../components/Footer.tsx";
 import "../index.css";
 const FindIDPage = () => {
+  const navigate = useNavigate();
   const [name, onChangeName] = useForm();
   const [email, onChangeEmail] = useForm();
   const [answer, setAnswer] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const [changeBtn, setChangeBtn] = useState<boolean>(false);
 
   const FindID = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,13 +23,10 @@ const FindIDPage = () => {
     }
     try {
       const response = await CustomAxios.get(
-        `/user/search/id?/${encodeURIComponent(name)}/${encodeURIComponent(
-          email
-        )}`
+        `/user/search/id?name=${name}&email=${email}`
       );
-      // 요청 성공 시 처리, {
-
       if (response.status === 200) {
+        setChangeBtn(true);
         setAnswer(response.data);
       }
     } catch (error) {
@@ -35,13 +35,18 @@ const FindIDPage = () => {
     }
   };
 
+  const clickLogin = () => {
+    navigate("/login");
+  };
+
   console.log(name);
   return (
     <div className={styles.Container}>
       <header>
-        <p className={styles.logo}>
-          <strong>Healing Meal</strong> 아이디 찾기
-        </p>
+        <div className={styles.logo}>
+          <img src="/images/logo2.png" />
+          <p>Healing Meal</p>
+        </div>
       </header>
       <hr />
       <div className={styles.Box}>
@@ -96,10 +101,19 @@ const FindIDPage = () => {
             </div>
           </div>
         </div>
-
-        <button className={styles.next_Btn} type="submit" onClick={FindID}>
-          요청
-        </button>
+        {changeBtn ? (
+          <button
+            className={styles.next_Btn}
+            type="submit"
+            onClick={clickLogin}
+          >
+            로그인
+          </button>
+        ) : (
+          <button className={styles.next_Btn} type="submit" onClick={FindID}>
+            요청
+          </button>
+        )}
       </div>
       <Footer />
     </div>

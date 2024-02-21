@@ -181,7 +181,7 @@ const MainPage = observer(() => {
 
     const timer = setTimeout(() => {
       //매일 자정 실행
-      checkMeal();
+      DeleteMeal();
     }, nextMidnightTime);
 
     return () => {
@@ -384,6 +384,19 @@ const MainPage = observer(() => {
 
   const clickSignup = () => {
     navigate("/signup");
+  };
+
+  const DeleteMeal = async () => {
+    try {
+      const response = await CustomAxios.delete(AuthStore.userID + "/delete");
+      if (response.status === 200) {
+        setCheckMealResult(false);
+        console.log("식단초기화 성공", response.data);
+        await checkMeal();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const foods = [
@@ -590,15 +603,13 @@ const MainPage = observer(() => {
 
   console.log("store kcal", kcal);
 
-  const [toggleBar, setToggleBar] = useState<boolean>(false);
-  const clickToggleBar = () => {
-    setToggleBar(!toggleBar);
-  };
-
   return (
     <div className="MainPage_Container">
       <header>
-        <p className="logo">Healing Meal</p>
+        <div className="logo">
+          <img src="/images/logo2.png" />
+          <p>Healing Meal</p>
+        </div>
         <div className="btn_Box">
           {isLoggedIn ? (
             <>
@@ -612,7 +623,7 @@ const MainPage = observer(() => {
             </>
           ) : (
             <>
-              <button onClick={clickToggleBar}>로그인</button>
+              <button onClick={clickLogin}>로그인</button>
               <button onClick={clickSignup}>회원가입</button>
             </>
           )}
@@ -647,6 +658,7 @@ const MainPage = observer(() => {
           <div className="Meal_box">
             <p className="Meal_box_user">
               {`${userName}님`} <span>&nbsp;당뇨 맞춤 식단</span>
+              {/* <button onClick={DeleteMeal}>식단 초기화</button> */}
             </p>
             <div className="Meal_infor">
               {loding ? (
