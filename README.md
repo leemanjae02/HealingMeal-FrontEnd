@@ -49,6 +49,7 @@ GDSC Solution Challenge 2024
 ### Tech Stack
 - React 
 - React Router DOM
+- Vercel
 - mobX
 - vite
 - css module, less
