@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styles from "../styles/Survey4.module.less";
-import { useForm } from "../hooks/useForm";
-import CustomAxios from "../api/Axios";
-import AuthStore from "../stores/AuthStore";
+import { useForm } from "../hooks/useForm.tsx";
+import CustomAxios from "../api/Axios.tsx";
+import AuthStore from "../stores/AuthStore.ts";
 
 interface Survey4Props {
   setKcal: (kcal: number) => void;
