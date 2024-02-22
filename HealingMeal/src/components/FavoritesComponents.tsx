@@ -78,6 +78,7 @@ const FavoritesComponents = () => {
         const response = await CustomAxios.delete(bookmarkId + "/bookmark");
         if (response.status === 200) {
           console.log("삭제 성공");
+
           getFavoritesMeal();
           closeModal();
         }
@@ -91,6 +92,7 @@ const FavoritesComponents = () => {
         );
         if (response.status === 200) {
           console.log("삭제 성공");
+
           getFavoritesMeal();
           closeModal();
         }

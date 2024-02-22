@@ -45,12 +45,16 @@ p {
       float: right;
       margin-left: auto;
       align-items: center;
-      button:hover {
-        cursor: pointer;
-        color: #ccc;
+      margin-right: 1vw;
+      button {
+        &:hover {
+          cursor: pointer;
+        }
       }
       .user_name {
         &:hover {
+          text-decoration: underline;
+          text-underline-position: under;
           cursor: pointer;
         }
       }

@@ -62,6 +62,7 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
   };
 
   const handleResult = () => {
+    alert("아래로 스크롤 해주세요!");
     if (showCalculate === true) {
       setKcalCheck2(true);
     }
@@ -77,6 +78,7 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
     }
   };
   const clickKclaCheck1 = () => {
+    alert("아래로 스크롤 해주세요!");
     setKcalCheck1(true);
     _ChangeExerciseType();
   };
@@ -155,7 +157,6 @@ const Survey4: React.FunctionComponent<Survey4Props> = ({
       );
       if (response.status === 200) {
         console.log("surveyid", response.data);
-        window.sessionStorage.setItem("surveyID", response.data);
       }
     } catch (error) {
       console.log(error);
