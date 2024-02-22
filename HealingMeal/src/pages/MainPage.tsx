@@ -64,6 +64,7 @@ const MainPage = observer(() => {
     meals: string;
     rice?: string;
     sideDishForUserMenu?: string[];
+    favoritesMSG?: string;
   } | null>(null);
 
   const [breakfastInfor, setBreakfastInfor] = useState<MealData>({
@@ -388,7 +389,7 @@ const MainPage = observer(() => {
 
   const DeleteMeal = async () => {
     try {
-      const response = await CustomAxios.delete(AuthStore.userID + "/delete");
+      const response = await CustomAxios.delete("/delete");
       if (response.status === 200) {
         setCheckMealResult(false);
         console.log("식단초기화 성공", response.data);
@@ -560,6 +561,7 @@ const MainPage = observer(() => {
 
   console.log(selectedFood?.meals);
   const clickFavoritesMeal = async () => {
+    let favoritesMsg = "";
     if (
       selectedFood?.meals === "BREAKFAST" ||
       selectedFood?.meals === "LUNCH" ||
@@ -575,6 +577,7 @@ const MainPage = observer(() => {
 
         if (response.status === 200) {
           console.log(response.data);
+          favoritesMsg = "즐겨찾기에 추가되었습니다!";
         }
       } catch (error) {
         console.log(error);
@@ -589,11 +592,16 @@ const MainPage = observer(() => {
         );
         if (response.status === 200) {
           console.log(response.data);
+          favoritesMsg = "즐겨찾기에 추가되었습니다!";
         }
       } catch (error) {
         console.log(error);
       }
     }
+    setSelectedFood((food: any) => ({
+      ...food,
+      favoritesMSG: favoritesMsg,
+    }));
   };
 
   const kcal = chartDataStore.kcal;
@@ -658,7 +666,7 @@ const MainPage = observer(() => {
           <div className="Meal_box">
             <p className="Meal_box_user">
               {`${userName}님`} <span>&nbsp;당뇨 맞춤 식단</span>
-              {/* <button onClick={DeleteMeal}>식단 초기화</button> */}
+              <button onClick={DeleteMeal}>식단 초기화</button>
             </p>
             <div className="Meal_infor">
               {loding ? (

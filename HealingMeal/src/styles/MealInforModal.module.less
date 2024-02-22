@@ -96,19 +96,29 @@
 
   .closePopUp {
     width: 100%;
-    height: 20%;
+    height: 10%;
     padding: 0 1vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     .close_Btn {
       background-color: #ff4d4d;
       border-radius: 1vw;
       color: #fff;
       width: 50px;
       height: 30px;
-      float: right;
-      margin-top: 1vw;
+
       &:hover {
         cursor: pointer;
       }
+    }
+    .favorites_msg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70%;
+      height: 100%;
     }
     .favorites_btn {
       background-color: #00e68a;
@@ -116,8 +126,6 @@
       color: #fff;
       width: 70px;
       height: 30px;
-      float: left;
-      margin-top: 1vw;
       &:hover {
         cursor: pointer;
       }

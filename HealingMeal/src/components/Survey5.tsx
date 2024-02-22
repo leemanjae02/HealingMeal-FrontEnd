@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "../styles/Styles.module.less";
 import SelectedFood from "./SelectedFood.tsx";
 import CustomAxios from "../api/Axios.tsx";
+import AuthStore from "../stores/AuthStore.ts";
 
 interface Survey5Props {
   onNext: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -171,7 +172,6 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
   );
 
   const PostSurvey5 = async () => {
-    const SurveyID = window.sessionStorage.getItem("surveyID");
     const Survey5Data = {
       stewsAndHotpots: removeLastComma(
         formattedData.selectedFoods.stewsAndHotpots
@@ -195,7 +195,7 @@ const Survey5: React.FunctionComponent<Survey5Props> = ({ onNext, onPast }) => {
 
     try {
       const response = await CustomAxios.post(
-        SurveyID + "/filterFood",
+        AuthStore.userID + "/filterFood",
         Survey5Data,
         {
           headers: {
