@@ -432,7 +432,6 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
   };
 
   const clickFoodChange = async () => {
-    const SurveyID = window.sessionStorage.getItem("surveyID");
     const ChangeFoodData = {
       stewsAndHotpots: removeLastComma(
         formattedData.selectedFoods.stewsAndHotpots
@@ -454,7 +453,7 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
 
     try {
       const response = await CustomAxios.put(
-        SurveyID + "/change/filterFood",
+        AuthStore.userID + "/change/filterFood",
         ChangeFoodData,
         {
           headers: {
