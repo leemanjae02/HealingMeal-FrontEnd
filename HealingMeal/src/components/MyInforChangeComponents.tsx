@@ -292,6 +292,8 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
       });
       if (response.status === 200) {
         console.log("비밀번호 변경 성공");
+        openModal();
+        setStatusMSG("비밀번호 변경에 성공했습니다!");
       }
     } catch (error) {
       console.log(error);
