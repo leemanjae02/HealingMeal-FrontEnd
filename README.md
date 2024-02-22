@@ -67,7 +67,8 @@ GDSC Solution Challenge 2024
 6. In addition, I use Google Cloud's load balancer to manage the SSL certificate. So Everyone can access Our Service.
 
 ## ERD
-<img width="729" alt="스크린샷 2024-02-15 오후 5 50 39" src="https://github.com/inhooo00/healingmeal-back/assets/129029251/8ab7a46e-dfdb-4af4-ba57-5943a2821f71">
+<img width="566" alt="2024-02-23_2 22 45" src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/b2bfae0d-bec5-4da5-8233-618be354270b">
+
 
 # Introduction Video Link
 
