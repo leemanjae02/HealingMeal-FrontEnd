@@ -393,7 +393,7 @@ const MainPage = observer(() => {
       if (response.status === 200) {
         setCheckMealResult(false);
         console.log("식단초기화 성공", response.data);
-        await checkMeal();
+        await generate();
       }
     } catch (error) {
       console.log(error);
