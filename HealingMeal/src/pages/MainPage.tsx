@@ -44,7 +44,6 @@ const MainPage = observer(() => {
   const navigate = useNavigate();
   const { isLoggedIn, userName } = AuthStore;
   const [loding, setLoding] = useState<boolean>(false);
-  // const [checkMealResult, setCheckMealResult] = useState<boolean>(false);
   const [checkSurveyResult, setCheckSurveyResult] = useState<boolean>(false);
   const [mealAiText, setMealAiText] = useState<{
     breakfastAi: string;
@@ -560,7 +559,7 @@ const MainPage = observer(() => {
 
   console.log(selectedFood?.meals);
   const clickFavoritesMeal = async () => {
-    // let favoritesMsg = "";
+    let favoritesMsg = "";
     if (
       selectedFood?.meals === "BREAKFAST" ||
       selectedFood?.meals === "LUNCH" ||
@@ -576,7 +575,7 @@ const MainPage = observer(() => {
 
         if (response.status === 200) {
           console.log(response.data);
-          // favoritesMsg = "즐겨찾기에 추가되었습니다!";
+          favoritesMsg = "즐겨찾기에 추가되었습니다!";
         }
       } catch (error) {
         console.log(error);
@@ -591,16 +590,16 @@ const MainPage = observer(() => {
         );
         if (response.status === 200) {
           console.log(response.data);
-          // favoritesMsg = "즐겨찾기에 추가되었습니다!";
+          favoritesMsg = "즐겨찾기에 추가되었습니다!";
         }
       } catch (error) {
         console.log(error);
       }
     }
-    // setSelectedFood((food: any) => ({
-    //   ...food,
-    //   favoritesMSG: favoritesMsg,
-    // }));
+    setSelectedFood((food: any) => ({
+      ...food,
+      favoritesMSG: favoritesMsg,
+    }));
   };
 
   const kcal = chartDataStore.kcal;
