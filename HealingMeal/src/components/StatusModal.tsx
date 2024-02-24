@@ -23,11 +23,11 @@ const StatusModal: React.FunctionComponent<StatusMSGProps> = ({
     <div className={styles.statusModal}>
       <div className={styles.Modal_text}>
         {statusMSG} <br />
-        {isValidNameMSG} <br />
-        {isValidBirthDateMSG} <br />
-        {isValidGenderMSG} <br />
-        {isValidEmailMSG} <br />
-        {isValidPhoneNumberMSG} <br />
+        {isValidNameMSG && <p>{isValidNameMSG}</p>}
+        {isValidBirthDateMSG && <p>{isValidBirthDateMSG}</p>}
+        {isValidGenderMSG && <p>{isValidGenderMSG}</p>}
+        {isValidEmailMSG && <p>{isValidEmailMSG}</p>}
+        {isValidPhoneNumberMSG && <p>{isValidPhoneNumberMSG}</p>}
       </div>
       <div className={styles.Modal_btn}>
         <button onClick={closeModal}>닫기</button>

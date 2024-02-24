@@ -237,71 +237,6 @@
         padding: 1vw;
         overflow-y: auto; /* 세로 스크롤이 필요한 경우 자동으로 스크롤바가 나타납니다. */
         max-height: 80vh;
-
-        // .Survey5_select_div {
-        //   width: 100%;
-        //   height: 20%;
-        //   border: 1px solid #ccc;
-        //   margin-bottom: 1vw;
-        //   .Survey5_select_foodName {
-        //     display: flex;
-        //     align-items: center;
-        //     width: 100%;
-        //     height: 30%;
-        //     margin-left: 1vw;
-
-        //     p {
-        //       display: flex;
-        //       align-items: center;
-        //       width: 80%;
-        //       height: 100%;
-        //       font-weight: bold;
-        //       font-size: 1rem;
-        //     }
-        //     .SelectAll_btn {
-        //       display: flex;
-        //       align-items: center;
-        //       width: 20%;
-        //       height: 100%;
-        //       button {
-        //         width: 65px;
-        //         height: 3vh;
-        //         border: 1px solid #ccc;
-        //         border-radius: 1vw;
-        //         &:hover {
-        //           cursor: pointer;
-        //           border: 1px solid #163d26;
-        //         }
-        //       }
-        //     }
-        //   }
-        //   .Survey5_select_food {
-        //     width: 100%;
-        //     height: 70%;
-
-        //     table {
-        //       width: 100%;
-        //       height: 100%;
-        //       td {
-        //         text-align: center;
-        //         width: 33%;
-        //         height: 50%;
-        //         border: 1px solid #ccc;
-        //         button {
-        //           width: 100%;
-        //           height: 100%;
-        //           &:hover {
-        //             cursor: pointer;
-        //           }
-        //           &.selected {
-        //             background-color: #163d26;
-        //             color: #ffffff;
-        //           }
-        //         }
-        //       }
-        //     }
-        //   }
-        // }
       }
     }
   }
@@ -592,7 +527,100 @@
   }
 }
 
-// .svg {
-//   width: 500px;
-//   height: 500px;
-// }
+@media only screen and (max-width: 430px) {
+  .SurveyContainer2 {
+    min-height: auto;
+    min-width: auto;
+    .Survey_Page {
+      width: 80%;
+      height: 80%;
+      border-radius: 3vw;
+      .Survey_box {
+        .Survey_title {
+          border-top-left-radius: 3vw;
+          border-top-right-radius: 3vw;
+        }
+        .Survey5_Page {
+          width: 100%;
+          max-width: 80vh;
+          overflow-y: auto;
+        }
+        .Survey_container {
+          padding: 3vw;
+          .Survey2_box {
+            .Survey2_box_text {
+              font-size: 0.8rem;
+              font-weight: bold;
+              div {
+                font-size: 0.6rem;
+
+                .Survey2_box_text_p {
+                  font-size: 0.6rem;
+                }
+              }
+            }
+            .Survey2_box1 {
+              .Survey2_box1_text {
+                width: 60%;
+              }
+            }
+            .Survey3_box {
+              .Survey3_box_text {
+                width: 60%;
+                font-size: 0.7rem;
+              }
+            }
+          }
+
+          .Survey_btn_box2 {
+            .age_btn1 {
+              .age_box {
+                width: 60vw;
+                border-radius: 3vw;
+                .btn_img {
+                  img {
+                    border-radius: 3vw;
+                  }
+                }
+              }
+            }
+          }
+        }
+        .Survey_Result {
+          .SurveyResult_infor {
+            .SurveyResult_box {
+              .SurveyResult_icon {
+                .mini_icon {
+                  .icon_name,
+                  .icon_text {
+                    font-size: 0.8rem;
+                  }
+                }
+              }
+            }
+            .SurveyResult_box2 {
+              p {
+                font-size: 0.8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+    .Survey_btn {
+      .Next_btn,
+      .Past_btn {
+        width: 20vw;
+        border-radius: 3vw;
+      }
+      .Result_btn {
+        width: 20vw;
+        border-radius: 3vw;
+      }
+      .Home_btn {
+        width: 30vw;
+        border-radius: 3vw;
+      }
+    }
+  }
+}

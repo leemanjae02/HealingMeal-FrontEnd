@@ -60,27 +60,7 @@ p {
       }
     }
   }
-  .toggle {
-    position: absolute;
-    left: 90%;
-    width: 10%;
-    height: 20%;
-    border: 1px solid #ccc;
-    border-bottom-left-radius: 1vw;
-    border-bottom-right-radius: 1vw;
-    .toggle_item {
-      width: 100%;
-      height: 100%;
-    }
-    .toggle_item_list {
-      width: 100%;
-      height: 20%;
-      color: #ccc;
-      &:nth-child(n - 1) {
-        border-bottom: 1px solid #ccc;
-      }
-    }
-  }
+
   .main_Container {
     width: 70%;
     height: 95%;
@@ -277,6 +257,52 @@ p {
     .slick-track {
       display: flex;
       align-items: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .MainPage_Container {
+    min-width: auto;
+    min-height: auto;
+    .main_Container {
+      .infor_Container {
+        width: 100%;
+        height: 100%;
+        .image_box {
+          margin-top: 3vh;
+          width: 100%;
+          height: 30%;
+          font-size: 0.8rem;
+          .image_box_div {
+            width: auto;
+            height: 4vh;
+            border-radius: 2vw;
+          }
+        }
+        .Meal_box {
+          .Meal_box_user {
+            font-size: 1.2rem;
+          }
+        }
+        .kcal_box {
+          width: 100%;
+          height: 35%;
+          font-size: 0.8rem;
+          .chart_infor {
+            .chartInforText {
+              font-size: 0.6rem;
+              display: flex;
+
+              align-items: center;
+              justify-content: center;
+              .chartUserName {
+                font-size: 0.8rem;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
