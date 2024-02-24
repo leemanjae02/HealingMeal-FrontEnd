@@ -391,7 +391,7 @@ const MainPage = observer(() => {
     try {
       const response = await CustomAxios.delete("/delete");
       if (response.status === 200) {
-        setCheckMealResult(false);
+        // setCheckMealResult(false);
         console.log("식단초기화 성공", response.data);
         await generate();
       }
