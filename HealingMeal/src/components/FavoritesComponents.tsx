@@ -110,7 +110,6 @@ const FavoritesComponents = () => {
     dinnerAi: mealAiStore.DinnerAiText,
   };
 
-  console.log("?", mealAiText);
   return (
     <div className={styles.RightContainer}>
       <p className={styles.title}>즐겨찾기</p>

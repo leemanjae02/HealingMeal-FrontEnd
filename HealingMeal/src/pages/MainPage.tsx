@@ -666,7 +666,7 @@ const MainPage = observer(() => {
           <div className="Meal_box">
             <p className="Meal_box_user">
               {`${userName}님`} <span>&nbsp;당뇨 맞춤 식단</span>
-              {/* <button onClick={DeleteMeal}>식단 초기화</button> */}
+              <button onClick={DeleteMeal}>식단 초기화</button>
             </p>
             <div className="Meal_infor">
               {loding ? (
