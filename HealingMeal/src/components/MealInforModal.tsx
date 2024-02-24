@@ -15,7 +15,7 @@ interface MealInforModalProps {
     rice?: string;
     sideDishForUserMenu?: string[];
     snack_or_tea?: string;
-    // favoritesMSG?: string;
+    favoritesMSG?: string;
   };
   mealAiText: {
     breakfastAi: string;
@@ -147,7 +147,7 @@ const MealInforModal: React.FC<MealInforModalProps> = ({
             삭제
           </button>
         )}
-        {/* <p className={styles.favorites_msg}>{food.favoritesMSG}</p> */}
+        <p className={styles.favorites_msg}>{food.favoritesMSG}</p>
         <button className={styles.close_Btn} onClick={closeModal}>
           X
         </button>
