@@ -38,8 +38,8 @@ body,
     align-items: center;
 
     .SingupBox1 {
-      width: 400px;
-      height: 500px;
+      width: 28vw;
+      height: 65vh;
       padding: 2vw;
       p {
         text-align: center;
@@ -81,7 +81,7 @@ body,
   .idbox {
     border-bottom: 1px solid #ccc;
     button {
-      width: 6vw;
+      width: 6.5vw;
       height: 2.5vh;
       border: 1px solid #ccc;
       margin-right: 0.5vw;
@@ -192,23 +192,91 @@ ul {
   }
 }
 
-.IDcheck {
-  width: 100px;
-  height: 20px;
-  border: 1px solid #ccc;
-  margin-right: 10px;
-  color: #ccc;
-  border-radius: 10px;
-  cursor: pointer;
+// .IDcheck {
+//   width: 100px;
+//   height: 20px;
+//   border: 1px solid #ccc;
+//   margin-right: 10px;
+//   color: #ccc;
+//   border-radius: 10px;
+//   cursor: pointer;
 
-  &.disabled {
-    color: red;
-    border: 1px solid red;
-    cursor: not-allowed;
-  }
+//   &.disabled {
+//     color: red;
+//     border: 1px solid red;
+//     cursor: not-allowed;
+//   }
 
-  &:hover:not(.disabled) {
-    color: #000;
-    border: 1px solid #000;
+//   &:hover:not(.disabled) {
+//     color: #000;
+//     border: 1px solid #000;
+//   }
+// }
+
+@media only screen and (max-width: 430px) {
+  .SignupPage_Container {
+    min-width: auto;
+    min-height: auto;
+    flex-direction: column;
+    padding: 1vw;
+    .SingupPage {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .SingupBox1 {
+        width: 80%;
+        height: 50%;
+      }
+      .box {
+        border-radius: 2vw;
+        .idbox {
+          button {
+            width: 20vw;
+            height: 2.5vh;
+            border: 1px solid #ccc;
+            border-radius: 5vw;
+            margin-right: 2vw;
+            color: #ccc;
+
+            cursor: pointer;
+            &:hover {
+              color: #000;
+              border: 1px solid #000;
+            }
+            &.disabled {
+              color: red;
+              border: 1px solid red;
+            }
+          }
+        }
+      }
+      .SingupBox2 {
+        border-radius: 2vw;
+      }
+      .gender {
+        button {
+          width: 20vw;
+          height: 3vh;
+          border: 1px solid #ccc;
+          cursor: pointer;
+        }
+      }
+
+      .certification_btn {
+        border-radius: 2vw;
+      }
+      .showbox {
+        border-radius: 2vw;
+        .Re_request_btn {
+          width: 20vw;
+          height: 2.5vh;
+          border-radius: 5vw;
+          margin-right: 2vw;
+        }
+      }
+    }
   }
 }
