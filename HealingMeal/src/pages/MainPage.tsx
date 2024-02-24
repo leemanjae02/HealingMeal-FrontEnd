@@ -44,7 +44,7 @@ const MainPage = observer(() => {
   const navigate = useNavigate();
   const { isLoggedIn, userName } = AuthStore;
   const [loding, setLoding] = useState<boolean>(false);
-  const [checkMealResult, setCheckMealResult] = useState<boolean>(false);
+  // const [checkMealResult, setCheckMealResult] = useState<boolean>(false);
   const [checkSurveyResult, setCheckSurveyResult] = useState<boolean>(false);
   const [mealAiText, setMealAiText] = useState<{
     breakfastAi: string;
@@ -194,7 +194,6 @@ const MainPage = observer(() => {
     try {
       const response = await CustomAxios.get(AuthStore.userID + "/check");
       if (response.data === true) {
-        setCheckMealResult(true);
         console.log("식단생성됨", response.data);
         setLoding(true);
         await Promise.all([
@@ -206,7 +205,7 @@ const MainPage = observer(() => {
           getMealAiText(),
         ]);
         setLoding(false);
-      } else if (checkMealResult === false) {
+      } else {
         generate();
       }
     } catch (error) {
@@ -229,7 +228,7 @@ const MainPage = observer(() => {
           getLunchSnack(),
           getMealAiText(),
         ]);
-        setCheckMealResult(true);
+
         setLoding(false);
       }
     } catch (error) {
@@ -392,7 +391,6 @@ const MainPage = observer(() => {
     try {
       const response = await CustomAxios.delete("/delete");
       if (response.status === 200) {
-        setCheckMealResult(false);
         console.log("식단초기화 성공", response.data);
         await checkMeal();
       }
