@@ -117,7 +117,7 @@ body,
             margin-top: 3vw;
             div {
               text-align: center;
-              width: 25vw;
+              width: auto;
               border: 2px solid #ccc;
               color: @main-color;
               font-size: 2rem;
@@ -157,5 +157,29 @@ ul {
     background-color: @main-color;
     color: #fff;
     cursor: pointer;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .Container {
+    min-width: auto;
+    min-height: auto;
+    flex-direction: column;
+    .Box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      .textbox {
+        width: 90%;
+        height: 50%;
+        padding: 2vw;
+      }
+    }
+    .next_Btn {
+      width: 22vw;
+      height: 3.5vh;
+    }
   }
 }
