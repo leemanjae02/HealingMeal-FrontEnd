@@ -25,14 +25,14 @@ const SelectedFood: React.FunctionComponent<SelectedFoodProps> = ({
 
     onSelect(categoryName, updatedSelectedFoods);
   };
-  // const handleSelectAll = () => {
-  //   const selectAll = selectedFoods.length !== foods.length;
-  //   onSelectAll(categoryName, selectAll);
-  // };
   const handleSelectAll = () => {
-    const selectAll = Object.keys(selectedFoods).length !== foods.length;
+    const selectAll = selectedFoods.length !== foods.length;
     onSelectAll(categoryName, selectAll);
   };
+  // const handleSelectAll = () => {
+  //   const selectAll = Object.keys(selectedFoods).length !== foods.length;
+  //   onSelectAll(categoryName, selectAll);
+  // };
 
   const categoryNames = [
     "찌개 밎 전골류",
