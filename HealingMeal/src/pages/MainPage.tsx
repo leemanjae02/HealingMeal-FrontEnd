@@ -229,6 +229,7 @@ const MainPage = observer(() => {
           getLunchSnack(),
           getMealAiText(),
         ]);
+        setCheckMealResult(true);
         setLoding(false);
       }
     } catch (error) {
