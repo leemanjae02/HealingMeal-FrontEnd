@@ -141,7 +141,7 @@ const MainPage = observer(() => {
     };
 
     loginCheck();
-  }, [AuthStore.isLoggedIn]);
+  }, []);
 
   const checkSurvey = async () => {
     try {
