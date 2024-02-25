@@ -462,6 +462,14 @@ const MainPage = observer(() => {
     autoplaySpeed: 0,
     prevArrow: <></>,
     nextArrow: <></>,
+    responsive: [
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
   };
 
   const logout = async (): Promise<void> => {
@@ -664,7 +672,6 @@ const MainPage = observer(() => {
           <div className="Meal_box">
             <p className="Meal_box_user">
               {`${userName}님`} <span>&nbsp;당뇨 맞춤 식단</span>
-              <button onClick={DeleteMeal}>식단 초기화</button>
             </p>
             <div className="Meal_infor">
               {loding ? (

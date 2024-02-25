@@ -283,8 +283,14 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
   };
 
   const clickChangePassword = async () => {
-    // const passwordRule =
-    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRule =
+      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRule.test(newPassword)) {
+      openModal();
+      setStatusMSG(
+        "비밀번호는 8자 이상, 대문자, 소문자, 숫자, 특수문자 한 개 이상 포함해야 합니다."
+      );
+    }
     try {
       const response = await CustomAxios.put(AuthStore.userID + "/change/pwd", {
         nowPwd: password,
