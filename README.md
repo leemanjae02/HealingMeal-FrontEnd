@@ -8,7 +8,7 @@ GDSC Solution Challenge 2024
 | Backend | Frontend | PM |
 | --------------- | --------------- | --------------- |
 | Jinyong Hyun | Manjae Lee  | bojung Kim  |
-| Inho Choi |
+| Inho Choi |  dl
 <br>
 
 # Target UN-SDGs
