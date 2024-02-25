@@ -9,7 +9,6 @@ GDSC Solution Challenge 2024
 | --------------- | --------------- | --------------- |
 | Jinyong Hyun | Manjae Lee  | bojung Kim  |
 | Inho Choi |
-![1000017714](https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/d952f818-6bbc-41ea-8062-b4f9accfce6e)
 
 
  
