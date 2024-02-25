@@ -5,10 +5,11 @@ GDSC Solution Challenge 2024
 - BackEnd Repo : https://github.com/zzdh8/healingmeal-back
 
 # Member
-| Backend | Frontend | PM |
-| --------------- | --------------- | --------------- |
-| Jinyong Hyun | Manjae Lee  | bojung Kim  |
-| Inho Choi |  dl
+| Backend |Backend | Frontend | PM |
+| --------------- || --------------- | --------------- | --------------- |
+| Jinyong Hyun | | Inho Choi | Manjae Lee  | bojung Kim |
+/Users/akswo/Desktop/1000017714.jpg
+ 
 <br>
 
 # Target UN-SDGs
