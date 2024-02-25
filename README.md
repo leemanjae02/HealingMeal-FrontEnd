@@ -12,8 +12,8 @@ GDSC Solution Challenge 2024
 
 Jinyong Hyun|Inho Choi| Manjae Lee|bojung Kim|
 |:---:|:---:|:---:|:---:|
-|<img src= "https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/48711f54-230b-43da-8cbc-e62da7a3d1ab" width="250">|<img src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/fdbf9d5d-04e2-4078-affc-5dabd62f32af" width="250" height="250">|<img src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/47264385-5bed-4f69-abd6-5c0dd9650625" width="250">|<img  src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/3be7d6e9-ae2a-47f1-8a54-32926a60f1f0" width="250">|
-|Backend|Backend|Frontend|PM|
+|<img src= "https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/48711f54-230b-43da-8cbc-e62da7a3d1ab" width="250" height="250">|<img src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/fdbf9d5d-04e2-4078-affc-5dabd62f32af" width="250" height="250">|<img src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/47264385-5bed-4f69-abd6-5c0dd9650625" width="250" height="250">|<img  src="https://github.com/leemanjae02/HealingMeal-FrontEnd/assets/144561017/3be7d6e9-ae2a-47f1-8a54-32926a60f1f0" width="250" height="250">|
+|Backend|Backend|Frontend|PM| 
 
 
 
