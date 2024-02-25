@@ -290,6 +290,7 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
       setStatusMSG(
         "비밀번호는 8자 이상, 대문자, 소문자, 숫자, 특수문자 한 개 이상 포함해야 합니다."
       );
+      return;
     }
     try {
       const response = await CustomAxios.put(AuthStore.userID + "/change/pwd", {
