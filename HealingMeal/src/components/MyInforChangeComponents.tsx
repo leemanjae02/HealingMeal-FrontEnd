@@ -308,18 +308,11 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
   };
 
   const clickChangeInfor = async () => {
-    await checkInput(); // 유효성 검사 수행
-
-    if (
-      !isValidName ||
-      !isValidBirthDate ||
-      !isValidEmail ||
-      !isValidGender ||
-      !isValidPhoneNumber
-    ) {
+    if (!checkInput()) {
+      // 유효성 검사 수행
       openModal();
       setStatusMSG("유효성 검사를 통과하지 못했습니다.");
-      return; // 유효성 검사 실패 시 함수 종료
+      return; // 유효성 검사 실패 시 함수 종료}
     }
 
     try {
@@ -352,7 +345,7 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
     setModalOpen(false);
   };
 
-  const checkInput = async () => {
+  const checkInput = (): boolean => {
     const birthRule =
       /^(?:[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])){0,1}[0-9]{6}$/;
     const emailRule = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -363,8 +356,8 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
     if (name === "") {
       setIsValidNameMSG("이름을 입력해주세요.");
     } else {
-      setIsValidNameMSG("");
       setIsValidName(true);
+      setIsValidNameMSG("");
     }
 
     if (birthDate === "") {
@@ -372,15 +365,15 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
     } else if (!birthRule.test(birthDate)) {
       setIsValidBirthDateMSG("생년월일을 다시 확인해주세요.");
     } else {
-      setIsValidBirthDateMSG("");
       setIsValidBirthDate(true);
+      setIsValidBirthDateMSG("");
     }
 
     if (gender === "") {
       setIsValidGenderMSG("성별을 선택해주세요.");
     } else {
-      setIsValidGenderMSG("");
       setIsValidGender(true);
+      setIsValidGenderMSG("");
     }
 
     if (email === "") {
@@ -390,8 +383,8 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
     } else if (domain !== "gmail.com") {
       setIsValidEmailMSG("현재 변경 가능한 이메일은 gmail.com입니다.");
     } else {
-      setIsValidEmailMSG("");
       setIsValidEmail(true);
+      setIsValidEmailMSG("");
     }
 
     if (phoneNumber === "") {
@@ -399,9 +392,19 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
     } else if (!PhoneRule.test(PhoneCheck)) {
       setIsValidPhoneNumberMSG("전화번호를 다시 확인해주세요.");
     } else {
-      setIsValidPhoneNumberMSG("");
       setIsValidPhoneNumber(true);
+      setIsValidPhoneNumberMSG("");
     }
+    if (
+      !isValidName ||
+      !isValidBirthDate ||
+      !isValidEmail ||
+      !isValidGender ||
+      !isValidPhoneNumber
+    ) {
+      return false;
+    }
+    return true;
   };
 
   console.log("email", email);
@@ -409,6 +412,12 @@ const MyInforChangeComponents: React.FunctionComponent<MyInforChangeProps> = ({
   console.log("phoneNuber", phoneNumber);
   console.log("gender", gender);
   console.log("birthDate", birthDate);
+
+  console.log("생년월일 유효성", isValidBirthDate);
+  console.log("이메일 유효성", isValidEmail);
+  console.log("휴대전화 유효성", isValidPhoneNumber);
+  console.log("성별 유효성", isValidGender);
+  console.log("이름 유효성", isValidName);
 
   const clickChangeSurvey = async () => {
     try {
